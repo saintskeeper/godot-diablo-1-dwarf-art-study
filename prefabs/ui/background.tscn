@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://vrsyhyjr5wdj"]
+
+[ext_resource type="Texture2D" uid="uid://crrf11q1a1p50" path="res://assets/game-jam-assets-dec-06/rectangle-box.png" id="1_8wqs1"]
+
+[node name="Background" type="Node2D" unique_id=325138719]
+
+[node name="Base-Background" type="Sprite2D" parent="." unique_id=2040882317]
+auto_translate_mode = 2
+position = Vector2(976.0001, 539.99994)
+scale = Vector2(2.196875, 2.1222222)
+texture = ExtResource("1_8wqs1")

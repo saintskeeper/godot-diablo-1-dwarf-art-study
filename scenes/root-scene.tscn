@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3su1yrg2lslt"]
+
+[ext_resource type="PackedScene" uid="uid://vrsyhyjr5wdj" path="res://prefabs/ui/background.tscn" id="1_4sr7c"]
+[ext_resource type="PackedScene" uid="uid://clg7t4bbwbofh" path="res://prefabs/ui/icons/ability-icon.tscn" id="2_duyb7"]
+[ext_resource type="PackedScene" uid="uid://cedo35sid7odf" path="res://prefabs/ui/grid/grid.tscn" id="3_vdm3e"]
+
+[node name="RootScene" type="Node2D" unique_id=1658102282]
+
+[node name="Background" parent="." unique_id=325138719 instance=ExtResource("1_4sr7c")]
+position = Vector2(-16, 44)
+
+[node name="AbilityIcons" parent="." unique_id=217096247 instance=ExtResource("2_duyb7")]
+process_mode = 4
+auto_translate_mode = 2
+position = Vector2(55, 914)
+
+[node name="Grid" type="Node2D" parent="." unique_id=1847109058]
+
+[node name="TopGrid" type="Node2D" parent="Grid" unique_id=527528822]
+process_mode = 4
+position = Vector2(156, -53)
+
+[node name="Grid" parent="Grid/TopGrid" unique_id=1470913999 instance=ExtResource("3_vdm3e")]
+process_mode = 4
+position = Vector2(523, 330)
+
+[node name="Grid2" parent="Grid/TopGrid" unique_id=201338732 instance=ExtResource("3_vdm3e")]
+process_mode = 4
+position = Vector2(777, 330)
+
+[node name="Grid3" parent="Grid/TopGrid" unique_id=2128383302 instance=ExtResource("3_vdm3e")]
+process_mode = 4
+position = Vector2(1031, 330)
+
+[node name="MiddleGrid" type="Node2D" parent="Grid" unique_id=1388698667]
+process_mode = 4
+position = Vector2(155, 197)
+
+[node name="Grid" parent="Grid/MiddleGrid" unique_id=1941077990 instance=ExtResource("3_vdm3e")]
+process_mode = 4
+position = Vector2(523, 330)
+
+[node name="Grid2" parent="Grid/MiddleGrid" unique_id=1620931318 instance=ExtResource("3_vdm3e")]
+process_mode = 4
+position = Vector2(777, 330)
+
+[node name="Grid3" parent="Grid/MiddleGrid" unique_id=1812616877 instance=ExtResource("3_vdm3e")]
+process_mode = 4
+position = Vector2(1031, 330)
+
+[node name="BottomGrid" type="Node2D" parent="Grid" unique_id=1793089668]
+process_mode = 4
+position = Vector2(155, 450)
+
+[node name="Grid" parent="Grid/BottomGrid" unique_id=1360025349 instance=ExtResource("3_vdm3e")]
+process_mode = 4
+position = Vector2(523, 330)
+
+[node name="Grid2" parent="Grid/BottomGrid" unique_id=972199385 instance=ExtResource("3_vdm3e")]
+process_mode = 4
+position = Vector2(777, 330)
+
+[node name="Grid3" parent="Grid/BottomGrid" unique_id=1063317975 instance=ExtResource("3_vdm3e")]
+process_mode = 4
+position = Vector2(1031, 330)

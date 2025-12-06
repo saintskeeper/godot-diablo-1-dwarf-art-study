@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhsygkkn17y5y"]
+
+[ext_resource type="Texture2D" uid="uid://if166nvhuyq1" path="res://assets/filler/units/caster.png" id="1_dxi6e"]
+
+[node name="Tank" type="Node2D" unique_id=1165614998]
+
+[node name="Caster" type="Sprite2D" parent="." unique_id=1869573310]
+scale = Vector2(2, 2)
+texture = ExtResource("1_dxi6e")

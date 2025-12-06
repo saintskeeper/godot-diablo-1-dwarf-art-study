@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://clg7t4bbwbofh"]
+
+[ext_resource type="Texture2D" uid="uid://vto1ku81g1m0" path="res://assets/game-jam-assets-dec-06/3a35dc1e93b2dec97a175b0f7bc94858.png" id="1_usmn7"]
+
+[node name="Icons" type="Node2D" unique_id=217096247]
+
+[node name="Ability-Icon" type="Sprite2D" parent="." unique_id=759748626]
+visibility_layer = 2
+position = Vector2(73.00003, 80.00003)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_usmn7")
+
+[node name="Ability-Icon2" type="Sprite2D" parent="." unique_id=1091701711]
+position = Vector2(218, 80)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_usmn7")
+
+[node name="Ability-Icon3" type="Sprite2D" parent="." unique_id=1928213849]
+position = Vector2(363, 79)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_usmn7")
