@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2v8qm5xjk3pd"]
+
+[ext_resource type="Script" path="res://scripts/hud/jarl_hp_display.gd" id="1_a2b3c"]
+
+[node name="JarlHPDisplay" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_a2b3c")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 23.0
+text = "PLAYER"
+
+[node name="Hearts" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 25.0
+offset_right = 80.0
+offset_bottom = 45.0
+theme_override_constants/separation = 5
+
+[node name="Heart1" type="ColorRect" parent="Hearts"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+color = Color(1, 0, 0, 1)
+
+[node name="Heart2" type="ColorRect" parent="Hearts"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+color = Color(1, 0, 0, 1)
+
+[node name="Heart3" type="ColorRect" parent="Hearts"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+color = Color(1, 0, 0, 1)

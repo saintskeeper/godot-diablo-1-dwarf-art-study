@@ -15,6 +15,14 @@ run/main_scene="uid://b3su1yrg2lslt"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameManager="*res://scripts/autoload/game_manager.gd"
+
+[debug]
+
+file_logging/log_path="/Users/walterday/mini-game-jam-199/logs"
+
 [display]
 
 window/size/viewport_width=1920

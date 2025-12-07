@@ -1,11 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://cedo35sid7odf"]
+[gd_scene load_steps=4 format=3 uid="uid://cedo35sid7odf"]
 
 [ext_resource type="Texture2D" uid="uid://ixiwfccfhnhb" path="res://assets/filler/filler.png" id="1_sfhvl"]
+[ext_resource type="Script" path="res://scripts/grid/grid_cell.gd" id="2_script"]
 
-[node name="Grid-01" type="Node2D" unique_id=201338732]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(56, 56)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=14143851]
+[node name="GridCell" type="Node2D" unique_id=201338732]
+script = ExtResource("2_script")
 
 [node name="Filler" type="Sprite2D" parent="." unique_id=648876821]
 scale = Vector2(3.5, 3.5)
 texture = ExtResource("1_sfhvl")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="Highlight" type="ColorRect" parent="."]
+visible = false
+offset_left = -28.0
+offset_top = -28.0
+offset_right = 28.0
+offset_bottom = 28.0
+color = Color(1, 1, 1, 0.3)
+
+[node name="UnitAnchor" type="Node2D" parent="."]

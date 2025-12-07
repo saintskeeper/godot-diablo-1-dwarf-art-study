@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8km9vn2p4r1x"]
+
+[ext_resource type="Texture2D" uid="uid://if166nvhuyq1" path="res://assets/filler/filler.png" id="1_xy4k2"]
+[ext_resource type="Script" path="res://scripts/dice/event_die.gd" id="2_mn7p3"]
+
+[node name="EventDie" type="Node2D"]
+script = ExtResource("2_mn7p3")
+
+[node name="DiceSprite" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 1)
+scale = Vector2(4, 4)
+texture = ExtResource("1_xy4k2")
+
+[node name="ResultLabel" type="Label" parent="."]
+offset_left = -30.0
+offset_top = 40.0
+offset_right = 30.0
+offset_bottom = 63.0
+text = ""
+horizontal_alignment = 1

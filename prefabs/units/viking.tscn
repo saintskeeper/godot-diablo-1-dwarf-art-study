@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8k9m3n5p7q2r4"]
+
+[ext_resource type="Script" path="res://scripts/units/unit.gd" id="1_vh3k2"]
+[ext_resource type="Texture2D" uid="uid://caxwqn6rj70hk" path="res://assets/filler/filler.png" id="2_jx9m4"]
+
+[node name="Viking" type="Node2D" unique_id=2847156923]
+script = ExtResource("1_vh3k2")
+unit_type = 0
+team = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=3295847610]
+modulate = Color(0.3, 0.5, 1, 1)
+scale = Vector2(3, 3)
+texture = ExtResource("2_jx9m4")
+
+[node name="HPBar" type="Node2D" parent="." unique_id=4182639457]
+position = Vector2(0, -40)
+
+[node name="HPBackground" type="ColorRect" parent="HPBar" unique_id=5674921830]
+offset_left = -24.0
+offset_top = 0.0
+offset_right = 24.0
+offset_bottom = 6.0
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="HPFill" type="ColorRect" parent="HPBar" unique_id=6293847651]
+offset_left = -24.0
+offset_top = 0.0
+offset_right = 24.0
+offset_bottom = 6.0
+color = Color(0, 1, 0, 1)
+
+[node name="TeamIndicator" type="ColorRect" parent="." unique_id=7451928364]
+offset_left = -4.0
+offset_top = 20.0
+offset_right = 4.0
+offset_bottom = 28.0
+color = Color(1, 1, 1, 1)

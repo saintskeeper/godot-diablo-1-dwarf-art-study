@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dw7n4p2xr5kqm"]
+
+[ext_resource type="Script" path="res://scripts/hud/end_turn_button.gd" id="1_d4e5f"]
+
+[node name="EndTurnButton" type="Button"]
+custom_minimum_size = Vector2(120, 40)
+offset_right = 120.0
+offset_bottom = 40.0
+text = "END TURN"
+script = ExtResource("1_d4e5f")
