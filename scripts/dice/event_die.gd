@@ -8,6 +8,7 @@ signal roll_finished(result: int)
 # Properties
 var triggering_unit: Node = null
 var turn_controller: Node = null  # Set externally
+var previous_state: int = -1  # Track state before event rolling
 
 # Reference to GameManager autoload
 @onready var game_manager: Node = get_node("/root/GameManager")
@@ -22,6 +23,8 @@ func _ready() -> void:
 func roll(trigger_unit: Node = null) -> void:
 	# Store triggering unit
 	triggering_unit = trigger_unit
+
+	# Note: previous_state is set by trigger_event_die() before this is called
 
 	# Emit roll started signal
 	roll_started.emit()
@@ -41,12 +44,14 @@ func roll(trigger_unit: Node = null) -> void:
 	# Emit GameManager event triggered signal
 	game_manager.event_triggered.emit(result)
 
-	# Reset game state to appropriate turn
-	# The turn should have been set before the event was triggered
-	# After event, return to the turn state based on context
+	# Reset game state to the state before the event
 	if game_manager.current_state == game_manager.GameState.EVENT_ROLLING:
-		# Default back to player turn if not set elsewhere
-		game_manager.current_state = game_manager.GameState.PLAYER_TURN
+		if previous_state != -1 and previous_state != game_manager.GameState.EVENT_ROLLING:
+			game_manager.current_state = previous_state
+		else:
+			# Fallback to player turn if no valid previous state
+			game_manager.current_state = game_manager.GameState.PLAYER_TURN
+		previous_state = -1
 
 
 ## Apply event based on roll result

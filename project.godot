@@ -21,7 +21,8 @@ GameManager="*res://scripts/autoload/game_manager.gd"
 
 [debug]
 
-file_logging/log_path="/Users/walterday/mini-game-jam-199/logs"
+file_logging/enable_file_logging=true
+file_logging/log_path="/Users/walterday/mini-game-jam-199/logs/godot.log"
 
 [display]
 

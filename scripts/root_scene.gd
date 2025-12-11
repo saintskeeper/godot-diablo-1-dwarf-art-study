@@ -128,7 +128,7 @@ func spawn_unit(scene: PackedScene, team: int, col: int, row: int) -> Node:
 		cell.place_unit(unit)
 
 	# Update board state
-	game_manager.board[col][row] = unit
+	game_manager.board[row][col] = unit
 
 	# Add to team array
 	if team == 0:
@@ -193,7 +193,7 @@ func restart_game():
 					cell.clear_unit()
 
 			# Clear board state
-			game_manager.board[col][row] = null
+			game_manager.board[row][col] = null
 
 	# Clear team arrays
 	game_manager.player_units.clear()

@@ -29,6 +29,7 @@ func register_cell(cell: Node) -> void:
 
 ## Reset turn state at the start of player's turn
 func start_player_turn() -> void:
+	game_manager.current_state = game_manager.GameState.PLAYER_TURN
 	selected_unit = null
 	has_moved = false
 	has_attacked = false
@@ -235,14 +236,20 @@ func handle_unit_death(unit: Node) -> void:
 
 ## Trigger the event die roll
 func trigger_event_die() -> void:
+	# Store the current state before changing to EVENT_ROLLING
+	var state_before_event = game_manager.current_state
+
 	# Set game state to EVENT_ROLLING
 	game_manager.current_state = game_manager.GameState.EVENT_ROLLING
 
-	# Call event_die.roll() if reference exists
+	# Call event_die.roll() if reference exists, passing the previous state
 	if event_die and event_die.has_method("roll"):
+		event_die.previous_state = state_before_event
 		event_die.roll()
 	else:
 		print("TurnController: No event die reference or roll method")
+		# Restore state if no event die
+		game_manager.current_state = state_before_event
 
 
 ## End the current turn and switch to next phase
@@ -253,11 +260,22 @@ func end_turn() -> void:
 	# Deselect unit
 	selected_unit = null
 
-	# Emit turn_changed signal
-	game_manager.turn_changed.emit(game_manager.Team.ENEMY)
+	# Determine next team based on current state
+	var next_team: int
+	var next_state: game_manager.GameState
 
-	# Switch current state to enemy turn
-	game_manager.current_state = game_manager.GameState.ENEMY_TURN
+	if game_manager.current_state == game_manager.GameState.PLAYER_TURN:
+		next_team = game_manager.Team.ENEMY
+		next_state = game_manager.GameState.ENEMY_TURN
+	else:
+		next_team = game_manager.Team.PLAYER
+		next_state = game_manager.GameState.PLAYER_TURN
+
+	# Switch current state
+	game_manager.current_state = next_state
+
+	# Emit turn_changed signal
+	game_manager.turn_changed.emit(next_team)
 
 
 ## Get cell at specific grid position
