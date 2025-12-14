@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://djnjj5df4w0pw"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_f06ah"]
+
+[node name="TowerA" type="Node2D" unique_id=1741622484]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1407823688]
+modulate = Color(0.23486468, 0.32995668, 0.6962186, 1)
+self_modulate = Color(0.17028135, 0.18227676, 0.71789175, 1)
+scale = Vector2(171, 201)
+texture = SubResource("ViewportTexture_f06ah")

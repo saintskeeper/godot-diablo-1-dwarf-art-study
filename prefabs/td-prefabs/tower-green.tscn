@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://hqm4me4v7fns"]
+
+[ext_resource type="Script" path="res://scripts/td/td_tower.gd" id="1_p7mk0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer-tower.png" id="2_vbhxf"]
+
+[node name="Shaman" type="Node2D" unique_id=-1447771673]
+script = ExtResource("1_p7mk0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=-343140825]
+scale = Vector2(4, 4)
+texture = ExtResource("2_vbhxf")
+
+[node name="HPBar" type="Node2D" parent="." unique_id=1728394856]
+position = Vector2(0, -200)
+
+[node name="HPBackground" type="ColorRect" parent="HPBar" unique_id=-1655495713]
+offset_left = -24.0
+offset_top = 0.0
+offset_right = 24.0
+offset_bottom = 6.0
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="HPFill" type="ColorRect" parent="HPBar" unique_id=-1146437622]
+offset_left = -24.0
+offset_top = 0.0
+offset_right = 24.0
+offset_bottom = 6.0
+color = Color(0, 1, 0, 1)
+
+[node name="TeamIndicator" type="ColorRect" parent="." unique_id=1892564739]
+offset_left = -4.0
+offset_top = 20.0
+offset_right = 4.0
+offset_bottom = 28.0

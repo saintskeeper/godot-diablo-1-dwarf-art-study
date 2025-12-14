@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://qrovdiv1c320"]
+
+[ext_resource type="Texture2D" uid="uid://c8qgu5dqvwx0j" path="res://prefabs/ui/Dward-ui-elements/ui-rectangles/sprites/ui-base-square-test-rect_rect-boxes.png" id="1_y8vbw"]
+
+[node name="RectUi" type="Node2D" unique_id=1925557798]
+
+[node name="UiBaseSquareTestRectRectBoxes" type="Sprite2D" parent="." unique_id=500323360]
+texture = ExtResource("1_y8vbw")

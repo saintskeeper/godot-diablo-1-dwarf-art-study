@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="mini-game-jam-199"
-run/main_scene="uid://b3su1yrg2lslt"
+run/main_scene="uid://bln3utlkf3dnb"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -28,6 +28,8 @@ file_logging/log_path="/Users/walterday/mini-game-jam-199/logs/godot.log"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [physics]
 

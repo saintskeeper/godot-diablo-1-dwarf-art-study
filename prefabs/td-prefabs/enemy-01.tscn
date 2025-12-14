@@ -1,12 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://b8k9m3n5p7q2r4"]
 
-[ext_resource type="Script" path="res://scripts/units/unit.gd" id="1_vh3k2"]
+[ext_resource type="Script" path="res://scripts/td/td_enemy.gd" id="1_vh3k2"]
 [ext_resource type="Texture2D" uid="uid://caxwqn6rj70hk" path="res://assets/filler/filler.png" id="2_jx9m4"]
 
 [node name="Viking" type="Node2D" unique_id=2847156923]
 script = ExtResource("1_vh3k2")
-unit_type = 0
-team = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=3295847610]
 modulate = Color(0.3, 0.5, 1, 1)

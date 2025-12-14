@@ -1,12 +1,12 @@
-[gd_scene format=3 uid="uid://bx3m9k6yt8hjn"]
+[gd_scene format=3 uid="uid://bx3nak6yt8hjn"]
 
-[node name="TurnIndicator" type="Control"]
+[node name="TurnIndicator" type="Control" unique_id=1350926332]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 200.0
 offset_bottom = 40.0
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1607022829]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,7 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5)
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=827759274]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

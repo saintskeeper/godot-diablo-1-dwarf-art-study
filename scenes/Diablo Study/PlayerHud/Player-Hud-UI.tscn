@@ -1,0 +1,382 @@
+[gd_scene load_steps=9 format=3 uid="uid://bln3utlkf3dnb"]
+
+[ext_resource type="Texture2D" uid="uid://b3aay1miebqpt" path="res://scenes/Diablo Study/PlayerHud/sprites/ui-base.png" id="1_uibase"]
+[ext_resource type="PackedScene" uid="uid://d04ghnwxdlbwm" path="res://prefabs/ui/Dward-ui-elements/mana-bar.tscn" id="2_manabar"]
+[ext_resource type="PackedScene" uid="uid://bd0tpm574lqju" path="res://prefabs/ui/Dward-ui-elements/health-bar/health-bar.tscn" id="3_healthbar"]
+[ext_resource type="Texture2D" uid="uid://c8qgu5dqvwx0j" path="res://prefabs/ui/Dward-ui-elements/ui-rectangles/sprites/ui-base-square-test-rect_rect-boxes.png" id="4_rectbg"]
+[ext_resource type="PackedScene" uid="uid://b1ox76pkvdn85" path="res://prefabs/ui/Dward-ui-elements/ui-rectangles/prefabs/box-ui.tscn" id="5_boxui"]
+[ext_resource type="PackedScene" uid="uid://bhs28eucxf5gt" path="res://scenes/Diablo Study/player-scene/scene/player-space.tscn" id="6_6rd1j"]
+[ext_resource type="PackedScene" uid="uid://qcswwhqf3lva" path="res://scenes/Diablo Study/Player/player-charcter.tscn" id="7_rr55t"]
+[ext_resource type="PackedScene" uid="uid://p44mdhqihar0" path="res://scenes/Diablo Study/Weather/weather.tscn" id="8_grcop"]
+
+[node name="PlayerHudUi7" type="Control" unique_id=980633779]
+visibility_layer = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+offset_right = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BottomHud" type="Control" parent="." unique_id=1466128712]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -150.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Background" type="TextureRect" parent="BottomHud" unique_id=440639380]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -601.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_uibase")
+expand_mode = 1
+
+[node name="ManaBar" parent="BottomHud" unique_id=1154611037 instance=ExtResource("2_manabar")]
+visibility_layer = 3
+position = Vector2(435.00003, -10)
+scale = Vector2(0.45, 0.45)
+
+[node name="HealthBar" parent="BottomHud" unique_id=379126394 instance=ExtResource("3_healthbar")]
+position = Vector2(1587, -11)
+scale = Vector2(-0.45, 0.45)
+
+[node name="CenterSection" type="Control" parent="BottomHud" unique_id=2020736928]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 240.0
+offset_top = -100.0
+offset_right = -240.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BeltSlots" type="HBoxContainer" parent="BottomHud/CenterSection" unique_id=1680333752]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -26.0
+offset_top = 10.0
+offset_right = 10.0
+offset_bottom = 55.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Slot1" type="Control" parent="BottomHud/CenterSection/BeltSlots" unique_id=553732222]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+
+[node name="BoxBg" parent="BottomHud/CenterSection/BeltSlots/Slot1" unique_id=500101244 instance=ExtResource("5_boxui")]
+position = Vector2(22, 22)
+scale = Vector2(0.35, 0.35)
+
+[node name="Slot2" type="Control" parent="BottomHud/CenterSection/BeltSlots" unique_id=914623141]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+
+[node name="BoxBg" parent="BottomHud/CenterSection/BeltSlots/Slot2" unique_id=1406759669 instance=ExtResource("5_boxui")]
+position = Vector2(22, 22)
+scale = Vector2(0.35, 0.35)
+
+[node name="Slot3" type="Control" parent="BottomHud/CenterSection/BeltSlots" unique_id=772494084]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+
+[node name="BoxBg" parent="BottomHud/CenterSection/BeltSlots/Slot3" unique_id=1130287903 instance=ExtResource("5_boxui")]
+position = Vector2(22, 22)
+scale = Vector2(0.35, 0.35)
+
+[node name="Slot4" type="Control" parent="BottomHud/CenterSection/BeltSlots" unique_id=806211277]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+
+[node name="BoxBg" parent="BottomHud/CenterSection/BeltSlots/Slot4" unique_id=952353152 instance=ExtResource("5_boxui")]
+position = Vector2(22, 22)
+scale = Vector2(0.35, 0.35)
+
+[node name="Slot5" type="Control" parent="BottomHud/CenterSection/BeltSlots" unique_id=234935958]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+
+[node name="BoxBg" parent="BottomHud/CenterSection/BeltSlots/Slot5" unique_id=1298443205 instance=ExtResource("5_boxui")]
+position = Vector2(22, 22)
+scale = Vector2(0.35, 0.35)
+
+[node name="Slot6" type="Control" parent="BottomHud/CenterSection/BeltSlots" unique_id=1079250751]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+
+[node name="BoxBg" parent="BottomHud/CenterSection/BeltSlots/Slot6" unique_id=418255284 instance=ExtResource("5_boxui")]
+position = Vector2(22, 22)
+scale = Vector2(0.35, 0.35)
+
+[node name="Slot7" type="Control" parent="BottomHud/CenterSection/BeltSlots" unique_id=64435369]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+
+[node name="BoxBg" parent="BottomHud/CenterSection/BeltSlots/Slot7" unique_id=2097547747 instance=ExtResource("5_boxui")]
+position = Vector2(22, 22)
+scale = Vector2(0.35, 0.35)
+
+[node name="Slot8" type="Control" parent="BottomHud/CenterSection/BeltSlots" unique_id=311147624]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+
+[node name="BoxBg" parent="BottomHud/CenterSection/BeltSlots/Slot8" unique_id=1663795928 instance=ExtResource("5_boxui")]
+position = Vector2(22, 22)
+scale = Vector2(0.35, 0.35)
+
+[node name="InfoPanel" type="Panel" parent="BottomHud/CenterSection" unique_id=629497043]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="InfoLabel" type="Label" parent="BottomHud/CenterSection/InfoPanel" unique_id=672014271]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "FARNHAM THE DRUNK"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightMenuButtons" type="VBoxContainer" parent="BottomHud" unique_id=547382367]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -75.0
+offset_right = -10.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="InvButton" type="Button" parent="BottomHud/RightMenuButtons" unique_id=2120939299]
+layout_mode = 2
+text = "INV"
+
+[node name="SpellsButton" type="Button" parent="BottomHud/RightMenuButtons" unique_id=1054329582]
+layout_mode = 2
+text = "SPELLS"
+
+[node name="CharacterPortrait" type="Panel" parent="BottomHud" unique_id=1807234706]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -130.0
+offset_right = -10.0
+offset_bottom = -80.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="BottomHud/CharacterPortrait" unique_id=1900121694]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -1.011
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 56.550003
+offset_right = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Portrait"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeftMenuButtons" type="VBoxContainer" parent="." unique_id=1897656870]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.744
+anchor_right = 0.14
+anchor_bottom = 0.95500004
+offset_left = 29.0
+offset_top = 28.503967
+offset_right = 15.220001
+offset_bottom = -1.2200928
+grow_vertical = 0
+
+[node name="CharButton" type="Control" parent="LeftMenuButtons" unique_id=1689341450]
+custom_minimum_size = Vector2(100, 45)
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="LeftMenuButtons/CharButton" unique_id=536220856]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_rectbg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="LeftMenuButtons/CharButton" unique_id=1951040341]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CHAR"
+
+[node name="Label" type="Label" parent="LeftMenuButtons/CharButton" unique_id=182590602]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.4940001
+anchor_bottom = 5.0600004
+offset_right = -133.39203
+offset_bottom = -182.70001
+grow_horizontal = 2
+grow_vertical = 2
+text = "CHAR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuestsButton" type="Control" parent="LeftMenuButtons" unique_id=1379048834]
+custom_minimum_size = Vector2(100, 45)
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="LeftMenuButtons/QuestsButton" unique_id=1915832633]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_rectbg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="LeftMenuButtons/QuestsButton" unique_id=1821133961]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "QUESTS"
+
+[node name="Label" type="Label" parent="LeftMenuButtons/QuestsButton" unique_id=1869706634]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "QUESTS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MapButton" type="Control" parent="LeftMenuButtons" unique_id=515191172]
+custom_minimum_size = Vector2(100, 45)
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="LeftMenuButtons/MapButton" unique_id=1761007806]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_rectbg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="LeftMenuButtons/MapButton" unique_id=787304680]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "MAP"
+
+[node name="Label" type="Label" parent="LeftMenuButtons/MapButton" unique_id=1596152416]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "MAP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuButton" type="Control" parent="LeftMenuButtons" unique_id=1963953883]
+custom_minimum_size = Vector2(100, 45)
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="LeftMenuButtons/MenuButton" unique_id=2084102724]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_rectbg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="LeftMenuButtons/MenuButton" unique_id=767550223]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "MENU"
+
+[node name="Label" type="Label" parent="LeftMenuButtons/MenuButton" unique_id=81656117]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "MENU"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerSpace" parent="." unique_id=1800027524 instance=ExtResource("6_6rd1j")]
+z_index = -1
+position = Vector2(11, 1)
+
+[node name="Weather" parent="." unique_id=1216558518 instance=ExtResource("8_grcop")]
+
+[node name="PlayerCharcter" parent="." unique_id=634342763 instance=ExtResource("7_rr55t")]
+position = Vector2(1003, 489)

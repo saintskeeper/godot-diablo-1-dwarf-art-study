@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1ox76pkvdn85"]
+
+[ext_resource type="Texture2D" uid="uid://d1lirng5b6jax" path="res://prefabs/ui/Dward-ui-elements/ui-rectangles/sprites/ui-base-square-test_square-box.png" id="1_4kl47"]
+[ext_resource type="Texture2D" uid="uid://cgsvebsctofwo" path="res://prefabs/ui/Dward-ui-elements/ui-rectangles/sprites/health-potion_export.png" id="2_wkofo"]
+
+[node name="BoxUi" type="Node2D" unique_id=164327402]
+
+[node name="UiBaseSquareBoxExport" type="Sprite2D" parent="." unique_id=768252290]
+position = Vector2(-10.67392, 27.5)
+scale = Vector2(0.9918478, 0.9918478)
+texture = ExtResource("1_4kl47")
+
+[node name="HealthPotionExport" type="Sprite2D" parent="." unique_id=1053491533]
+position = Vector2(-12.999985, 27)
+rotation = 0.13264503
+scale = Vector2(0.20370372, 0.17936747)
+texture = ExtResource("2_wkofo")
