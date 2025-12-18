@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bln3utlkf3dnb"]
+[gd_scene load_steps=10 format=3 uid="uid://bln3utlkf3dnb"]
 
 [ext_resource type="Texture2D" uid="uid://b3aay1miebqpt" path="res://scenes/Diablo Study/PlayerHud/sprites/ui-base.png" id="1_uibase"]
 [ext_resource type="PackedScene" uid="uid://d04ghnwxdlbwm" path="res://prefabs/ui/Dward-ui-elements/mana-bar.tscn" id="2_manabar"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bhs28eucxf5gt" path="res://scenes/Diablo Study/player-scene/scene/player-space.tscn" id="6_6rd1j"]
 [ext_resource type="PackedScene" uid="uid://qcswwhqf3lva" path="res://scenes/Diablo Study/Player/player-charcter.tscn" id="7_rr55t"]
 [ext_resource type="PackedScene" uid="uid://p44mdhqihar0" path="res://scenes/Diablo Study/Weather/weather.tscn" id="8_grcop"]
+[ext_resource type="PackedScene" uid="uid://clyiupylkiphf" path="res://scenes/Diablo Study/audio-controller/audo-controller.tscn" id="9_igpy8"]
 
 [node name="PlayerHudUi7" type="Control" unique_id=980633779]
 visibility_layer = 3
@@ -380,3 +381,6 @@ position = Vector2(11, 1)
 
 [node name="PlayerCharcter" parent="." unique_id=634342763 instance=ExtResource("7_rr55t")]
 position = Vector2(1003, 489)
+
+[node name="AudoController" parent="." unique_id=52872601 instance=ExtResource("9_igpy8")]
+position = Vector2(676, 570)
