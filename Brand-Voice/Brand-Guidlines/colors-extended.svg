@@ -1,0 +1,285 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" width="1000" height="700">
+  <style>
+    .label { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; font-size: 9px; fill: #2A2520; }
+    .hex { font-family: 'SF Mono', 'Monaco', monospace; font-size: 8px; fill: #5A6878; }
+    .section { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; font-size: 11px; font-weight: 600; fill: #7A5040; text-transform: uppercase; letter-spacing: 1px; }
+    .title { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; font-size: 24px; font-weight: 700; fill: #3B8D9A; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; font-size: 12px; fill: #5A6878; }
+    .weight { font-family: 'SF Mono', 'Monaco', monospace; font-size: 8px; fill: #A8A498; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1000" height="700" fill="#F5EDE0"/>
+
+  <!-- Title -->
+  <text x="40" y="40" class="title">WaltMakes</text>
+  <text x="40" y="58" class="subtitle">Cozy Forge Extended Palette — 32 Colors</text>
+
+  <!-- NEUTRALS ROW -->
+  <text x="40" y="95" class="section">Neutrals</text>
+
+  <!-- 8 neutral shades -->
+  <g transform="translate(40, 105)">
+    <rect width="60" height="50" rx="4" fill="#FDFBF7"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">50</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#FDFBF7</text>
+  </g>
+  <g transform="translate(108, 105)">
+    <rect width="60" height="50" rx="4" fill="#F5EDE0"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">100</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#F5EDE0</text>
+  </g>
+  <g transform="translate(176, 105)">
+    <rect width="60" height="50" rx="4" fill="#E8E4DC"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">200</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#E8E4DC</text>
+  </g>
+  <g transform="translate(244, 105)">
+    <rect width="60" height="50" rx="4" fill="#E8DCC8"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">300</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#E8DCC8</text>
+  </g>
+  <g transform="translate(312, 105)">
+    <rect width="60" height="50" rx="4" fill="#A8A498"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">400</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#A8A498</text>
+  </g>
+  <g transform="translate(380, 105)">
+    <rect width="60" height="50" rx="4" fill="#5A6878"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">500</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#5A6878</text>
+  </g>
+  <g transform="translate(448, 105)">
+    <rect width="60" height="50" rx="4" fill="#3D4550"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">600</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#3D4550</text>
+  </g>
+  <g transform="translate(516, 105)">
+    <rect width="60" height="50" rx="4" fill="#2A2520"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">700</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#2A2520</text>
+  </g>
+
+  <!-- TEAL ROW -->
+  <text x="40" y="215" class="section">Viking Teal</text>
+
+  <g transform="translate(40, 225)">
+    <rect width="60" height="50" rx="4" fill="#E8F4F6"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">50</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#E8F4F6</text>
+  </g>
+  <g transform="translate(108, 225)">
+    <rect width="60" height="50" rx="4" fill="#C5E4E9"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">100</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#C5E4E9</text>
+  </g>
+  <g transform="translate(176, 225)">
+    <rect width="60" height="50" rx="4" fill="#8ECAD4"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">200</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#8ECAD4</text>
+  </g>
+  <g transform="translate(244, 225)">
+    <rect width="60" height="50" rx="4" fill="#5AABB8"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">300</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#5AABB8</text>
+  </g>
+  <g transform="translate(312, 225)">
+    <rect width="60" height="50" rx="4" fill="#3B8D9A"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">400</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#3B8D9A</text>
+  </g>
+  <g transform="translate(380, 225)">
+    <rect width="60" height="50" rx="4" fill="#2E7280"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">500</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#2E7280</text>
+  </g>
+  <g transform="translate(448, 225)">
+    <rect width="60" height="50" rx="4" fill="#225862"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">600</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#225862</text>
+  </g>
+  <g transform="translate(516, 225)">
+    <rect width="60" height="50" rx="4" fill="#183E45"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">700</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#183E45</text>
+  </g>
+
+  <!-- ORANGE ROW -->
+  <text x="40" y="335" class="section">Hearth Orange</text>
+
+  <g transform="translate(40, 345)">
+    <rect width="60" height="50" rx="4" fill="#FDF0E8"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">50</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#FDF0E8</text>
+  </g>
+  <g transform="translate(108, 345)">
+    <rect width="60" height="50" rx="4" fill="#FADAC8"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">100</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#FADAC8</text>
+  </g>
+  <g transform="translate(176, 345)">
+    <rect width="60" height="50" rx="4" fill="#F4B898"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">200</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#F4B898</text>
+  </g>
+  <g transform="translate(244, 345)">
+    <rect width="60" height="50" rx="4" fill="#EA936A"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">300</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#EA936A</text>
+  </g>
+  <g transform="translate(312, 345)">
+    <rect width="60" height="50" rx="4" fill="#E07040"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">400</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#E07040</text>
+  </g>
+  <g transform="translate(380, 345)">
+    <rect width="60" height="50" rx="4" fill="#C45A30"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">500</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#C45A30</text>
+  </g>
+  <g transform="translate(448, 345)">
+    <rect width="60" height="50" rx="4" fill="#9A4525"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">600</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#9A4525</text>
+  </g>
+  <g transform="translate(516, 345)">
+    <rect width="60" height="50" rx="4" fill="#6E301A"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">700</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#6E301A</text>
+  </g>
+
+  <!-- BROWN ROW -->
+  <text x="40" y="455" class="section">Fur Brown</text>
+
+  <g transform="translate(40, 465)">
+    <rect width="60" height="50" rx="4" fill="#F5EBE6"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">50</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#F5EBE6</text>
+  </g>
+  <g transform="translate(108, 465)">
+    <rect width="60" height="50" rx="4" fill="#E0CCC0"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">100</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#E0CCC0</text>
+  </g>
+  <g transform="translate(176, 465)">
+    <rect width="60" height="50" rx="4" fill="#C4A090"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">200</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#C4A090</text>
+  </g>
+  <g transform="translate(244, 465)">
+    <rect width="60" height="50" rx="4" fill="#9C7868"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">300</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#9C7868</text>
+  </g>
+  <g transform="translate(312, 465)">
+    <rect width="60" height="50" rx="4" fill="#7A5040"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">400</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#7A5040</text>
+  </g>
+  <g transform="translate(380, 465)">
+    <rect width="60" height="50" rx="4" fill="#5E3D30"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">500</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#5E3D30</text>
+  </g>
+  <g transform="translate(448, 465)">
+    <rect width="60" height="50" rx="4" fill="#442C22"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">600</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#442C22</text>
+  </g>
+  <g transform="translate(516, 465)">
+    <rect width="60" height="50" rx="4" fill="#2A1C16"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">700</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#2A1C16</text>
+  </g>
+
+  <!-- GREEN ROW -->
+  <text x="620" y="215" class="section">Forest Green</text>
+
+  <g transform="translate(620, 225)">
+    <rect width="60" height="50" rx="4" fill="#E8F5EB"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">50</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#E8F5EB</text>
+  </g>
+  <g transform="translate(688, 225)">
+    <rect width="60" height="50" rx="4" fill="#C2E5CA"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">100</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#C2E5CA</text>
+  </g>
+  <g transform="translate(756, 225)">
+    <rect width="60" height="50" rx="4" fill="#8ECC9C"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">200</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#8ECC9C</text>
+  </g>
+  <g transform="translate(824, 225)">
+    <rect width="60" height="50" rx="4" fill="#6AB37C"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">300</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#6AB37C</text>
+  </g>
+  <g transform="translate(892, 225)">
+    <rect width="60" height="50" rx="4" fill="#4E9960"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">400</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#4E9960</text>
+  </g>
+  <g transform="translate(620, 305)">
+    <rect width="60" height="50" rx="4" fill="#3D7A4C"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">500</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#3D7A4C</text>
+  </g>
+  <g transform="translate(688, 305)">
+    <rect width="60" height="50" rx="4" fill="#2E5C3A"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">600</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#2E5C3A</text>
+  </g>
+  <g transform="translate(756, 305)">
+    <rect width="60" height="50" rx="4" fill="#1F3E28"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">700</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#1F3E28</text>
+  </g>
+
+  <!-- RED ROW -->
+  <text x="620" y="415" class="section">Ember Red</text>
+
+  <g transform="translate(620, 425)">
+    <rect width="60" height="50" rx="4" fill="#FCEAE8"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">50</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#FCEAE8</text>
+  </g>
+  <g transform="translate(688, 425)">
+    <rect width="60" height="50" rx="4" fill="#F5CAC5"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">100</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#F5CAC5</text>
+  </g>
+  <g transform="translate(756, 425)">
+    <rect width="60" height="50" rx="4" fill="#E8A098"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">200</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#E8A098</text>
+  </g>
+  <g transform="translate(824, 425)">
+    <rect width="60" height="50" rx="4" fill="#D87A70"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">300</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#D87A70</text>
+  </g>
+  <g transform="translate(892, 425)">
+    <rect width="60" height="50" rx="4" fill="#C85548"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">400</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#C85548</text>
+  </g>
+  <g transform="translate(620, 505)">
+    <rect width="60" height="50" rx="4" fill="#A84038"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">500</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#A84038</text>
+  </g>
+  <g transform="translate(688, 505)">
+    <rect width="60" height="50" rx="4" fill="#82302A"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">600</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#82302A</text>
+  </g>
+  <g transform="translate(756, 505)">
+    <rect width="60" height="50" rx="4" fill="#5C201C"/>
+    <text x="30" y="65" class="weight" text-anchor="middle">700</text>
+    <text x="30" y="76" class="hex" text-anchor="middle">#5C201C</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="40" y="680" class="subtitle">Cozy Forge Extended — 8 Neutrals + 8 Teal + 8 Orange + 8 Brown + 8 Green + 8 Red = 48 colors (32 unique)</text>
+</svg>

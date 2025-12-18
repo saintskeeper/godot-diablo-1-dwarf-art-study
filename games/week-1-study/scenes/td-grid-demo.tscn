@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://cyl3k8mq2nfxj"]
+
+[ext_resource type="Script" path="res://scripts/td/td_game.gd" id="1_tdgame"]
+[ext_resource type="Script" path="res://scripts/td/td_grid.gd" id="2_tdgrid"]
+[ext_resource type="Script" path="res://scripts/td/td_wave_manager.gd" id="3_wave"]
+[ext_resource type="PackedScene" path="res://prefabs/td-prefabs/td-grid-cell.tscn" id="4_cell"]
+[ext_resource type="PackedScene" path="res://prefabs/td-prefabs/tower-wizard.tscn" id="5_tower"]
+[ext_resource type="PackedScene" uid="uid://bvct2pjgmb6v4" path="res://prefabs/td-prefabs/enemy-01.tscn" id="6_enemy"]
+
+[node name="TDGame" type="Node2D"]
+script = ExtResource("1_tdgame")
+tower_scenes = [ExtResource("5_tower")]
+enemy_scene_ids = Array[String](["enemy_01"])
+enemy_scene_list = Array[PackedScene]([ExtResource("6_enemy")])
+
+[node name="TDGrid" type="Node2D" parent="."]
+position = Vector2(64, 64)
+script = ExtResource("2_tdgrid")
+grid_cols = 28
+grid_rows = 15
+cell_size = Vector2(64, 64)
+cell_scene = ExtResource("4_cell")
+debug_draw = true
+
+[node name="Cells" type="Node2D" parent="TDGrid"]
+
+[node name="Towers" type="Node2D" parent="TDGrid"]
+
+[node name="TDWaveManager" type="Node" parent="."]
+script = ExtResource("3_wave")
+spawn_delay = 0.6
+wave_delay = 5.0
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 544)

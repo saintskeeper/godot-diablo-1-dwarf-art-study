@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" width="200" height="40">
+  <!-- WaltMakes Wordmark -->
+  <defs>
+    <style>
+      .wordmark {
+        font-family: 'Inter', 'IBM Plex Sans', -apple-system, sans-serif;
+        font-size: 28px;
+        font-weight: 500;
+        fill: #1A1A1A;
+        letter-spacing: -0.5px;
+      }
+    </style>
+  </defs>
+  <text x="0" y="30" class="wordmark">WaltMakes</text>
+</svg>

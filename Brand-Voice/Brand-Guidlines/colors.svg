@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <style>
+    .label { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; font-size: 11px; fill: #2A2520; }
+    .hex { font-family: 'SF Mono', 'Monaco', monospace; font-size: 10px; fill: #5A6878; }
+    .section { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; font-size: 12px; font-weight: 600; fill: #7A5040; text-transform: uppercase; letter-spacing: 1px; }
+    .title { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; font-size: 24px; font-weight: 700; fill: #3B8D9A; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; font-size: 12px; fill: #5A6878; }
+  </style>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="#F5EDE0"/>
+
+  <!-- Title -->
+  <text x="40" y="45" class="title">WaltMakes</text>
+  <text x="40" y="65" class="subtitle">Cozy Forge Palette</text>
+
+  <!-- Primary Colors -->
+  <text x="40" y="110" class="section">Primary</text>
+
+  <rect x="40" y="120" width="100" height="80" rx="8" fill="#F5EDE0" stroke="#E8E4DC" stroke-width="1"/>
+  <text x="90" y="220" class="label" text-anchor="middle">Parchment</text>
+  <text x="90" y="235" class="hex" text-anchor="middle">#F5EDE0</text>
+
+  <rect x="150" y="120" width="100" height="80" rx="8" fill="#E8E4DC"/>
+  <text x="200" y="220" class="label" text-anchor="middle">Warm Cream</text>
+  <text x="200" y="235" class="hex" text-anchor="middle">#E8E4DC</text>
+
+  <rect x="260" y="120" width="100" height="80" rx="8" fill="#2A2520"/>
+  <text x="310" y="220" class="label" text-anchor="middle">Deep Ink</text>
+  <text x="310" y="235" class="hex" text-anchor="middle">#2A2520</text>
+
+  <!-- Accent Colors -->
+  <text x="400" y="110" class="section">Accents</text>
+
+  <rect x="400" y="120" width="100" height="80" rx="8" fill="#3B8D9A"/>
+  <text x="450" y="220" class="label" text-anchor="middle">Viking Teal</text>
+  <text x="450" y="235" class="hex" text-anchor="middle">#3B8D9A</text>
+
+  <rect x="510" y="120" width="100" height="80" rx="8" fill="#E07040"/>
+  <text x="560" y="220" class="label" text-anchor="middle">Hearth Orange</text>
+  <text x="560" y="235" class="hex" text-anchor="middle">#E07040</text>
+
+  <!-- Supporting Colors -->
+  <text x="40" y="280" class="section">Supporting</text>
+
+  <rect x="40" y="290" width="100" height="80" rx="8" fill="#7A5040"/>
+  <text x="90" y="390" class="label" text-anchor="middle">Fur Brown</text>
+  <text x="90" y="390" class="hex" text-anchor="middle">#7A5040</text>
+
+  <rect x="150" y="290" width="100" height="80" rx="8" fill="#5A6878"/>
+  <text x="200" y="390" class="label" text-anchor="middle">Steel Gray</text>
+  <text x="200" y="390" class="hex" text-anchor="middle">#5A6878</text>
+
+  <rect x="260" y="290" width="100" height="80" rx="8" fill="#E8DCC8"/>
+  <text x="310" y="390" class="label" text-anchor="middle">Horn Ivory</text>
+  <text x="310" y="390" class="hex" text-anchor="middle">#E8DCC8</text>
+
+  <!-- Extended Colors -->
+  <text x="400" y="280" class="section">Extended</text>
+
+  <rect x="400" y="290" width="100" height="80" rx="8" fill="#4E9960"/>
+  <text x="450" y="390" class="label" text-anchor="middle">Forest Green</text>
+  <text x="450" y="390" class="hex" text-anchor="middle">#4E9960</text>
+
+  <rect x="510" y="290" width="100" height="80" rx="8" fill="#C85548"/>
+  <text x="560" y="390" class="label" text-anchor="middle">Ember Red</text>
+  <text x="560" y="390" class="hex" text-anchor="middle">#C85548</text>
+
+  <rect x="620" y="290" width="100" height="80" rx="8" fill="#A8A498"/>
+  <text x="670" y="390" class="label" text-anchor="middle">Fog</text>
+  <text x="670" y="390" class="hex" text-anchor="middle">#A8A498</text>
+</svg>

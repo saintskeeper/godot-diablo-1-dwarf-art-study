@@ -1,0 +1,110 @@
+{
+  "name": "WaltMakes Cozy Forge",
+  "version": "2.0.0",
+  "derivedFrom": "Duck Viking Mascot",
+  "colorTheory": "Complementary (Teal-Orange) with warm neutral base",
+  "colors": {
+    "primary": {
+      "parchment": {
+        "hex": "#F5EDE0",
+        "rgb": [245, 237, 224],
+        "hsl": [37, 47, 92],
+        "use": "Primary background"
+      },
+      "warmCream": {
+        "hex": "#E8E4DC",
+        "rgb": [232, 228, 220],
+        "hsl": [40, 21, 89],
+        "use": "Secondary background"
+      },
+      "deepInk": {
+        "hex": "#2A2520",
+        "rgb": [42, 37, 32],
+        "hsl": [30, 14, 15],
+        "use": "Primary text"
+      }
+    },
+    "accent": {
+      "vikingTeal": {
+        "hex": "#3B8D9A",
+        "rgb": [59, 141, 154],
+        "hsl": [188, 45, 42],
+        "use": "Primary accent, links, brand color",
+        "complementOf": "hearthOrange"
+      },
+      "hearthOrange": {
+        "hex": "#E07040",
+        "rgb": [224, 112, 64],
+        "hsl": [18, 74, 56],
+        "use": "CTA buttons, highlights, warmth",
+        "complementOf": "vikingTeal"
+      }
+    },
+    "supporting": {
+      "furBrown": {
+        "hex": "#7A5040",
+        "rgb": [122, 80, 64],
+        "hsl": [17, 31, 36],
+        "use": "Secondary text, anchors"
+      },
+      "steelGray": {
+        "hex": "#5A6878",
+        "rgb": [90, 104, 120],
+        "hsl": [212, 14, 41],
+        "use": "Tertiary text, UI elements"
+      },
+      "hornIvory": {
+        "hex": "#E8DCC8",
+        "rgb": [232, 220, 200],
+        "hsl": [37, 42, 85],
+        "use": "Cards, elevated surfaces"
+      }
+    },
+    "extended": {
+      "forestGreen": {
+        "hex": "#4E9960",
+        "rgb": [78, 153, 96],
+        "hsl": [135, 32, 45],
+        "use": "Success states",
+        "note": "Saturation bumped from 21% to 32%"
+      },
+      "emberRed": {
+        "hex": "#C85548",
+        "rgb": [200, 85, 72],
+        "hsl": [6, 52, 53],
+        "use": "Error states",
+        "note": "Saturation bumped from 42% to 52%, warmer hue"
+      },
+      "fog": {
+        "hex": "#A8A498",
+        "rgb": [168, 164, 152],
+        "hsl": [45, 9, 63],
+        "use": "Disabled, metadata"
+      }
+    }
+  },
+  "accessibility": {
+    "wcagLevel": "AA",
+    "contrastRatios": {
+      "deepInkOnParchment": 12.1,
+      "furBrownOnParchment": 5.8,
+      "vikingTealOnParchment": 4.6,
+      "whiteOnVikingTeal": 4.5
+    }
+  },
+  "mascot": {
+    "name": "Duck Viking",
+    "colors": ["vikingTeal", "hearthOrange", "furBrown", "parchment"]
+  },
+  "typography": {
+    "fontFamilies": {
+      "sans": ["Inter", "IBM Plex Sans", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
+      "mono": ["Space Mono", "JetBrains Mono", "SF Mono", "monospace"]
+    },
+    "fontWeights": {
+      "regular": 400,
+      "medium": 500,
+      "bold": 700
+    }
+  }
+}

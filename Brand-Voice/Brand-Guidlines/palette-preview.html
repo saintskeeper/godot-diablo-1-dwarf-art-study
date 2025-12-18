@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WaltMakes - Cozy Forge Palette v2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --wm-parchment: #F5EDE0;
+      --wm-warm-cream: #E8E4DC;
+      --wm-deep-ink: #2A2520;
+      --wm-viking-teal: #3B8D9A;
+      --wm-hearth-orange: #E07040;
+      --wm-fur-brown: #7A5040;
+      --wm-steel-gray: #5A6878;
+      --wm-horn-ivory: #E8DCC8;
+      --wm-forest-green: #4E9960;
+      --wm-ember-red: #C85548;
+      --wm-fog: #A8A498;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--wm-parchment);
+      color: var(--wm-deep-ink);
+      padding: 3rem;
+      line-height: 1.6;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--wm-viking-teal);
+    }
+
+    .version {
+      background: var(--wm-hearth-orange);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-family: 'Space Mono', monospace;
+      color: var(--wm-steel-gray);
+      margin-bottom: 3rem;
+    }
+
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--wm-fur-brown);
+      margin-bottom: 1rem;
+    }
+
+    .swatches {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .swatch {
+      width: 140px;
+    }
+
+    .swatch-color {
+      width: 100%;
+      height: 100px;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .swatch-name {
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--wm-deep-ink);
+    }
+
+    .swatch-hex {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--wm-steel-gray);
+    }
+
+    /* Complementary pair highlight */
+    .complementary {
+      background: var(--wm-horn-ivory);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+
+    .complementary h3 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--wm-steel-gray);
+      margin-bottom: 1rem;
+    }
+
+    .pair {
+      display: flex;
+      gap: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      max-width: 400px;
+    }
+
+    .pair-half {
+      flex: 1;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    /* Components */
+    .components {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-teal {
+      background: var(--wm-viking-teal);
+      color: white;
+    }
+
+    .btn-orange {
+      background: var(--wm-hearth-orange);
+      color: white;
+    }
+
+    .btn-brown {
+      background: var(--wm-fur-brown);
+      color: white;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--wm-viking-teal);
+      border: 2px solid var(--wm-viking-teal);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .tag-teal { background: var(--wm-viking-teal); color: white; }
+    .tag-orange { background: var(--wm-hearth-orange); color: white; }
+    .tag-success { background: var(--wm-forest-green); color: white; }
+    .tag-error { background: var(--wm-ember-red); color: white; }
+
+    /* Card */
+    .card {
+      background: var(--wm-horn-ivory);
+      padding: 1.5rem;
+      border-radius: 12px;
+      max-width: 320px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .card h3 {
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      color: var(--wm-deep-ink);
+    }
+
+    .card p {
+      font-size: 0.875rem;
+      color: var(--wm-fur-brown);
+      margin-bottom: 1rem;
+    }
+
+    .card-footer {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    /* Typography */
+    .type-sample { margin-bottom: 1.5rem; }
+
+    .type-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--wm-fog);
+      margin-bottom: 0.25rem;
+    }
+
+    .size-xl { font-size: 2.5rem; font-weight: 700; }
+    .size-lg { font-size: 1.5rem; font-weight: 600; }
+    .size-md { font-size: 1.125rem; font-weight: 500; }
+    .size-sm { font-size: 1rem; font-weight: 400; }
+
+    .type-teal { color: var(--wm-viking-teal); }
+    .type-brown { color: var(--wm-fur-brown); }
+    .type-gray { color: var(--wm-steel-gray); }
+
+    /* Sample layout */
+    .sample-layout {
+      background: var(--wm-warm-cream);
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 500px;
+    }
+
+    .sample-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .sample-avatar {
+      width: 48px;
+      height: 48px;
+      background: var(--wm-viking-teal);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .sample-name {
+      font-weight: 600;
+      color: var(--wm-deep-ink);
+    }
+
+    .sample-handle {
+      font-size: 0.875rem;
+      color: var(--wm-steel-gray);
+    }
+
+    .sample-bio {
+      color: var(--wm-fur-brown);
+      margin-bottom: 1rem;
+    }
+
+    .sample-link {
+      color: var(--wm-viking-teal);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .sample-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Dark mode preview */
+    .dark-preview {
+      background: #1E1C18;
+      padding: 2rem;
+      border-radius: 12px;
+      color: var(--wm-parchment);
+    }
+
+    .dark-preview h3 {
+      color: var(--wm-parchment);
+      margin-bottom: 1rem;
+    }
+
+    .dark-preview .dark-teal { color: #4A9DAA; }
+    .dark-preview .dark-orange { color: #F08050; }
+    .dark-preview .dark-muted { color: var(--wm-fog); }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>WaltMakes</h1>
+    <span class="version">v2.0</span>
+  </div>
+  <p class="subtitle">Cozy Forge Palette — derived from Duck Viking</p>
+
+  <div class="section complementary">
+    <h3>Complementary Pair</h3>
+    <div class="pair">
+      <div class="pair-half" style="background: var(--wm-viking-teal); color: white;">
+        Viking Teal
+      </div>
+      <div class="pair-half" style="background: var(--wm-hearth-orange); color: white;">
+        Hearth Orange
+      </div>
+    </div>
+    <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--wm-steel-gray);">
+      ~170° apart on color wheel. Classic teal-orange game palette (Portal, Shovel Knight).
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Primary</h2>
+    <div class="swatches">
+      <div class="swatch">
+        <div class="swatch-color" style="background: var(--wm-parchment); border: 1px solid var(--wm-warm-cream);"></div>
+        <div class="swatch-name">Parchment</div>
+        <div class="swatch-hex">#F5EDE0</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: var(--wm-warm-cream);"></div>
+        <div class="swatch-name">Warm Cream</div>
+        <div class="swatch-hex">#E8E4DC</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: var(--wm-deep-ink);"></div>
+        <div class="swatch-name">Deep Ink</div>
+        <div class="swatch-hex">#2A2520</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Accents</h2>
+    <div class="swatches">
+      <div class="swatch">
+        <div class="swatch-color" style="background: var(--wm-viking-teal);"></div>
+        <div class="swatch-name">Viking Teal</div>
+        <div class="swatch-hex">#3B8D9A</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: var(--wm-hearth-orange);"></div>
+        <div class="swatch-name">Hearth Orange</div>
+        <div class="swatch-hex">#E07040</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Supporting</h2>
+    <div class="swatches">
+      <div class="swatch">
+        <div class="swatch-color" style="background: var(--wm-fur-brown);"></div>
+        <div class="swatch-name">Fur Brown</div>
+        <div class="swatch-hex">#7A5040</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: var(--wm-steel-gray);"></div>
+        <div class="swatch-name">Steel Gray</div>
+        <div class="swatch-hex">#5A6878</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: var(--wm-horn-ivory);"></div>
+        <div class="swatch-name">Horn Ivory</div>
+        <div class="swatch-hex">#E8DCC8</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Extended (saturation matched)</h2>
+    <div class="swatches">
+      <div class="swatch">
+        <div class="swatch-color" style="background: var(--wm-forest-green);"></div>
+        <div class="swatch-name">Forest Green</div>
+        <div class="swatch-hex">#4E9960</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: var(--wm-ember-red);"></div>
+        <div class="swatch-name">Ember Red</div>
+        <div class="swatch-hex">#C85548</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: var(--wm-fog);"></div>
+        <div class="swatch-name">Fog</div>
+        <div class="swatch-hex">#A8A498</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Typography</h2>
+    <div class="type-sample">
+      <div class="type-label">Inter Bold — Brand</div>
+      <div class="size-xl type-teal">WaltMakes</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-label">Inter Semibold — Heading</div>
+      <div class="size-lg">Learning game art in public</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-label">Inter Regular — Body</div>
+      <div class="size-sm type-brown">Weekly scene studies. Shipping a micro-game in 2026.</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-label">Space Mono — Code/Technical</div>
+      <div class="size-sm type-gray" style="font-family: 'Space Mono', monospace;">@WaltMakes · Dec 2024</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Components</h2>
+    <div class="components">
+      <button class="btn btn-teal">Start Here</button>
+      <button class="btn btn-orange">Subscribe</button>
+      <button class="btn btn-brown">Learn More</button>
+      <button class="btn btn-ghost">View All</button>
+    </div>
+    <div class="components">
+      <span class="tag tag-teal">Week 3</span>
+      <span class="tag tag-orange">In Progress</span>
+      <span class="tag tag-success">Complete</span>
+      <span class="tag tag-error">Blocked</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Card Example</h2>
+    <div class="card">
+      <h3>Diablo 1 Study</h3>
+      <p>Town scene recreation focusing on isometric perspective and atmospheric lighting.</p>
+      <div class="card-footer">
+        <span class="tag tag-teal">Week 1</span>
+        <span class="tag tag-success">Complete</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Profile Layout</h2>
+    <div class="sample-layout">
+      <div class="sample-header">
+        <div class="sample-avatar">🦆</div>
+        <div>
+          <div class="sample-name">Walt</div>
+          <div class="sample-handle">@WaltMakes</div>
+        </div>
+      </div>
+      <p class="sample-bio">
+        Learning game art in public. Weekly scene studies → shipping a micro-game in 2026.
+      </p>
+      <a href="#" class="sample-link">waltmakes.itch.io</a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Dark Mode</h2>
+    <div class="dark-preview">
+      <h3>WaltMakes</h3>
+      <p class="dark-muted" style="margin-bottom: 0.5rem;">Same warmth, inverted.</p>
+      <p>
+        <span class="dark-teal">Viking Teal</span> and
+        <span class="dark-orange">Hearth Orange</span> stay vibrant.
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>

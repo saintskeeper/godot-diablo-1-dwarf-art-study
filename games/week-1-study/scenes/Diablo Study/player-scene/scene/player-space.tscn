@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhs28eucxf5gt"]
+
+[ext_resource type="Texture2D" uid="uid://d0vcfbm66heid" path="res://scenes/Diablo Study/player-scene/sprites/player-space.png" id="1_07ppb"]
+[ext_resource type="Texture2D" uid="uid://d233k1atpu8p7" path="res://scenes/Diablo Study/player-scene/sprites/dwarven-player-space_export.png" id="2_nchhe"]
+
+[node name="PlayerSpace" type="Node2D" unique_id=1800027524]
+
+[node name="PlayerSpace" type="Sprite2D" parent="." unique_id=610921180]
+visible = false
+position = Vector2(973, 452)
+scale = Vector2(0.67376375, 0.5502451)
+texture = ExtResource("1_07ppb")
+
+[node name="DwarvenPlayerSpaceExport" type="Sprite2D" parent="." unique_id=2051023460]
+position = Vector2(958, 448)
+scale = Vector2(1.3296703, 1.0955882)
+texture = ExtResource("2_nchhe")

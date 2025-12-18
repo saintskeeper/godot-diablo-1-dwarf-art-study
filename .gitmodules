@@ -1,0 +1,3 @@
+[submodule "Blog/walts-blog"]
+	path = Blog/walts-blog
+	url = git@github.com:saintskeeper/walts-blog.git

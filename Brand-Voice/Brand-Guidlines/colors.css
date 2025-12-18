@@ -1,0 +1,76 @@
+/* WaltMakes Brand Colors v2 - Cozy Forge Palette */
+/* Derived from Duck Viking mascot - more vivid, true complementary */
+
+:root {
+  /* Primary Colors */
+  --wm-parchment: #F5EDE0;
+  --wm-warm-cream: #E8E4DC;
+  --wm-deep-ink: #2A2520;
+
+  /* Accent Colors - Complementary Pair */
+  --wm-viking-teal: #3B8D9A;
+  --wm-hearth-orange: #E07040;
+
+  /* Supporting Colors */
+  --wm-fur-brown: #7A5040;
+  --wm-steel-gray: #5A6878;
+  --wm-horn-ivory: #E8DCC8;
+
+  /* Extended Palette - saturation matched to accents */
+  --wm-forest-green: #4E9960;  /* HSL: 135, 32%, 45% - was 21% */
+  --wm-ember-red: #C85548;     /* HSL: 6, 52%, 53% - was 42% */
+  --wm-fog: #A8A498;           /* warmer gray */
+
+  /* Semantic Aliases */
+  --wm-bg-primary: var(--wm-parchment);
+  --wm-bg-secondary: var(--wm-warm-cream);
+  --wm-bg-card: var(--wm-horn-ivory);
+
+  --wm-text-primary: var(--wm-deep-ink);
+  --wm-text-secondary: var(--wm-fur-brown);
+  --wm-text-muted: var(--wm-steel-gray);
+
+  --wm-accent-primary: var(--wm-viking-teal);
+  --wm-accent-secondary: var(--wm-hearth-orange);
+
+  --wm-success: var(--wm-forest-green);
+  --wm-error: var(--wm-ember-red);
+  --wm-disabled: var(--wm-fog);
+
+  /* Typography */
+  --wm-font-sans: 'Inter', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --wm-font-mono: 'Space Mono', 'JetBrains Mono', 'SF Mono', monospace;
+
+  /* Spacing (8px base) */
+  --wm-space-1: 0.25rem;
+  --wm-space-2: 0.5rem;
+  --wm-space-3: 0.75rem;
+  --wm-space-4: 1rem;
+  --wm-space-5: 1.5rem;
+  --wm-space-6: 2rem;
+  --wm-space-8: 3rem;
+  --wm-space-10: 4rem;
+
+  /* Border Radius */
+  --wm-radius-sm: 2px;
+  --wm-radius-md: 4px;
+  --wm-radius-lg: 8px;
+  --wm-radius-full: 9999px;
+}
+
+/* Dark mode - inverted warmth */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --wm-bg-primary: #1E1C18;
+    --wm-bg-secondary: var(--wm-deep-ink);
+    --wm-bg-card: #2E2A24;
+
+    --wm-text-primary: var(--wm-parchment);
+    --wm-text-secondary: var(--wm-horn-ivory);
+    --wm-text-muted: var(--wm-fog);
+
+    /* Accents stay vibrant */
+    --wm-accent-primary: #4A9DAA;
+    --wm-accent-secondary: #F08050;
+  }
+}

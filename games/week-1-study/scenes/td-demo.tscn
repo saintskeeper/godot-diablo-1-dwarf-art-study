@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3mub1t015fqd"]
+
+[ext_resource type="PackedScene" uid="uid://bvct2pjgmb6v4" path="res://prefabs/td-prefabs/enemy-01.tscn" id="2_a8weh"]
+[ext_resource type="Script" uid="uid://cdj4orajiquny" path="res://scripts/td/td_demo.gd" id="3_tddemo"]
+[ext_resource type="PackedScene" uid="uid://d04ghnwxdlbwm" path="res://prefabs/ui/Dward-ui-elements/mana-bar.tscn" id="4_ikdmf"]
+[ext_resource type="PackedScene" uid="uid://txfvkfmtwrrk" path="res://prefabs/td-prefabs/tower-wizard.tscn" id="4_wizard"]
+
+[node name="TdDemo2" type="Node2D" unique_id=1139798363]
+script = ExtResource("3_tddemo")
+
+[node name="WizardTower" parent="." unique_id=1783219723 instance=ExtResource("4_wizard")]
+auto_translate_mode = 2
+position = Vector2(606, 90)
+scale = Vector2(0.5, 0.5)
+
+[node name="Viking" parent="." unique_id=-1447810373 instance=ExtResource("2_a8weh")]
+auto_translate_mode = 2
+position = Vector2(1814, 965)
+
+[node name="ManaBar" parent="." unique_id=1990538703 instance=ExtResource("4_ikdmf")]
+position = Vector2(274, 783)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1403977510]
+position = Vector2(960, 540)

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- WaltMakes Maker's Circle - Broken Enso -->
+  <!-- The gap represents "work in progress" - never complete, always learning -->
+  <defs>
+    <style>
+      .enso {
+        fill: none;
+        stroke: #1A1A1A;
+        stroke-width: 6;
+        stroke-linecap: round;
+      }
+    </style>
+  </defs>
+  <!-- Imperfect circle with intentional break (gap at top-right) -->
+  <!-- Path starts at roughly 2 o'clock and sweeps around to 11 o'clock -->
+  <path class="enso" d="M 70 25
+    A 32 32 0 1 1 35 22"
+    stroke-dasharray="none"
+  />
+  <!-- Slight brush "tail" effect at the end -->
+  <circle cx="35" cy="22" r="2" fill="#1A1A1A"/>
+</svg>
