@@ -1,0 +1,235 @@
+/* ============================================
+   Glossy Effect Utilities
+   Subtle, professional lighting effects
+   ============================================ */
+
+/* Base glossy container */
+@utility glossy-base {
+  position: relative;
+  border-radius: 100px;
+  border: 1px solid color-mix(in srgb, var(--text-muted), transparent 75%);
+}
+
+/* Glossy navigation bar layer */
+@utility glossy-nav {
+  position: relative;
+
+  /* Background layer with subtle glass effect */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--bg-primary), var(--text-primary) 10%);
+    border: 1px solid color-mix(in srgb, var(--text-primary), transparent);
+    z-index: -1;
+    border-radius: 100px;
+    opacity: 0.12;
+    pointer-events: none;
+  }
+
+  /* Border highlight layer with spotlight filter */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid color-mix(in srgb, var(--text-primary), transparent);
+    z-index: 2;
+    border-radius: 100px;
+    pointer-events: none;
+    filter: url('#glossy-spotlight');
+  }
+}
+
+/* Glossy search bar - focused state */
+@utility glossy-search {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    pointer-events: none;
+    border: 1px solid white;
+    filter: url('#glossy-ambience') brightness(1.5);
+    opacity: 0;
+    transition: opacity 0.25s ease-out;
+  }
+
+  &:focus-within::after {
+    opacity: 0.6;
+  }
+}
+
+/* Glossy lit layer - for active navigation items */
+@utility glossy-lit {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 100px;
+  filter: url('#glossy-spotlight');
+}
+
+/* Active item highlight */
+@utility glossy-active {
+  position: relative;
+
+  &[data-active='true'] {
+    opacity: 0.85;
+  }
+}
+
+/* Command palette glossy effect */
+@utility glossy-command {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    filter: url('#glossy-ambience') brightness(1.2);
+  }
+}
+
+/* Smooth spotlight animation */
+@utility glossy-spotlight-transition {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced glass with glossy border */
+@utility glass-glossy {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 8px 32px 0 var(--glass-shadow),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    filter: url('#glossy-ambience');
+    opacity: 0.3;
+  }
+}
+
+/* Heavy glass with glossy effect */
+@utility glass-heavy-glossy {
+  background: var(--glass-bg-heavy);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 8px 32px 0 var(--glass-shadow),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    filter: url('#glossy-spotlight');
+    opacity: 0.4;
+  }
+}
+
+/* Performance optimization for glossy elements */
+.glossy-optimized {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Subtle glow for focused glossy elements */
+@utility glossy-focus-glow {
+  &:focus-visible {
+    outline: 2px solid var(--wm-viking-teal);
+    outline-offset: 2px;
+    box-shadow:
+      0 0 0 4px rgba(59, 141, 154, 0.2),
+      0 8px 32px 0 var(--glass-shadow),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
+  }
+}
+
+/* Floating nav drop shadow */
+@utility floating-nav-shadow {
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Fog effect for floating nav */
+@utility fog-effect {
+  background: var(--glass-bg-heavy);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  position: relative;
+
+  /* Subtle white gradient overlay for fog */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0.2) 100%
+    );
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.5;
+    z-index: 1;
+  }
+}
+
+/* Active tab glow effect */
+@utility active-tab-glow {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    var(--wm-viking-teal) 0%,
+    var(--teal-dark) 100%
+  );
+  box-shadow:
+    0 4px 12px rgba(59, 141, 154, 0.4),
+    0 0 20px rgba(45, 117, 130, 0.3),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Shimmer animation for active tab */
+@keyframes shimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Active tab with animated gradient - WaltMakes teal */
+.active-tab-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--wm-viking-teal),
+    var(--teal-dark),
+    var(--wm-viking-teal)
+  );
+  background-size: 200% 200%;
+  animation: shimmer 3s ease-in-out infinite;
+}

@@ -1,0 +1,15 @@
+[GLOBAL]
+pants_version = "2.25.0"
+
+backend_packages = [
+    "pants.backend.experimental.javascript"
+]
+
+[nodejs]
+# Use empty list to ensure Pants uses your system Node.js instead of downloading
+known_versions = []
+# Update to match your installed Node.js version
+version = "v24.8.0"
+# Search for Node.js in common locations (system paths, nvm, etc.)
+search_path = ["<PATH>", "<NVM_LOCAL>"]
+package_manager = "npm"

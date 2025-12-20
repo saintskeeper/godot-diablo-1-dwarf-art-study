@@ -1,0 +1,17 @@
+node_modules
+dist
+.DS_Store
+.env
+
+# Ignore the output video from Git but not videos you import into src/.
+out
+.playwright-mcp/
+.remotion/
+
+build
+
+# Rendered videos (keep source assets, ignore outputs)
+*.mp4
+*.webm
+!public/**/*.mp4
+!public/**/*.webm

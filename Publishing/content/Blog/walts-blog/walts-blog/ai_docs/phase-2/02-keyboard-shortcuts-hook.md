@@ -1,0 +1,188 @@
+CREATE: lib/hooks/useKeyboardShortcuts.ts
+
+CONTEXT: Global keyboard shortcut handler hook
+React hook to manage CMD+K palette activation and CMD+1-4 navigation shortcuts.
+
+DEPENDENCIES (must exist first):
+- React 19 installed
+- Next.js useRouter available
+
+REQUIREMENTS:
+- Listen for CMD/CTRL+K to open command palette
+- Listen for CMD/CTRL+1-4 for section navigation
+- Prevent default browser behavior
+- Work across all pages
+- Cleanup event listeners properly
+- TypeScript with proper types
+
+HOOK CODE:
+```typescript
+// lib/hooks/useKeyboardShortcuts.ts
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
+interface KeyboardShortcutConfig {
+  key: string;
+  metaKey?: boolean;
+  ctrlKey?: boolean;
+  shiftKey?: boolean;
+  action: () => void;
+  description: string;
+}
+
+interface UseKeyboardShortcutsOptions {
+  onCommandPalette?: () => void;
+  enabled?: boolean;
+}
+
+export function useKeyboardShortcuts({
+  onCommandPalette,
+  enabled = true,
+}: UseKeyboardShortcutsOptions = {}) {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!enabled) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+      const modifierKey = isMac ? event.metaKey : event.ctrlKey;
+
+      // Ignore if user is typing in an input
+      const target = event.target as HTMLElement;
+      if (
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.isContentEditable
+      ) {
+        return;
+      }
+
+      // CMD/CTRL + K: Open command palette
+      if (modifierKey && event.key === 'k') {
+        event.preventDefault();
+        onCommandPalette?.();
+        return;
+      }
+
+      // CMD/CTRL + 1-4: Navigate to sections
+      if (modifierKey && !event.shiftKey) {
+        switch (event.key) {
+          case '1':
+            event.preventDefault();
+            router.push('/');
+            break;
+          case '2':
+            event.preventDefault();
+            router.push('/highlights');
+            break;
+          case '3':
+            event.preventDefault();
+            router.push('/articles');
+            break;
+          case '4':
+            event.preventDefault();
+            router.push('/logs');
+            break;
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [router, onCommandPalette, enabled]);
+}
+
+// Export shortcut configurations for displaying in UI
+export const KEYBOARD_SHORTCUTS: KeyboardShortcutConfig[] = [
+  {
+    key: 'k',
+    metaKey: true,
+    action: () => {},
+    description: 'Open command palette',
+  },
+  {
+    key: '1',
+    metaKey: true,
+    action: () => {},
+    description: 'Go to Home',
+  },
+  {
+    key: '2',
+    metaKey: true,
+    action: () => {},
+    description: 'Go to Highlights',
+  },
+  {
+    key: '3',
+    metaKey: true,
+    action: () => {},
+    description: 'Go to Articles',
+  },
+  {
+    key: '4',
+    metaKey: true,
+    action: () => {},
+    description: 'Go to Logs',
+  },
+];
+```
+
+TECHNICAL SPECS:
+```typescript
+interface UseKeyboardShortcutsOptions {
+  onCommandPalette?: () => void;
+  enabled?: boolean;
+}
+
+interface KeyboardShortcutConfig {
+  key: string;
+  metaKey?: boolean;
+  ctrlKey?: boolean;
+  shiftKey?: boolean;
+  action: () => void;
+  description: string;
+}
+```
+
+USAGE IN LAYOUT:
+```tsx
+// app/layout.tsx
+'use client';
+
+import { useKeyboardShortcuts } from '@/lib/hooks/useKeyboardShortcuts';
+import { useState } from 'react';
+
+export default function RootLayout({ children }) {
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+
+  useKeyboardShortcuts({
+    onCommandPalette: () => setCommandPaletteOpen(true),
+    enabled: true,
+  });
+
+  return (
+    <html>
+      <body>
+        {children}
+        {commandPaletteOpen && (
+          <CommandPalette onClose={() => setCommandPaletteOpen(false)} />
+        )}
+      </body>
+    </html>
+  );
+}
+```
+
+VERIFICATION:
+- CMD+K (Mac) or CTRL+K (Windows/Linux) triggers callback
+- CMD+1-4 navigates to correct sections
+- Browser default shortcuts prevented
+- Event listeners cleanup on unmount
+- Ignores input fields and textareas
+- TypeScript types correct

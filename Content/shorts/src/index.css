@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+/* Cozy Forge Theme - WaltMakes Brand Colors */
+@theme {
+  /* Backgrounds */
+  --color-parchment: #F5EDE0;
+  --color-warm-cream: #E8E4DC;
+  --color-horn-ivory: #E8DCC8;
+
+  /* Text */
+  --color-deep-ink: #2A2520;
+  --color-fur-brown: #7A5040;
+  --color-steel-gray: #5A6878;
+
+  /* Accents (Complementary Pair) */
+  --color-viking-teal: #3B8D9A;
+  --color-hearth-orange: #E07040;
+
+  /* Semantic */
+  --color-forest-green: #4E9960;
+  --color-ember-red: #C85548;
+  --color-fog: #A8A498;
+
+  /* Fonts */
+  --font-sans: 'Inter', 'IBM Plex Sans', -apple-system, sans-serif;
+  --font-mono: 'Space Mono', 'JetBrains Mono', monospace;
+}
