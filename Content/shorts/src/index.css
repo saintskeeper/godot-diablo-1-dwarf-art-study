@@ -1,24 +1,70 @@
 @import "tailwindcss";
 
-/* Cozy Forge Theme - WaltMakes Brand Colors */
+/* Cozy Forge Extended Palette - WaltMakes Brand Colors (32 unique) */
 @theme {
-  /* Backgrounds */
+  /* Neutrals (8 shades) */
+  --color-neutral-50: #FDFBF7;
+  --color-neutral-100: #F5EDE0;
+  --color-neutral-200: #E8E4DC;
+  --color-neutral-300: #E8DCC8;
+  --color-neutral-400: #A8A498;
+  --color-neutral-500: #5A6878;
+  --color-neutral-600: #3D4550;
+  --color-neutral-700: #2A2520;
+
+  /* Viking Teal (8 shades) */
+  --color-teal-50: #E8F4F6;
+  --color-teal-100: #C5E4E9;
+  --color-teal-200: #8ECAD4;
+  --color-teal-300: #5AABB8;
+  --color-teal-400: #3B8D9A;
+  --color-teal-500: #2E7280;
+  --color-teal-600: #225862;
+  --color-teal-700: #183E45;
+
+  /* Hearth Orange (8 shades) */
+  --color-orange-50: #FDF0E8;
+  --color-orange-100: #FADAC8;
+  --color-orange-200: #F4B898;
+  --color-orange-300: #EA936A;
+  --color-orange-400: #E07040;
+  --color-orange-500: #C45A30;
+  --color-orange-600: #9A4525;
+  --color-orange-700: #6E301A;
+
+  /* Fur Brown (8 shades) */
+  --color-brown-50: #F5EBE6;
+  --color-brown-100: #E0CCC0;
+  --color-brown-200: #C4A090;
+  --color-brown-300: #9C7868;
+  --color-brown-400: #7A5040;
+  --color-brown-500: #5E3D30;
+  --color-brown-600: #442C22;
+  --color-brown-700: #2A1C16;
+
+  /* Forest Green (4 shades) */
+  --color-green-50: #E8F5EB;
+  --color-green-100: #C2E5CA;
+  --color-green-500: #3D7A4C;
+  --color-green-600: #2E5C3A;
+
+  /* Ember Red (4 shades) */
+  --color-red-50: #FCEAE8;
+  --color-red-100: #F5CAC5;
+  --color-red-500: #A84038;
+  --color-red-600: #82302A;
+
+  /* Semantic aliases */
   --color-parchment: #F5EDE0;
   --color-warm-cream: #E8E4DC;
   --color-horn-ivory: #E8DCC8;
-
-  /* Text */
   --color-deep-ink: #2A2520;
   --color-fur-brown: #7A5040;
   --color-steel-gray: #5A6878;
-
-  /* Accents (Complementary Pair) */
   --color-viking-teal: #3B8D9A;
   --color-hearth-orange: #E07040;
-
-  /* Semantic */
-  --color-forest-green: #4E9960;
-  --color-ember-red: #C85548;
+  --color-forest-green: #3D7A4C;
+  --color-ember-red: #A84038;
   --color-fog: #A8A498;
 
   /* Fonts */

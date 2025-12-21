@@ -10,6 +10,7 @@ import { Screenshot, screenshotSchema } from "./components/Screenshot";
 import { DiagramSlide, diagramSlideSchema } from "./components/DiagramSlide";
 import { Music, musicSchema } from "./components/Music";
 import { ZoomableVideo, zoomableVideoSchema } from "./components/ZoomableVideo";
+import { Text3D, text3DSchema, WaltMakesLogo, waltMakesLogoSchema } from "./components/Text3D";
 import {
   Example1Landscape,
   Example1Square,
@@ -17,6 +18,7 @@ import {
 import { Example2Square } from "./compositions/example2/Composition";
 import { MyVideo } from "./compositions/my-video/Composition";
 import { Week1220 } from "./compositions/week-12-20/Composition";
+import { Diablo1Study } from "./compositions/diablo-1-study/Composition";
 import { VIDEO_CONFIG, getDurationInFrames } from "./config";
 import {
   sampleTypeScript,
@@ -29,6 +31,10 @@ export const RemotionRoot: React.FC = () => {
     <>
       {/* Compositions - use /new-composition to create your own */}
       <Folder name="Compositions">
+        <Folder name="Diablo1Study">
+          <Diablo1Study />
+        </Folder>
+
         <Folder name="Week-12-20">
           <Week1220 />
         </Folder>
@@ -194,6 +200,36 @@ export const RemotionRoot: React.FC = () => {
               { startTime: 0, endTime: 3, zoomStart: 1, zoomEnd: 1.1 },
               { startTime: 5, endTime: 8, zoomStart: 1.1, zoomEnd: 1 },
             ],
+          }}
+        />
+        <Composition
+          id="Text3D"
+          component={Text3D}
+          durationInFrames={getDurationInFrames(3, VIDEO_CONFIG.fps)}
+          fps={VIDEO_CONFIG.fps}
+          width={VIDEO_CONFIG.width}
+          height={VIDEO_CONFIG.height}
+          schema={text3DSchema}
+          defaultProps={{
+            text: "WaltMakes",
+            fontSize: 100,
+            rotation: -8,
+            animate: true,
+            dithering: true,
+          }}
+        />
+        <Composition
+          id="WaltMakesLogo"
+          component={WaltMakesLogo}
+          durationInFrames={getDurationInFrames(3, VIDEO_CONFIG.fps)}
+          fps={VIDEO_CONFIG.fps}
+          width={VIDEO_CONFIG.width}
+          height={VIDEO_CONFIG.height}
+          schema={waltMakesLogoSchema}
+          defaultProps={{
+            variant: "preview" as const,
+            scale: 1,
+            animate: true,
           }}
         />
       </Folder>
