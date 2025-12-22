@@ -1,315 +1,92 @@
 1
-00:00:00,860 --> 00:00:01,140
-Hey Gabe,
+00:00:00,679 --> 00:00:29,899
+Hey, Gabe. Hope you're having a great Monday and you had a good weekend. We're just about done with the discovery. And so I just wanted to take a minute to kind of go through all of the items and documents that we have here for you. Came and I'll be getting with you later to schedule some time. Awesome. So at the root of the repo, you're going to find just like a master migration document. That way you've kind of got all of the data that you'll need or will need as we go through. This is very extensive. It goes over every repository that you have, all the scopes, basically everything that was given to me by far.
 
 2
-00:00:01,380 --> 00:00:03,120
-hope you're having a great Monday and you had a good weekend.
+00:00:30,000 --> 00:00:31,539
+just to make sure that everything's covered.
 
 3
-00:00:03,660 --> 00:00:05,340
-We're just about done with the discovery and
+00:00:31,739 --> 00:00:36,359
+Complete breakdown of your application stack and how that's going to be migrated into AWS.
 
 4
-00:00:05,340 --> 00:00:06,560
-so I just wanted to take a minute to kind
+00:00:37,920 --> 00:00:39,899
+We've also got this GitHub repo.
 
 5
-00:00:06,560 --> 00:00:08,960
-of go through all of the items and
+00:00:40,119 --> 00:00:41,359
+This is just a shallow clone.
 
 6
-00:00:08,960 --> 00:00:10,660
-documents that we have here for you.
+00:00:41,560 --> 00:00:47,719
+In here is this infrastructure analysis from GitHub where I just kind of go over all the bits and bobs from heavy metal.
 
 7
-00:00:11,200 --> 00:00:11,300
-Kamin,
+00:00:48,259 --> 00:00:51,060
+And then in here is a shallow clone of all of your repos.
 
 8
-00:00:11,320 --> 00:00:13,000
-I'll be getting with you later to schedule some time.
+00:00:51,439 --> 00:00:53,640
+If you like, we can get these transferred over to your GitHub.
 
 9
-00:00:13,660 --> 00:00:13,820
-Awesome.
+00:00:53,840 --> 00:00:55,939
+Some of these repos have a lot of your game assets and stuff.
 
 10
-00:00:13,980 --> 00:00:14,820
-So at the root of the repo,
-
-11
-00:00:14,940 --> 00:00:17,370
-you're going to find just like a master migration document.
-
-12
-00:00:17,660 --> 00:00:19,360
-That way you've kind of got all of the data
-
-13
-00:00:19,580 --> 00:00:21,760
-that you'll need or will need as we go through.
-
-14
-00:00:22,040 --> 00:00:22,940
-This is very extensive.
-
-15
-00:00:23,320 --> 00:00:25,980
-It goes over every repository that you have,
-
-16
-00:00:26,240 --> 00:00:26,850
-all the scopes,
-
-17
-00:00:27,660 --> 00:00:28,400
-basically everything that
-
-18
-00:00:28,720 --> 00:00:30,420
-was given to me by far away just to
-
-19
-00:00:30,420 --> 00:00:31,440
-make sure that everything's covered.
-
-20
-00:00:31,760 --> 00:00:32,580
-Complete breakdown of
-
-21
-00:00:32,580 --> 00:00:34,360
-your application stack and how that's going to be
-
-22
-00:00:34,360 --> 00:00:39,760
-migrated into AWS. We've also got this GitHub repo.
-
-23
-00:00:40,060 --> 00:00:42,260
-This is just a shallow clone in here is this
-
-24
-00:00:42,520 --> 00:00:44,640
-infrastructure analysis from GitHub where I just
-
-25
-00:00:44,680 --> 00:00:47,660
-kind of go over all the bits and bobs from heavy metal.
-
-26
-00:00:48,280 --> 00:00:50,420
-And then in here is a shallow clone of all
-
-27
-00:00:50,420 --> 00:00:50,830
-of your repos.
-
-28
-00:00:51,420 --> 00:00:51,760
-If you'd like,
-
-29
-00:00:51,840 --> 00:00:53,580
-we can get these transferred over to your GitHub.
-
-30
-00:00:53,900 --> 00:00:54,180
-Some of these
-
-31
-00:00:54,260 --> 00:00:55,920
-repos have a lot of your game assets and stuff.
-
-32
-00:00:56,020 --> 00:00:56,600
+00:00:56,100 --> 00:00:56,799
 So they're super big.
 
-33
-00:00:56,880 --> 00:00:57,620
-So I don't have all of them
+11
+00:00:56,880 --> 00:00:59,880
+So I don't have all of them in here, especially the other side mono repo.
 
-34
-00:00:57,720 --> 00:00:59,880
-in here, especially the other side mono repo.
+12
+00:01:00,000 --> 00:01:03,259
+But once we get started, I can go ahead and get those migrated all the way into your GitHub.
 
-35
-00:01:00,180 --> 00:01:00,740
-But once we get started,
+13
+00:01:03,960 --> 00:01:07,379
+Other things you'll see in here is the Cloudflare migration intake.
 
-36
-00:01:00,860 --> 00:01:01,580
-I can go ahead and get those
+14
+00:01:07,519 --> 00:01:24,519
+This is a complete and extensive migration workflow that I set up for you that just kind of goes over literally every single heavy metal.com or heavy metal domain that we have, all of the objects that kind of go into this and like what it's going to take to get that taken care of for you.
 
-37
-00:01:01,760 --> 00:01:03,100
-migrated all the way into your GitHub.
+15
+00:01:24,640 --> 00:01:29,540
+There's also like code snippets that I turned into actual code that was just provided for me.
 
-38
-00:01:04,260 --> 00:01:06,320
-Other things you'll see in here is the Cloudflare
+16
+00:01:29,540 --> 00:01:37,920
+They came from far away. There's also resources here. This is just like another CSV of everything that's inside of your current product.
 
-39
-00:01:06,460 --> 00:01:07,240
-migration intake.
+17
+00:01:38,579 --> 00:01:45,060
+And so with that, that will conclude the Cloudflare. And then we also have AWS. So AWS has just a few things in here.
 
-40
-00:01:07,580 --> 00:01:09,600
-This is a complete and extensive like
+18
+00:01:45,400 --> 00:01:50,719
+There's a pre-transfer checklist. We're just going to go through to make sure that you have everything that you need before we take that AWS account.
 
-41
-00:01:09,640 --> 00:01:12,460
-migration workflow that I set up for you that
+19
+00:01:51,180 --> 00:01:59,099
+There's an inventory checklist script that we use to kind of intake all of the objects inside of AWS so that when we transfer it, we can confirm that everything made it over.
 
-42
-00:01:12,560 --> 00:01:14,960
-just kind of goes over literally every single
+20
+00:01:59,540 --> 00:02:01,859
+That way, if anything gets missed, we can take care of that for you.
 
-43
-00:01:14,960 --> 00:01:18,620
-heavy metal.com or heavy metal domain that we have,
+21
+00:02:02,360 --> 00:02:10,360
+And then there's a cutover plan from the moment that it gets cut over from Faraway to it being in your hands and everything that we'll do to kind of make sure that everything's sorted for you.
 
-44
-00:01:18,960 --> 00:01:20,920
-all of the objects that kind of go into this
+22
+00:02:11,340 --> 00:02:14,900
+Awesome. Well, I hope you're having a great day. And then the last one is just the big migration document.
 
-45
-00:01:21,040 --> 00:01:22,980
-and like what it's going to take to get that
+23
+00:02:15,340 --> 00:02:19,620
+Hope you're having a great day. Hope you're ready for the holidays. And we'll talk soon. Bye.
 
-46
-00:01:23,540 --> 00:01:24,440
-taken care of for you.
-
-47
-00:01:24,920 --> 00:01:26,920
-There's also like code snippets that
-
-48
-00:01:26,920 --> 00:01:28,680
-I turned into actual code that was
-
-49
-00:01:28,740 --> 00:01:29,540
-just provided for me.
-
-50
-00:01:29,740 --> 00:01:31,000
-They came from far away.
-
-51
-00:01:31,140 --> 00:01:32,200
-There's also resources here.
-
-52
-00:01:32,320 --> 00:01:32,900
-This is just like
-
-53
-00:01:33,080 --> 00:01:37,760
-another CSV of everything that's inside of your current product.
-
-54
-00:01:38,600 --> 00:01:40,020
-And so with that, that'll conclude
-
-55
-00:01:40,040 --> 00:01:41,780
-the Cloudflare.
-
-56
-00:01:42,080 --> 00:01:45,020
-And then we also have AWS. So AWS has just a few things in here.
-
-57
-00:01:45,420 --> 00:01:46,040
-There's a pre-transfer
-
-58
-00:01:46,200 --> 00:01:46,440
-checklist.
-
-59
-00:01:46,800 --> 00:01:47,960
-We're just going to go through to make sure
-
-60
-00:01:47,960 --> 00:01:49,160
-that you have everything that you need before
-
-61
-00:01:49,280 --> 00:01:50,640
-we take that AWS account.
-
-62
-00:01:51,320 --> 00:01:54,540
-There's an inventory checklist script that we use to kind of intake
-
-63
-00:01:54,540 --> 00:01:57,500
-all of the objects inside of AWS so that when we transfer it,
-
-64
-00:01:57,520 --> 00:01:58,800
-we can confirm that everything made
-
-65
-00:01:58,800 --> 00:01:59,040
-it over.
-
-66
-00:01:59,700 --> 00:01:59,900
-That way,
-
-67
-00:01:59,900 --> 00:02:00,660
-if anything gets missed,
-
-68
-00:02:00,680 --> 00:02:01,840
-we can take care of that for you.
-
-69
-00:02:02,420 --> 00:02:03,240
-And then there's a cut
-
-70
-00:02:03,380 --> 00:02:05,820
-over plan from the moment that it gets cut over from
-
-71
-00:02:05,920 --> 00:02:07,900
-far away to it being in your hands and everything
-
-72
-00:02:07,900 --> 00:02:10,340
-that we'll do to kind of make sure that everything's sorted for you.
-
-73
-00:02:11,100 --> 00:02:11,660
-Awesome.
-
-74
-00:02:11,940 --> 00:02:12,300
-Well, I hope you're
-
-75
-00:02:12,300 --> 00:02:12,840
-having a great day.
-
-76
-00:02:13,080 --> 00:02:14,830
-And then the last one's just the big migration document.
-
-77
-00:02:15,360 --> 00:02:15,780
-Hope you're having a
-
-78
-00:02:15,900 --> 00:02:16,360
-great day.
-
-79
-00:02:16,720 --> 00:02:19,060
-Hope you're ready for the holidays and we'll talk soon.

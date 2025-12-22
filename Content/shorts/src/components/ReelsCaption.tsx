@@ -210,7 +210,7 @@ export const ReelsCaptionPill: React.FC<ReelsCaptionProps> = ({
 
 	const positionStyles = position === "center"
 		? "top-1/2 -translate-y-1/2"
-		: "bottom-[12%]";
+		: "bottom-[14%]"; // ~10px higher than before
 
 	// Container pop-in animation
 	const containerPop = spring({
@@ -225,27 +225,18 @@ export const ReelsCaptionPill: React.FC<ReelsCaptionProps> = ({
 			className={`absolute left-0 right-0 flex justify-center items-center px-4 ${positionStyles} ${className ?? ""}`}
 		>
 			<div
-				className="backdrop-blur-sm rounded-2xl px-10 py-5 grid grid-cols-3 items-center"
+				className="backdrop-blur-sm rounded-2xl px-10 py-5 flex items-center justify-center"
 				style={{
 					backgroundColor: "rgba(42, 37, 32, 0.9)", // Deep Ink (brand primary text)
 					transform: `scale(${interpolate(containerPop, [0, 1], [0.8, 1])})`,
 					opacity: interpolate(containerPop, [0, 1], [0, 1]),
-					minWidth: "500px",
-					gap: "0.75rem",
+					gap: "1.5rem",
 				}}
 			>
-				{triplet.map((item, slotIndex) => {
-					// Alignment: left for prev, center for current, right for next
-					const alignment = slotIndex === 0 ? "text-right" : slotIndex === 1 ? "text-center" : "text-left";
-
+				{triplet.map((item) => {
 					if (!item) {
-						// Empty slot
-						return (
-							<span
-								key={`empty-${slotIndex}`}
-								className={`inline-block ${alignment}`}
-							/>
-						);
+						// No render needed with flex layout
+						return null;
 					}
 
 					const { word, index: globalWordIndex } = item;
@@ -272,7 +263,7 @@ export const ReelsCaptionPill: React.FC<ReelsCaptionProps> = ({
 					return (
 						<span
 							key={`${activeCue.id}-${globalWordIndex}`}
-							className={`inline-block font-bold ${alignment}`}
+							className="inline-block font-bold"
 							style={{
 								fontSize: `${fontSize}px`,
 								lineHeight: 1,

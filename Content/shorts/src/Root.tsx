@@ -20,7 +20,8 @@ import { Example2Square } from "./compositions/example2/Composition";
 import { MyVideo } from "./compositions/my-video/Composition";
 import { Week1220 } from "./compositions/week-12-20/Composition";
 import { Diablo1Study } from "./compositions/diablo-1-study/Composition";
-import { TranscriptScrollExample, TranscriptPillExample, TranscriptSentenceExample } from "./compositions/transcript-scroll-example/Composition";
+import { TranscriptScrollExample, TranscriptPillExample, TranscriptSentenceExample, TranscriptPillOverlay } from "./compositions/transcript-scroll-example/Composition";
+import { WaltmakesIntro } from "./compositions/waltmakes-intro/Composition";
 import { VIDEO_CONFIG, getDurationInFrames } from "./config";
 import {
   sampleTypeScript,
@@ -33,10 +34,15 @@ export const RemotionRoot: React.FC = () => {
     <>
       {/* Compositions - use /new-composition to create your own */}
       <Folder name="Compositions">
+        <Folder name="WaltmakesIntro">
+          <WaltmakesIntro />
+        </Folder>
+
         <Folder name="TranscriptScrollExample">
           <TranscriptScrollExample />
           <TranscriptPillExample />
           <TranscriptSentenceExample />
+          <TranscriptPillOverlay />
         </Folder>
 
         <Folder name="Diablo1Study">

@@ -105,3 +105,28 @@ export const TranscriptSentenceExample = createComposition({
 	durationInSeconds: VIDEO_DURATION_SECONDS,
 	preset: "Landscape-1080p",
 });
+
+/**
+ * Overlay-only export - transparent background for compositing
+ * Render with: pnpm exec remotion render TranscriptPillOverlay --codec prores --prores-profile 4444
+ * Or for WebM: pnpm exec remotion render TranscriptPillOverlay --codec vp8 --pixel-format yuva420p
+ */
+const TranscriptPillOverlayComposition: React.FC = () => {
+	return (
+		<AbsoluteFill>
+			{/* Transparent background - just the caption pill */}
+			<ReelsCaptionPill
+				cues={TRANSCRIPT_CUES}
+				fontSize={48}
+				position="bottom"
+			/>
+		</AbsoluteFill>
+	);
+};
+
+export const TranscriptPillOverlay = createComposition({
+	name: "TranscriptPillOverlay",
+	component: TranscriptPillOverlayComposition,
+	durationInSeconds: VIDEO_DURATION_SECONDS,
+	preset: "Landscape-1080p",
+});

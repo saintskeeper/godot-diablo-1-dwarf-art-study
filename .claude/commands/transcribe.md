@@ -15,9 +15,9 @@ Generate high-accuracy SRT subtitle files from video or audio using Whisper.
 2. **Run transcription:**
    - Use the transcribe tool at `Content/src-generator/transcribe.py`
    - Activate venv: `source Content/src-generator/venv/bin/activate`
-   - Run: `python Content/src-generator/transcribe.py "<file_path>"`
+   - Run: `python Content/src-generator/transcribe.py "<file_path>" -m "Content/src-generator/mlx_models/distil-large-v3" -l en`
    - On Apple Silicon, this uses mlx-whisper with GPU acceleration
-   - Default model: `large-v3-turbo` (fast + accurate)
+   - Default model: `distil-large-v3` (local, best accuracy)
 
 3. **Optional flags:**
    - `-l en` - Force English (faster)
@@ -47,7 +47,8 @@ Force English:
 
 | Model | Speed | Accuracy |
 |-------|-------|----------|
-| large-v3-turbo | Fast | Best (default) |
+| distil-large-v3 (local) | Fast | Best (default) |
+| large-v3-turbo | Fast | Great |
 | large-v3 | Slow | Best |
 | medium | Fast | Good |
 | small | Fastest | OK |

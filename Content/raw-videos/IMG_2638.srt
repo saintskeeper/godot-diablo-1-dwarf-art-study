@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:29,980
+Hey, how's it going? Just wanted to introduce you to Walt Makes. This is going to be a channel throughout 2026 where we take the time to go through game development using Godot, Blender to make cool things. I'll be making a lot of the audio here on my OPC. Primary use case for this is I've just been a developer for the past 10 years or so, and I haven't got to do a lot of creative. So Walt Mix is just going to be the opportunity for me to do creative studies on things that I think are interesting and kind of share that with the community. So the next few weeks, I'll be going over that and starting to drop some cool stuff.
+
+2
+00:00:30,000 --> 00:00:34,880
+stuff. So if you're interested in game development or cool art techniques and things like that,
+
+3
+00:00:35,219 --> 00:00:38,719
+give me a like, give me a follow and show us with somebody you know. Thanks so much. Talk soon.
+
