@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dcdb7q50ihb77"]
+[gd_scene load_steps=14 format=4 uid="uid://dcdb7q50ihb77"]
 
 [ext_resource type="PackedScene" uid="uid://c2t7kgyx8gp28" path="res://pre-fabs/Base-Scene.tscn" id="1_70dmo"]
 [ext_resource type="PackedScene" uid="uid://b3cn13x7i8qxr" path="res://pre-fabs/test-brick_export_Door.tscn" id="2_0otur"]
@@ -12,9 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://beo10dt1cloi7" path="res://pre-fabs/test-brick_export_Walls.tscn" id="10_ay4yf"]
 [ext_resource type="PackedScene" uid="uid://dq5m0bhwb664n" path="res://pre-fabs/shaders/ambient-gameboy-skybox-shader.tscn" id="11_0otur"]
 [ext_resource type="PackedScene" uid="uid://dx41078hn472p" path="res://pre-fabs/Player-Character/player-character.tscn" id="12_x6vtj"]
+[ext_resource type="PackedScene" uid="uid://b8qj5kxpwn2m4" path="res://pre-fabs/player-bounderies/player_boundaries.tscn" id="13_bounds"]
 
-[node name="RootScene2" type="Node2D" unique_id=97318985]
-position = Vector2(-6, -40)
+[node name="RootScene3" type="Node2D" unique_id=97318985]
 
 [node name="BaseScene" parent="." unique_id=776603377 instance=ExtResource("1_70dmo")]
 auto_translate_mode = 2
@@ -58,6 +58,9 @@ position = Vector2(698, 487)
 
 [node name="AmbientGameboySkyboxShader" parent="." unique_id=391354844 instance=ExtResource("11_0otur")]
 
+[node name="PlayerBoundaries" parent="." unique_id=704050478 instance=ExtResource("13_bounds")]
+position = Vector2(698, 487)
+tile_map_data = PackedByteArray("AAD3/wMAAAAAAAAAAAD4/wMAAAAAAAAAAAD5/wMAAAAAAAAAAAD3/wIAAAAAAAAAAAD4/wEAAAAAAAAAAAD5/wAAAAAAAAAAAAD6/wAAAAAAAAAAAAD7////AAAAAAAAAAD8//7/AAAAAAAAAAD9//3/AAAAAAAAAAD+//3/AAAAAAAAAAD///3/AAAAAAAAAAAAAP7/AAAAAAAAAAABAP7/AAAAAAAAAAACAP7/AAAAAAAAAAADAP7/AAAAAAAAAAAEAP//AAAAAAAAAAAFAP//AAAAAAAAAAAGAP//AAAAAAAAAAAFAAAAAAAAAAAAAAD6/wQAAAAAAAAAAAD7/wQAAAAAAAAAAAD8/wQAAAAAAAAAAAD9/wQAAAAAAAAAAAD+/wQAAAAAAAAAAAD//wUAAAAAAAAAAAAAAAUAAAAAAAAAAAABAAUAAAAAAAAAAAD+/wUAAAABAAEAAAD9/wUAAAABAAEAAAD8/wUAAAABAAEAAAD7/wUAAAABAAEAAAD6/wUAAAABAAEAAAD5/wUAAAABAAEAAAD5/wQAAAABAAEAAAACAAcAAAABAAEAAAADAAcAAAABAAEAAAACAAYAAAABAAEAAAADAAYAAAABAAEAAAAEAAYAAAABAAEAAAAEAAcAAAABAAEAAAAHAAgAAAABAAEAAAAGAAgAAAABAAEAAAAFAAcAAAABAAEAAAAIAAgAAAABAAEAAAAJAAkAAAABAAEAAAAKAAkAAAABAAEAAAALAAkAAAABAAEAAAAMAAkAAAABAAEAAAANAAkAAAABAAEAAAAOAAkAAAABAAEAAAAPAAgAAAABAAEAAAAQAAcAAAABAAEAAAARAAYAAAABAAEAAAASAAUAAAABAAEAAAATAAQAAAABAAEAAAAUAAMAAAABAAEAAAATAAMAAAABAAEAAAASAAMAAAABAAEAAAARAAIAAAABAAEAAAAQAAIAAAABAAEAAAAPAAIAAAABAAEAAAAOAAIAAAABAAEAAAANAAEAAAABAAEAAAAMAAEAAAABAAEAAAALAAEAAAABAAEAAAAKAAEAAAABAAEAAAAJAAAAAAABAAEAAAAIAAAAAAABAAEAAAAHAAAAAAABAAEAAAAGAAEAAAABAAEAAAAGAA0AAAABAAEAAAAFAAEAAAABAAEAAAD9//7/AAABAAEAAAD///7/AAABAAEAAAD+//7/AAABAAEAAAACAP//AAABAAEAAAABAP//AAABAAEAAAAAAP//AAABAAEAAAD/////AAABAAEAAAD+////AAABAAEAAAD//wAAAAABAAEAAAAAAAAAAAABAAEAAAABAAAAAAABAAEAAAD9////AAABAAEAAAD+/wAAAAABAAEAAAD9/wAAAAABAAEAAAD8////AAABAAEAAAA=")
+
 [node name="PlayerCharacter2" parent="." unique_id=856080966 instance=ExtResource("12_x6vtj")]
-visibility_layer = 1
-position = Vector2(598, 677)
+position = Vector2(398, 574)

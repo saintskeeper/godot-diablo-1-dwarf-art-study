@@ -46,13 +46,11 @@ const TranscriptPillComposition: React.FC = () => {
 			/>
 			<Audio src={staticFile(VIDEO_SRC)} />
 
-			{/* Pill-style captions with yellow highlight */}
+			{/* Pill-style captions: shows previous, current (highlighted), next */}
+			{/* Uses WaltMakes Cozy Forge brand colors by default */}
 			<ReelsCaptionPill
 				cues={TRANSCRIPT_CUES}
-				wordsPerGroup={3}
 				fontSize={48}
-				highlightColor="#FFE135"
-				textColor="#FFFFFF"
 				position="bottom"
 			/>
 		</AbsoluteFill>

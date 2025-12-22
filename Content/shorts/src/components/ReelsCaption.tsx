@@ -157,15 +157,16 @@ export const ReelsCaption: React.FC<ReelsCaptionProps> = ({
 };
 
 /**
- * ReelsCaptionAlt - Alternative style with background pill
+ * ReelsCaptionPill - Shows 3 words: previous, current (highlighted), next
+ * Always displays a triplet centered on the current word
+ * Uses WaltMakes Cozy Forge brand colors by default
  */
 export const ReelsCaptionPill: React.FC<ReelsCaptionProps> = ({
 	cues,
 	className,
-	wordsPerGroup = 3,
 	fontSize = 56,
-	highlightColor = "#FFE135", // Yellow highlight
-	textColor = "#FFFFFF",
+	highlightColor = "#E07040", // Hearth Orange (brand CTA)
+	textColor = "#F5EDE0", // Parchment (brand background)
 	position = "bottom",
 }) => {
 	const frame = useCurrentFrame();
@@ -195,12 +196,17 @@ export const ReelsCaptionPill: React.FC<ReelsCaptionProps> = ({
 		words.length - 1
 	);
 
-	// Sliding window for visible words
-	const groupStart = Math.max(0, currentWordIndex - 1);
-	const groupEnd = Math.min(words.length, groupStart + wordsPerGroup);
-	const adjustedStart = Math.max(0, groupEnd - wordsPerGroup);
-	const visibleWords = words.slice(adjustedStart, groupEnd);
-	const visibleStartIndex = adjustedStart;
+	// Build triplet: [previous, current, next]
+	// Use null for positions that don't exist
+	const triplet: Array<{ word: string; index: number } | null> = [
+		currentWordIndex > 0
+			? { word: words[currentWordIndex - 1], index: currentWordIndex - 1 }
+			: null,
+		{ word: words[currentWordIndex], index: currentWordIndex },
+		currentWordIndex < words.length - 1
+			? { word: words[currentWordIndex + 1], index: currentWordIndex + 1 }
+			: null,
+	];
 
 	const positionStyles = position === "center"
 		? "top-1/2 -translate-y-1/2"
@@ -219,14 +225,30 @@ export const ReelsCaptionPill: React.FC<ReelsCaptionProps> = ({
 			className={`absolute left-0 right-0 flex justify-center items-center px-4 ${positionStyles} ${className ?? ""}`}
 		>
 			<div
-				className="bg-black/80 backdrop-blur-sm rounded-2xl px-8 py-5 flex items-center gap-3"
+				className="backdrop-blur-sm rounded-2xl px-10 py-5 grid grid-cols-3 items-center"
 				style={{
+					backgroundColor: "rgba(42, 37, 32, 0.9)", // Deep Ink (brand primary text)
 					transform: `scale(${interpolate(containerPop, [0, 1], [0.8, 1])})`,
 					opacity: interpolate(containerPop, [0, 1], [0, 1]),
+					minWidth: "500px",
+					gap: "0.75rem",
 				}}
 			>
-				{visibleWords.map((word, idx) => {
-					const globalWordIndex = visibleStartIndex + idx;
+				{triplet.map((item, slotIndex) => {
+					// Alignment: left for prev, center for current, right for next
+					const alignment = slotIndex === 0 ? "text-right" : slotIndex === 1 ? "text-center" : "text-left";
+
+					if (!item) {
+						// Empty slot
+						return (
+							<span
+								key={`empty-${slotIndex}`}
+								className={`inline-block ${alignment}`}
+							/>
+						);
+					}
+
+					const { word, index: globalWordIndex } = item;
 					const wordStartTime = activeCue.startTime + globalWordIndex * timePerWord;
 					const wordEndTime = wordStartTime + timePerWord;
 					const wordStartFrame = wordStartTime * fps;
@@ -241,14 +263,16 @@ export const ReelsCaptionPill: React.FC<ReelsCaptionProps> = ({
 
 					const isActive = currentTime >= wordStartTime && currentTime < wordEndTime;
 					const isFuture = currentTime < wordStartTime;
+					const isPast = currentTime >= wordEndTime;
 
 					const scale = interpolate(popIn, [0, 1], [0.5, 1]);
-					const opacity = isFuture ? 0.3 : interpolate(popIn, [0, 1], [0.3, 1]);
+					// Past words: dimmed, future words: more dimmed
+					const opacity = isFuture ? 0.4 : isPast ? 0.6 : interpolate(popIn, [0, 1], [0.3, 1]);
 
 					return (
 						<span
 							key={`${activeCue.id}-${globalWordIndex}`}
-							className="inline-block font-bold"
+							className={`inline-block font-bold ${alignment}`}
 							style={{
 								fontSize: `${fontSize}px`,
 								lineHeight: 1,
