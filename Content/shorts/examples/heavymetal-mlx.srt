@@ -1,0 +1,20 @@
+1
+00:00:00,000 --> 00:00:03,000
+Hey, Gabe. Hope you're having a great Monday and you had a good weekend. We're just about done with the discovery. And so I just wanted to take a minute to kind of go through all of the items and documents that we have here for you. Came and I'll be getting with you later to schedule some time. Awesome. So at the root of the repo, you're going to find just like a master migration document. That way you've kind of got all of the data that you'll need or will need as we go through. This is very extensive. It goes over every repository that you have, all the scopes, basically everything that was given to me by far.
+
+2
+00:00:03,000 --> 00:00:06,000
+just to make sure that everything's covered. Complete breakdown of your application stack and how that's going to be migrated into AWS. We've also got this GitHub repo. This is just a shallow clone. In here is this infrastructure analysis from GitHub where I just kind of go over all the bits and bobs from heavy metal, and then in here is a shallow clone of all of your repos. If you like, we can get these transferred over to your GitHub. Some of these repos have a lot of your game assets and stuff, so they're super big, so I don't have all of them in here, especially the other side mono repo.
+
+3
+00:00:06,000 --> 00:00:09,000
+But once we get started, I can go ahead and get those migrated all the way into your GitHub. Other things you'll see in here is the Cloudflare migration intake. This is a complete and extensive migration workflow that I set up for you that just kind of goes over literally every single heavy metal.com or heavy metal domain that we have, all of the objects that kind of go into this and like what it's going to take to get that taken care of for you. There's also like code snippets that I turned into actual code that was just provided for me.
+
+4
+00:00:09,000 --> 00:00:12,000
+game from far away. There's also resources here. This is just like another CSV of everything that's inside of your current product. And so with that, that'll conclude the Cloudflare. And then we also have AWS. So AWS has just a few things in here. There's a pre-transfer checklist. We're just going to go through to make sure that you have everything that you need before we take that AWS account. There's an inventory checklist script that we use to kind of intake all of the objects inside of AWS so that when we transfer it, we can confirm that everything made it over. That way,
+
+5
+00:00:12,000 --> 00:00:14,024
+anything gets missed, we can take care of that for you. And then there's a cut over plan from the moment that it gets cut over from Faraway to it being in your hands and everything that will do to kind of make sure that everything's sorted for you. Awesome. Well, I hope you're having a great day. And then the last one is just the big migration document. Hope you're having a great day. Hope you're ready for the holidays. And we'll talk soon. Bye.
+

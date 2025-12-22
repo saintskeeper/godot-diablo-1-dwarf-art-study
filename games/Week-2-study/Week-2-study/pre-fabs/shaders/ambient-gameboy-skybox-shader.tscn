@@ -1,0 +1,175 @@
+[gd_scene load_steps=3 format=3 uid="uid://dq5m0bhwb664n"]
+
+[sub_resource type="Shader" id="Shader_gba_gradient"]
+code = "shader_type canvas_item;
+
+// GBA/GBA SP style gradient skybox shader with gentle CRT effect
+// Creates that classic Final Fantasy Tactics Advance ambient atmosphere
+
+// Gradient colors
+uniform vec4 top_color : source_color = vec4(0.12, 0.18, 0.28, 1.0);
+uniform vec4 bottom_color : source_color = vec4(0.15, 0.25, 0.35, 1.0);
+uniform vec4 horizon_color : source_color = vec4(0.18, 0.30, 0.42, 1.0);
+uniform float horizon_position : hint_range(0.0, 1.0) = 0.3;
+
+// GBA color settings
+uniform int color_bands : hint_range(4, 32) = 16;
+uniform bool enable_banding = true;
+uniform float dither_strength : hint_range(0.0, 1.0) = 0.02;
+
+// CRT effect settings
+uniform bool enable_crt = true;
+uniform float scanline_strength : hint_range(0.0, 1.0) = 0.08;
+uniform float scanline_count : hint_range(100.0, 800.0) = 240.0;
+uniform float curvature : hint_range(0.0, 0.1) = 0.02;
+uniform float vignette_strength : hint_range(0.0, 1.0) = 0.15;
+uniform float chromatic_aberration : hint_range(0.0, 0.01) = 0.001;
+uniform float brightness_boost : hint_range(1.0, 1.3) = 1.05;
+
+// Animation settings
+uniform bool enable_scroll = true;
+uniform float scroll_speed : hint_range(0.0, 0.2) = 0.03;
+uniform float color_wave_amount : hint_range(0.0, 0.3) = 0.05;
+uniform float wave_frequency : hint_range(0.5, 5.0) = 1.5;
+
+// Simple hash for dithering
+float hash(vec2 p) {
+    return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+// Posterize to limited color palette (GBA had 15-bit color)
+vec3 posterize(vec3 color, float bands) {
+    return floor(color * bands) / bands;
+}
+
+// Barrel distortion for CRT curvature
+vec2 curve_uv(vec2 uv, float amount) {
+    uv = uv * 2.0 - 1.0;
+    vec2 offset = abs(uv.yx) / vec2(6.0, 4.0);
+    uv = uv + uv * offset * offset * amount;
+    uv = uv * 0.5 + 0.5;
+    return uv;
+}
+
+// Calculate gradient color at a UV position with optional animation
+vec3 get_gradient(vec2 uv, float time) {
+    float gradient = uv.y;
+
+    // Apply scrolling animation
+    if (enable_scroll) {
+        // Slow downward scroll of the gradient
+        float scroll_offset = time * scroll_speed;
+        gradient = fract(gradient - scroll_offset);
+
+        // Add gentle wave motion for organic feel
+        float wave = sin(uv.y * wave_frequency * 6.28318 + time) * color_wave_amount;
+        gradient = clamp(gradient + wave * 0.1, 0.0, 1.0);
+    }
+
+    vec3 sky_color;
+
+    if (gradient < horizon_position) {
+        float t = gradient / horizon_position;
+        t = smoothstep(0.0, 1.0, t);
+        sky_color = mix(bottom_color.rgb, horizon_color.rgb, t);
+    } else {
+        float t = (gradient - horizon_position) / (1.0 - horizon_position);
+        t = smoothstep(0.0, 1.0, t);
+        sky_color = mix(horizon_color.rgb, top_color.rgb, t);
+    }
+
+    // Add subtle color shifting over time for alive feel
+    if (enable_scroll) {
+        float color_shift = sin(time * 0.5) * 0.02;
+        sky_color.r += color_shift;
+        sky_color.b -= color_shift;
+    }
+
+    return sky_color;
+}
+
+void fragment() {
+    vec2 uv = UV;
+
+    // Apply CRT curvature
+    if (enable_crt && curvature > 0.0) {
+        uv = curve_uv(uv, curvature);
+    }
+
+    vec3 sky_color;
+
+    // Apply chromatic aberration
+    if (enable_crt && chromatic_aberration > 0.0) {
+        vec2 ca_offset = (uv - 0.5) * chromatic_aberration;
+        sky_color.r = get_gradient(uv + ca_offset, TIME).r;
+        sky_color.g = get_gradient(uv, TIME).g;
+        sky_color.b = get_gradient(uv - ca_offset, TIME).b;
+    } else {
+        sky_color = get_gradient(uv, TIME);
+    }
+
+    // Apply GBA-style color banding
+    if (enable_banding) {
+        sky_color = posterize(sky_color, float(color_bands));
+    }
+
+    // Add subtle dithering
+    float dither = (hash(FRAGCOORD.xy) - 0.5) * dither_strength;
+    sky_color += vec3(dither);
+
+    if (enable_crt) {
+        // Scanlines
+        float scanline = sin(uv.y * scanline_count * 3.14159) * 0.5 + 0.5;
+        scanline = pow(scanline, 1.5);
+        sky_color *= 1.0 - (scanline * scanline_strength);
+
+        // Vignette - darken edges
+        vec2 vig_uv = uv * (1.0 - uv.xy);
+        float vignette = vig_uv.x * vig_uv.y * 15.0;
+        vignette = pow(vignette, vignette_strength);
+        sky_color *= vignette;
+
+        // Slight brightness boost to compensate for darkening effects
+        sky_color *= brightness_boost;
+
+        // Black out pixels outside curved screen area
+        if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) {
+            sky_color = vec3(0.0);
+        }
+    }
+
+    COLOR = vec4(sky_color, 1.0);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gba"]
+shader = SubResource("Shader_gba_gradient")
+shader_parameter/top_color = Color(0.12, 0.18, 0.28, 1)
+shader_parameter/bottom_color = Color(0.15, 0.25, 0.35, 1)
+shader_parameter/horizon_color = Color(0.18, 0.3, 0.42, 1)
+shader_parameter/horizon_position = 0.3
+shader_parameter/color_bands = 16
+shader_parameter/enable_banding = true
+shader_parameter/dither_strength = 0.02
+shader_parameter/enable_crt = true
+shader_parameter/scanline_strength = 0.08
+shader_parameter/scanline_count = 240.0
+shader_parameter/curvature = 0.02
+shader_parameter/vignette_strength = 0.15
+shader_parameter/chromatic_aberration = 0.001
+shader_parameter/brightness_boost = 1.05
+shader_parameter/enable_scroll = true
+shader_parameter/scroll_speed = 0.03
+shader_parameter/color_wave_amount = 0.05
+shader_parameter/wave_frequency = 1.5
+
+[node name="AmbientGameboySkyboxShader" type="CanvasLayer"]
+layer = -100
+
+[node name="SkyGradient" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+material = SubResource("ShaderMaterial_gba")

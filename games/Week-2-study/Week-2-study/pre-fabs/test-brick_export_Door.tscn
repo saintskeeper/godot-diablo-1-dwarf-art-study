@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3cn13x7i8qxr"]
+
+[ext_resource type="Texture2D" uid="uid://d360tw2wk0mip" path="res://Assets/Sprites/test-brick_export_Door.png" id="1_cy1cv"]
+
+[node name="BaseScene" type="Node2D" unique_id=776603377]
+
+[node name="TestBrickExportDoor" type="Sprite2D" parent="." unique_id=811478773]
+position = Vector2(0, 0)
+scale = Vector2(1.6265433, 1.376415)
+texture = ExtResource("1_cy1cv")

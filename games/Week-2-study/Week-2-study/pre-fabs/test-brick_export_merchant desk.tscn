@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxatbgemt2s3q"]
+
+[ext_resource type="Texture2D" uid="uid://bp88dloknmbaf" path="res://Assets/Sprites/test-brick_export_merchant desk.png" id="1_cy1cv"]
+
+[node name="BaseScene" type="Node2D" unique_id=776603377]
+
+[node name="TestBrickExportMerchantDesk" type="Sprite2D" parent="." unique_id=811478773]
+position = Vector2(0, 0)
+scale = Vector2(1.6265433, 1.376415)
+texture = ExtResource("1_cy1cv")

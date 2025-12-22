@@ -1,0 +1,187 @@
+1
+00:00:00,011 --> 00:00:03,393
+Hey Gabe, hope you're having a great Monday and you had a good weekend.
+
+2
+00:00:03,708 --> 00:00:06,056
+We're just about done with the discovery, and so I just wanted to take
+
+3
+00:00:06,057 --> 00:00:09,548
+a minute to kind of go through all of the items and documents that
+
+4
+00:00:09,549 --> 00:00:12,144
+we have here for you. Came and I'll be getting with you later to
+
+5
+00:00:12,145 --> 00:00:15,156
+schedule some time. Awesome, so at the root of the repo you're going to
+
+6
+00:00:15,157 --> 00:00:17,549
+find, just like a master migration document.
+
+7
+00:00:17,550 --> 00:00:20,492
+That way you've kind of got all of the data that you'll need,
+
+8
+00:00:20,503 --> 00:00:22,982
+or will need as we go through. This is very extensive,
+
+9
+00:00:22,983 --> 00:00:26,031
+it goes over every repository that you have,
+
+10
+00:00:26,032 --> 00:00:28,400
+all the scopes, basically everything that,
+
+11
+00:00:28,514 --> 00:00:31,463
+that was given to me by Faraway, just to make sure that everything's covered,
+
+12
+00:00:31,474 --> 00:00:36,058
+complete breakdown of your application stack and how that's going to be migrated into
+
+13
+00:00:36,059 --> 00:00:39,785
+AWS. We've also got this GitHub repo.
+
+14
+00:00:39,786 --> 00:00:44,055
+This is just a shallow clone. In here is this infrastructure analysis from GitHub,
+
+15
+00:00:44,056 --> 00:00:47,633
+where I just kind of go over, all the bits and bobs from HeavyMetal.
+
+16
+00:00:47,843 --> 00:00:50,853
+And then in here is a shallow clone of all of your repos.
+
+17
+00:00:51,095 --> 00:00:53,533
+If you'd like, we can get these transferred over to your GitHub.
+
+18
+00:00:53,544 --> 00:00:55,687
+some of these repos have a lot of your game assets and stuff.
+
+19
+00:00:55,688 --> 00:00:58,145
+So they're super big. So I don't have all of them in here, especially
+
+20
+00:00:58,146 --> 00:01:00,453
+the other side mono repo. but once we get started,
+
+21
+00:01:00,454 --> 00:01:02,987
+I can go ahead and get those migrated all the way into your GitHub.
+
+22
+00:01:03,816 --> 00:01:07,095
+Other things you'll see in here is the CloudFlare migration intake.
+
+23
+00:01:07,096 --> 00:01:11,606
+This is a complete and entire extensive, like migration workflow that I set up
+
+24
+00:01:11,607 --> 00:01:14,783
+for you. That just kind of goes over literally every single,
+
+25
+00:01:14,784 --> 00:01:16,686
+HeavyMetal.com or HeavyMetal, domain that we have, all of the objects that kind of
+
+26
+00:01:16,687 --> 00:01:21,964
+go into this and
+
+27
+00:01:21,965 --> 00:01:23,989
+like what it's going to take to get that taken care of for you.
+
+28
+00:01:23,990 --> 00:01:25,322
+There's also like, code snippets that I turned into actual code that was just
+
+29
+00:01:25,323 --> 00:01:28,213
+provided for me via the screenshots, which are also here,
+
+30
+00:01:28,214 --> 00:01:30,548
+that can be came from far away.
+
+31
+00:01:30,559 --> 00:01:34,685
+there's also resources here. This is just like another CSV of everything that's inside
+
+32
+00:01:34,686 --> 00:01:37,338
+of your current product.
+
+33
+00:01:37,832 --> 00:01:41,305
+And so with that, that'll conclude the CloudFlare.
+
+34
+00:01:41,350 --> 00:01:44,233
+And then we also have AWS. So AWS has just a few things in
+
+35
+00:01:44,234 --> 00:01:47,207
+here. There's a pre-transfer checklist. Just, we're just going to go through to make
+
+36
+00:01:47,208 --> 00:01:50,250
+sure that you have everything that you need before we take that AWS account.
+
+37
+00:01:50,530 --> 00:01:54,351
+There's an inventory checklist, scripting that we use to kind of intake all of
+
+38
+00:01:54,352 --> 00:01:56,830
+the objects inside of AWS, so that when we transfer it,
+
+39
+00:01:56,831 --> 00:01:59,181
+we can confirm that everything made it over. That way,
+
+40
+00:01:59,182 --> 00:02:01,330
+if anything gets missed, we can take care of that for you.
+
+41
+00:02:01,861 --> 00:02:04,986
+And then there's a cutover plan from the moment that it gets cut over
+
+42
+00:02:04,987 --> 00:02:07,753
+from fairway to it being in your hands and everything that we'll do to
+
+43
+00:02:07,754 --> 00:02:11,097
+kind of make sure that everything's sorted for you. Awesome.
+
+44
+00:02:11,105 --> 00:02:12,929
+Well, I hope you're having a great day. And then the last one is
+
+45
+00:02:12,930 --> 00:02:15,788
+just the big migration document. Hope you're having a great day.
+
+46
+00:02:15,950 --> 00:02:18,481
+Hope you're ready for the holidays. And we'll talk soon.
+
+47
+00:02:18,707 --> 00:02:18,962
+Bye.

@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dx41078hn472p"]
+
+[ext_resource type="Script" uid="uid://cfi21hy54sy07" path="res://pre-fabs/Player-Character/player_character.gd" id="1_player"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(48, 80)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0.8, 0.65, 0.5, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.4, 0.3, 0.25, 1)
+
+[node name="PlayerCharacter2" type="CharacterBody2D" unique_id=856080966]
+visibility_layer = 17
+script = ExtResource("1_player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1281951074]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="Sprite" type="Panel" parent="." unique_id=232767690]
+offset_left = -24.0
+offset_top = -40.0
+offset_right = 24.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")

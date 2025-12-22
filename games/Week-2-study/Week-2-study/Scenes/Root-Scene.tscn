@@ -1,0 +1,63 @@
+[gd_scene load_steps=13 format=3 uid="uid://dcdb7q50ihb77"]
+
+[ext_resource type="PackedScene" uid="uid://c2t7kgyx8gp28" path="res://pre-fabs/Base-Scene.tscn" id="1_70dmo"]
+[ext_resource type="PackedScene" uid="uid://b3cn13x7i8qxr" path="res://pre-fabs/test-brick_export_Door.tscn" id="2_0otur"]
+[ext_resource type="PackedScene" uid="uid://pogdwyogtbu8" path="res://pre-fabs/test-brick_export_Duck.tscn" id="3_x6vtj"]
+[ext_resource type="PackedScene" uid="uid://bhpio6mepifat" path="res://pre-fabs/test-brick_export_Keg.tscn" id="4_sq5cr"]
+[ext_resource type="PackedScene" uid="uid://cxatbgemt2s3q" path="res://pre-fabs/test-brick_export_merchant desk.tscn" id="5_reion"]
+[ext_resource type="PackedScene" uid="uid://251f77q6lhwj" path="res://pre-fabs/test-brick_export_Round Desk.tscn" id="6_s4wel"]
+[ext_resource type="PackedScene" uid="uid://cqdcidmjqextq" path="res://pre-fabs/test-brick_export_rug green.tscn" id="7_wktdf"]
+[ext_resource type="PackedScene" uid="uid://b7sj12qv2ii1" path="res://pre-fabs/test-brick_export_rug.tscn" id="8_a2w1o"]
+[ext_resource type="PackedScene" uid="uid://c61tdhjuqial5" path="res://pre-fabs/test-brick_export_stairs.tscn" id="9_aynfg"]
+[ext_resource type="PackedScene" uid="uid://beo10dt1cloi7" path="res://pre-fabs/test-brick_export_Walls.tscn" id="10_ay4yf"]
+[ext_resource type="PackedScene" uid="uid://dq5m0bhwb664n" path="res://pre-fabs/shaders/ambient-gameboy-skybox-shader.tscn" id="11_0otur"]
+[ext_resource type="PackedScene" uid="uid://dx41078hn472p" path="res://pre-fabs/Player-Character/player-character.tscn" id="12_x6vtj"]
+
+[node name="RootScene2" type="Node2D" unique_id=97318985]
+position = Vector2(-6, -40)
+
+[node name="BaseScene" parent="." unique_id=776603377 instance=ExtResource("1_70dmo")]
+auto_translate_mode = 2
+position = Vector2(698, 487)
+
+[node name="BaseScene2" parent="." unique_id=1860721456 instance=ExtResource("2_0otur")]
+auto_translate_mode = 2
+position = Vector2(698, 487)
+
+[node name="BaseScene3" parent="." unique_id=1389002546 instance=ExtResource("3_x6vtj")]
+auto_translate_mode = 2
+position = Vector2(698, 487)
+
+[node name="BaseScene4" parent="." unique_id=1883781986 instance=ExtResource("4_sq5cr")]
+auto_translate_mode = 2
+position = Vector2(698, 487)
+
+[node name="BaseScene5" parent="." unique_id=1838512803 instance=ExtResource("5_reion")]
+auto_translate_mode = 2
+position = Vector2(698, 487)
+
+[node name="BaseScene6" parent="." unique_id=1402558131 instance=ExtResource("6_s4wel")]
+auto_translate_mode = 2
+position = Vector2(698, 487)
+
+[node name="BaseScene7" parent="." unique_id=2074822088 instance=ExtResource("7_wktdf")]
+auto_translate_mode = 2
+position = Vector2(698, 487)
+
+[node name="BaseScene8" parent="." unique_id=1207362604 instance=ExtResource("8_a2w1o")]
+auto_translate_mode = 2
+position = Vector2(698, 487)
+
+[node name="BaseScene9" parent="." unique_id=818688122 instance=ExtResource("9_aynfg")]
+auto_translate_mode = 2
+position = Vector2(698, 487)
+
+[node name="BaseScene10" parent="." unique_id=1026309825 instance=ExtResource("10_ay4yf")]
+auto_translate_mode = 2
+position = Vector2(698, 487)
+
+[node name="AmbientGameboySkyboxShader" parent="." unique_id=391354844 instance=ExtResource("11_0otur")]
+
+[node name="PlayerCharacter2" parent="." unique_id=856080966 instance=ExtResource("12_x6vtj")]
+visibility_layer = 1
+position = Vector2(598, 677)

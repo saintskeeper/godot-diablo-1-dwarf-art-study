@@ -1,0 +1,200 @@
+1
+00:00:00,640 --> 00:00:03,220
+Hey Gabe, hope you're having a great Monday and you had a good weekend.
+
+2
+00:00:03,540 --> 00:00:10,759
+We're just about done with the discovery and so I just wanted to take a minute to kind of go through all of the items and documents that we have here for you.
+
+3
+00:00:11,099 --> 00:00:13,080
+Cam and I'll be getting with you later to schedule some time.
+
+4
+00:00:13,500 --> 00:00:17,500
+Awesome. So at the root of the repo, you're going to find just like a master migration document.
+
+5
+00:00:17,699 --> 00:00:21,800
+That way you've kind of got all of the data that you'll need or will need as we go through.
+
+6
+00:00:21,960 --> 00:00:26,960
+This is very extensive. It goes over every repository that you have, all the scopes.
+
+7
+00:00:26,960 --> 00:00:31,539
+It's basically everything that was given to me by faraway just to make sure that everything's covered.
+
+8
+00:00:31,660 --> 00:00:36,280
+Complete breakdown of your application stack and how that's going to be migrated into AWS.
+
+9
+00:00:37,859 --> 00:00:41,340
+We've also got this GitHub repo. This is just a shallow clone.
+
+10
+00:00:41,560 --> 00:00:47,679
+In here is this infrastructure analysis from GitHub where I just kind of go over all the bits and bobs from Heavy Metal.
+
+11
+00:00:48,120 --> 00:00:51,060
+And then in here is a shallow clone of all of your repos.
+
+12
+00:00:51,260 --> 00:00:53,620
+If you'd like, we can get these transferred over to your GitHub.
+
+13
+00:00:53,620 --> 00:00:56,820
+Some of these repos have a lot of your game assets and stuff, so they're super big.
+
+14
+00:00:56,820 --> 00:00:59,899
+So I don't have all of them in here, especially the other side, Mono repo.
+
+15
+00:01:00,100 --> 00:01:03,179
+But once we get started, I can go ahead and get those migrated all the way into your GitHub.
+
+16
+00:01:04,019 --> 00:01:07,280
+Other things you'll see in here is the Cloudflare migration intake.
+
+17
+00:01:07,280 --> 00:01:13,379
+This is a complete and extensive migration workflow that I set up for you that just kind of goes over
+
+18
+00:01:13,379 --> 00:01:18,760
+literally every single HeavyMetal.com or HeavyMetal domain that we have,
+
+19
+00:01:18,760 --> 00:01:24,539
+all of the objects that kind of go into this and what it's going to take to get that taken care of for you.
+
+20
+00:01:24,540 --> 00:01:31,020
+There's also code snippets that I turned into actual code that was just provided for me that came from far away.
+
+21
+00:01:31,120 --> 00:01:32,219
+There's also resources here.
+
+22
+00:01:32,320 --> 00:01:37,900
+This is just another CSV of everything that's inside of your current product.
+
+23
+00:01:38,580 --> 00:01:41,800
+And so with that, that'll conclude the Cloudflare.
+
+24
+00:01:42,080 --> 00:01:43,140
+And then we also have AWS.
+
+25
+00:01:43,360 --> 00:01:45,040
+So AWS has just a few things in here.
+
+26
+00:01:45,360 --> 00:01:46,500
+There's a pre-transfer checklist.
+
+27
+00:01:46,740 --> 00:01:50,719
+We're just going to go through to make sure that you have everything that you need before we take that AWS account.
+
+28
+00:01:50,719 --> 00:01:56,400
+There's an inventory checklist script that we use to kind of intake all of the objects inside of AWS
+
+29
+00:01:56,400 --> 00:01:59,099
+so that when we transfer it, we can confirm that everything made it over.
+
+30
+00:01:59,459 --> 00:02:01,939
+That way, if anything gets missed, we can take care of that for you.
+
+31
+00:02:02,359 --> 00:02:07,579
+And then there's a cutover plan from the moment that it gets cut over from far away to it being in your hands
+
+32
+00:02:07,579 --> 00:02:10,379
+and everything that we'll do to kind of make sure that everything's sorted for you.
+
+33
+00:02:11,400 --> 00:02:11,719
+Awesome.
+
+34
+00:02:11,919 --> 00:02:12,900
+Well, I hope you're having a great day.
+
+35
+00:02:13,000 --> 00:02:14,900
+And then the last one is just the big migration document.
+
+36
+00:02:15,280 --> 00:02:16,460
+Hope you're having a great day.
+
+37
+00:02:16,740 --> 00:02:17,939
+Hope you're ready for the holidays.
+
+38
+00:02:18,319 --> 00:02:19,199
+And we'll talk soon.
+
+39
+00:02:19,500 --> 00:02:19,699
+Bye.
+
+40
+00:02:19,699 --> 00:02:19,719
+Bye.
+
+41
+00:02:19,719 --> 00:02:19,719
+
+
+42
+00:02:19,719 --> 00:02:19,719
+
+
+43
+00:02:19,719 --> 00:02:19,719
+
+
+44
+00:02:19,719 --> 00:02:19,719
+
+
+45
+00:02:19,719 --> 00:02:19,719
+
+
+46
+00:02:19,719 --> 00:02:19,719
+
+
+47
+00:02:19,719 --> 00:02:19,719
+
+
+48
+00:02:19,719 --> 00:02:19,719
+
+
+49
+00:02:19,719 --> 00:02:19,719
+
+
+50
+00:02:19,719 --> 00:02:20,719
+Bye.
+

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://251f77q6lhwj"]
+
+[ext_resource type="Texture2D" uid="uid://btbmxqhqyk3cn" path="res://Assets/Sprites/test-brick_export_Round Desk.png" id="1_cy1cv"]
+
+[node name="BaseScene" type="Node2D" unique_id=776603377]
+
+[node name="TestBrickExportRoundDesk" type="Sprite2D" parent="." unique_id=811478773]
+position = Vector2(0, 0)
+scale = Vector2(1.6265433, 1.376415)
+texture = ExtResource("1_cy1cv")

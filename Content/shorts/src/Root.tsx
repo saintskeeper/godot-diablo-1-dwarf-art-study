@@ -11,6 +11,7 @@ import { DiagramSlide, diagramSlideSchema } from "./components/DiagramSlide";
 import { Music, musicSchema } from "./components/Music";
 import { ZoomableVideo, zoomableVideoSchema } from "./components/ZoomableVideo";
 import { Text3D, text3DSchema, WaltMakesLogo, waltMakesLogoSchema } from "./components/Text3D";
+import { SentenceCaption, sentenceCaptionSchema } from "./components/SentenceCaption";
 import {
   Example1Landscape,
   Example1Square,
@@ -19,6 +20,7 @@ import { Example2Square } from "./compositions/example2/Composition";
 import { MyVideo } from "./compositions/my-video/Composition";
 import { Week1220 } from "./compositions/week-12-20/Composition";
 import { Diablo1Study } from "./compositions/diablo-1-study/Composition";
+import { TranscriptScrollExample, TranscriptPillExample, TranscriptSentenceExample } from "./compositions/transcript-scroll-example/Composition";
 import { VIDEO_CONFIG, getDurationInFrames } from "./config";
 import {
   sampleTypeScript,
@@ -31,6 +33,12 @@ export const RemotionRoot: React.FC = () => {
     <>
       {/* Compositions - use /new-composition to create your own */}
       <Folder name="Compositions">
+        <Folder name="TranscriptScrollExample">
+          <TranscriptScrollExample />
+          <TranscriptPillExample />
+          <TranscriptSentenceExample />
+        </Folder>
+
         <Folder name="Diablo1Study">
           <Diablo1Study />
         </Folder>
@@ -230,6 +238,24 @@ export const RemotionRoot: React.FC = () => {
             variant: "preview" as const,
             scale: 1,
             animate: true,
+          }}
+        />
+        <Composition
+          id="SentenceCaption"
+          component={SentenceCaption}
+          durationInFrames={getDurationInFrames(10, VIDEO_CONFIG.fps)}
+          fps={VIDEO_CONFIG.fps}
+          width={VIDEO_CONFIG.width}
+          height={VIDEO_CONFIG.height}
+          schema={sentenceCaptionSchema}
+          defaultProps={{
+            cues: [
+              { id: 1, startTime: 0, endTime: 3, text: "This is the first sentence displayed in the caption." },
+              { id: 2, startTime: 3, endTime: 6, text: "Now showing the second sentence with a simple cut." },
+              { id: 3, startTime: 6, endTime: 10, text: "And here's the final sentence in the frosted pill." },
+            ],
+            fontSize: 48,
+            position: "bottom" as const,
           }}
         />
       </Folder>
