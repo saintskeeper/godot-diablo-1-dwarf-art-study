@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; frame-src https://*.x.com https://x.com https://*.twitter.com https://twitter.com;">
+  <title>Engage</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Empty State -->
+    <div id="empty-state" class="empty-state">
+      <div class="drop-zone" id="drop-zone">
+        <div class="drop-icon">📋</div>
+        <div class="drop-text">Drop JSON file here</div>
+        <div class="drop-divider">or</div>
+        <div class="drop-hint">⌘V to paste JSON</div>
+        <button class="paste-btn" id="paste-btn">Paste JSON</button>
+        <div class="login-section">
+          <div class="drop-divider">─────────</div>
+          <button class="login-btn" id="login-btn">Login to X.com first</button>
+          <div class="login-hint">One-time setup - session persists</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Layout -->
+    <div id="main-layout" class="layout hidden">
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <h1>Engage</h1>
+          <div class="header-actions">
+            <button class="btn-icon" id="load-new-btn" title="Load new JSON">📂</button>
+            <button class="btn-icon" id="reset-btn" title="Reset progress">🔄</button>
+          </div>
+        </div>
+        <div class="stats">
+          <span id="done-count">0</span> / <span id="total-count">0</span> done
+          <label class="hide-done-label">
+            <input type="checkbox" id="hide-done-checkbox"> Hide done
+          </label>
+        </div>
+        <div class="card-list" id="card-list"></div>
+      </div>
+
+      <div class="main-view">
+        <div class="iframe-header">
+          <span class="current-post" id="current-post">Select a post →</span>
+          <div class="iframe-nav">
+            <button id="prev-btn" disabled>← Prev</button>
+            <button id="next-btn">Next →</button>
+            <button id="focus-btn">Focus (F)</button>
+            <button id="reload-btn">Reload</button>
+            <button id="done-next-btn" class="primary">Done & Next</button>
+          </div>
+        </div>
+        <div class="iframe-container" id="iframe-container">
+          <div class="placeholder">← Click a card to load post</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
