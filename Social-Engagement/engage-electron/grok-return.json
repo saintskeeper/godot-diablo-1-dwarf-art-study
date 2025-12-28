@@ -1,0 +1,155 @@
+{
+  "posts": [
+    {
+      "rank": 1,
+      "summary": "Procedural gingerbread cookie generator in Blender, festive modeling #b3d",
+      "author": "Nompen (@Nompen_art)",
+      "followers": "~10K",
+      "likes": 178,
+      "retweets": 12,
+      "comments": 0,
+      "url": "https://x.com/80Level/status/2004522594209259563",
+      "description": "Showcase of a procedural tool creating varied gingerbread cookies with icing and decorations in Blender.",
+      "suggested_comment": "This procedural gingerbread setup is super clever! How did you handle the icing distribution with geometry nodes?"
+    },
+    {
+      "rank": 2,
+      "summary": "Scar generation system using geometry nodes and curves #b3d",
+      "author": "SamHatesUnicorns (@Un1cornHuntrSam)",
+      "followers": "~5K",
+      "likes": 33,
+      "retweets": 5,
+      "comments": 2,
+      "url": "https://x.com/Un1cornHuntrSam/status/2004863413667897638",
+      "description": "WIP tests demonstrating dynamic scar creation on models in Blender 5.0.",
+      "suggested_comment": "The curve-based scars look really organic! Are you driving the deformation with noise for variation?"
+    },
+    {
+      "rank": 3,
+      "summary": "Underwater bubbles simulation with EmberGen and geonodes #b3d",
+      "author": "Kevin Lim Wanasili (@_cgman_)",
+      "followers": "~8K",
+      "likes": 17,
+      "retweets": 3,
+      "comments": 1,
+      "url": "https://x.com/_cgman_/status/2004708495560732965",
+      "description": "R&D of realistic bubble effects combining fluid sim and Blender nodes.",
+      "suggested_comment": "Those bubbles have great motion! Did you instance them on particles from EmberGen?"
+    },
+    {
+      "rank": 4,
+      "summary": "Koi fish rigging anime style in Blender #b3d",
+      "author": "Phong Ly (@lyhongphong87)",
+      "followers": "~6K",
+      "likes": 12,
+      "retweets": 0,
+      "comments": 0,
+      "url": "https://x.com/lyhongphong87/status/2004567254579732550",
+      "description": "Rigging demonstration for stylized koi fish with fluid movement.",
+      "suggested_comment": "The flow on that koi rig is smooth! How many bones for the body wave?"
+    },
+    {
+      "rank": 5,
+      "summary": "Dynamic smears plugin for motion trails in UE5 #unrealengine",
+      "author": "アカルカネ (@AcarcaneCG)",
+      "followers": "~15K",
+      "likes": 783,
+      "retweets": 78,
+      "comments": 1,
+      "url": "https://x.com/AcarcaneCG/status/2004833406044283055",
+      "description": "Tutorial showcasing a plugin for creating smear effects in Unreal Engine.",
+      "suggested_comment": "Smears can add so much punch to fast motion. Does this plugin work well with skeletal meshes?"
+    },
+    {
+      "rank": 6,
+      "summary": "Abandoned hospital environment in UE5 #unrealengine",
+      "author": "80 LEVEL (@80Level)",
+      "followers": "~100K",
+      "likes": 262,
+      "retweets": 25,
+      "comments": 1,
+      "url": "https://x.com/80Level/status/2004460971834916972",
+      "description": "Detailed creepy hospital scene built with Substance and UE5.",
+      "suggested_comment": "The atmosphere in this hospital is spot on. What techniques for the dirt and decay overlays?"
+    },
+    {
+      "rank": 7,
+      "summary": "Hell hole VFX breakdown in Niagara UE5.5 #ue5niagara",
+      "author": "CGHOW (@cghow_)",
+      "followers": "~20K",
+      "likes": 82,
+      "retweets": 2,
+      "comments": 0,
+      "url": "https://x.com/cghow_/status/2004470349556338923",
+      "description": "Terrifying portal effect with particles and materials.",
+      "suggested_comment": "That swirling hell hole is intense! How did you get the depth distortion working?"
+    },
+    {
+      "rank": 8,
+      "summary": "Grid scanner material effect in UE5 #ue5",
+      "author": "Alien Max (@delaigrodela)",
+      "followers": "~10K",
+      "likes": 109,
+      "retweets": 6,
+      "comments": 2,
+      "url": "https://x.com/delaigrodela/status/2004600699020316940",
+      "description": "Material-based scanner with grid lines for sci-fi feel.",
+      "suggested_comment": "Love the Tron vibes here. Is the grid animated with time or world position?"
+    },
+    {
+      "rank": 9,
+      "summary": "Vintage cassette recorder realistic modeling #substance3d #ue5",
+      "author": "80 LEVEL (@80Level)",
+      "followers": "~100K",
+      "likes": 17,
+      "retweets": 3,
+      "comments": 0,
+      "url": "https://x.com/80Level/status/2004646523125334180",
+      "description": "High-detail CTR-85 recorder with multiple skins.",
+      "suggested_comment": "The wear on that cassette player looks authentic. Any baking from high poly?"
+    },
+    {
+      "rank": 10,
+      "summary": "Charge attack with bullet erase in platformer #gamedev",
+      "author": "ギリ子 (@884games)",
+      "followers": "~5K",
+      "likes": 37,
+      "retweets": 0,
+      "comments": 0,
+      "url": "https://x.com/884games/status/2004866954889495040",
+      "description": "Gameplay clip showing new mechanic in 2D action game.",
+      "suggested_comment": "Bullet erase on charge feels rewarding! Does it build meter or just risk/reward?"
+    }
+  ],
+  "engagement_strategy": {
+    "top_10_priority": [
+      {
+        "url": "https://x.com/80Level/status/2004522594209259563",
+        "reason": "High engagement procedural tool relevant to Blender users, strong conversation potential on nodes"
+      },
+      {
+        "url": "https://x.com/Un1cornHuntrSam/status/2004863413667897638",
+        "reason": "Technical geonodes demo with good likes, accessible follower count for reply visibility"
+      },
+      {
+        "url": "https://x.com/AcarcaneCG/status/2004833406044283055",
+        "reason": "Popular UE plugin tutorial, high likes indicate interest in VFX/shaders"
+      },
+      {
+        "url": "https://x.com/80Level/status/2004460971834916972",
+        "reason": "Impressive environment showcase, broad appeal in game art"
+      },
+      {
+        "url": "https://x.com/delaigrodela/status/2004600699020316940",
+        "reason": "Cool material effect with solid engagement, shader interest aligns with Walt's tools"
+      }
+    ],
+    "trending_topics": ["Blender geometry nodes", "Unreal Engine VFX", "procedural generation"],
+    "hot_tools": ["Blender", "Unreal Engine 5", "Niagara", "Geometry Nodes"],
+    "tips_for_waltmakes": [
+      "Engage with procedural and shader posts - they have high technical conversation potential and align with your Blender/Godot workflow",
+      "Prioritize posts from mid-size accounts (5K-50K followers) for better reply visibility",
+      "Look for process breakdowns or tools to ask specific questions about implementation"
+    ]
+  }
+}

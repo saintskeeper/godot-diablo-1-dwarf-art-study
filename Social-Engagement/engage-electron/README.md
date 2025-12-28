@@ -46,12 +46,15 @@ Required fields: `url`, `author`. Others are optional but improve the card displ
 
 | Key | Action |
 |-----|--------|
-| `j` / `↓` | Next card |
-| `k` / `↑` | Previous card |
-| `d` | Mark done & advance |
-| `f` / `Enter` | Focus webview (for scrolling/clicking) |
+| `Cmd+J` / `j` / `↓` | Next card |
+| `Cmd+K` / `k` / `↑` | Previous card |
+| `Cmd+F` / `f` / `Enter` | Focus webview (for scrolling/clicking) |
+| `Cmd+D` / `d` | Mark done & advance |
+| `Cmd+R` / `r` | Reload current post |
 | `Escape` | Focus sidebar |
 | `Cmd+V` | Paste JSON |
+
+**Note:** `Cmd+K`, `Cmd+J`, and `Cmd+F` override default macOS shortcuts when the app is focused.
 
 ## How It Works
 

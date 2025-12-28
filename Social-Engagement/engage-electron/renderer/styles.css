@@ -563,3 +563,46 @@ button, input, .card, .drop-zone {
 ::-webkit-scrollbar-thumb:hover {
   background: #3a3d41;
 }
+
+/* Inline Login View (for re-login) */
+.login-view-inline {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+}
+
+.login-header-inline {
+  padding: 16px 20px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+}
+
+.login-header-inline h2 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.login-footer-inline {
+  padding: 12px 20px;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+}
+
+.login-footer-inline button.primary {
+  padding: 10px 24px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.login-footer-inline button.primary:hover {
+  background: var(--accent-hover);
+}

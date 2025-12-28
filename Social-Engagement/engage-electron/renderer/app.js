@@ -17,13 +17,14 @@ const nextBtn = document.getElementById('next-btn');
 const reloadBtn = document.getElementById('reload-btn');
 const doneNextBtn = document.getElementById('done-next-btn');
 const focusBtn = document.getElementById('focus-btn');
-const loadNewBtn = document.getElementById('load-new-btn');
+const clearQueueBtn = document.getElementById('clear-queue-btn');
 const resetBtn = document.getElementById('reset-btn');
 const doneCountEl = document.getElementById('done-count');
 const totalCountEl = document.getElementById('total-count');
 const hideDoneCheckbox = document.getElementById('hide-done-checkbox');
 const toast = document.getElementById('toast');
 const loginBtn = document.getElementById('login-btn');
+const logoutBtn = document.getElementById('logout-btn');
 
 // Initialize
 function init() {
@@ -33,6 +34,33 @@ function init() {
   setupKeyboard();
   setupButtons();
   setupLogin();
+  setupMenuCommands();
+}
+
+// Setup menu command handlers (Cmd+K/J/F/D/R from main process)
+function setupMenuCommands() {
+  window.electronAPI.onNavCommand((command) => {
+    switch (command) {
+      case 'prev':
+        prevCard();
+        break;
+      case 'next':
+        nextCard();
+        break;
+      case 'focus':
+        focusWebview();
+        break;
+      case 'done':
+        markCurrentDoneAndNext();
+        break;
+      case 'reload':
+        reloadIframe();
+        break;
+      case 'clear-queue':
+        clearQueueAndPaste();
+        break;
+    }
+  });
 }
 
 // Load done state from localStorage
@@ -84,12 +112,14 @@ function setupPaste() {
   pasteBtn.addEventListener('click', handlePaste);
 
   document.addEventListener('paste', (e) => {
-    // Only handle paste when empty state is visible or sidebar is focused
-    if (!emptyState.classList.contains('hidden') ||
-        document.activeElement === document.body ||
-        cardList.contains(document.activeElement)) {
-      handlePaste(e);
-    }
+    // Handle paste from empty state OR main view (to load new queue)
+    const webview = document.getElementById('post-webview');
+    const isWebviewFocused = webview && document.activeElement === webview;
+
+    // Don't intercept paste if webview is focused (user typing in X.com)
+    if (isWebviewFocused) return;
+
+    handlePaste(e);
   });
 }
 
@@ -115,37 +145,135 @@ async function handlePaste(e) {
   parseAndLoadJSON(text);
 }
 
-// Parse and load JSON content
+// Field mapping configuration for flexible intake
+const FIELD_MAPPINGS = {
+  url: ['url', 'link', 'href', 'post_url', 'tweet_url', 'permalink'],
+  author: ['author', 'username', 'user', 'screen_name', 'handle', 'name', 'user_name', 'from', 'poster'],
+  summary: ['summary', 'text', 'content', 'body', 'title', 'tweet', 'message', 'post_text'],
+  description: ['description', 'desc', 'details', 'body', 'extended_text'],
+  likes: ['likes', 'like_count', 'favorites', 'favorite_count', 'hearts', 'love_count'],
+  retweets: ['retweets', 'retweet_count', 'shares', 'share_count', 'reposts', 'repost_count'],
+  comments: ['comments', 'comment_count', 'replies', 'reply_count', 'responses'],
+  followers: ['followers', 'follower_count', 'followers_count', 'audience'],
+  suggested_comment: ['suggested_comment', 'suggested_reply', 'reply', 'comment', 'response', 'suggested_response']
+};
+
+// Common array wrapper keys to unwrap
+const ARRAY_WRAPPER_KEYS = ['posts', 'items', 'data', 'results', 'tweets', 'entries', 'records', 'list'];
+
+// Find array in data - handles both direct arrays and wrapped objects
+function findPostsArray(data) {
+  // Direct array
+  if (Array.isArray(data)) {
+    return { array: data, wrapper: null };
+  }
+
+  // Check for common wrapper keys
+  if (typeof data === 'object' && data !== null) {
+    for (const key of ARRAY_WRAPPER_KEYS) {
+      if (Array.isArray(data[key])) {
+        return { array: data[key], wrapper: key };
+      }
+    }
+
+    // Fallback: find first array property
+    for (const key of Object.keys(data)) {
+      if (Array.isArray(data[key]) && data[key].length > 0) {
+        return { array: data[key], wrapper: key };
+      }
+    }
+  }
+
+  return { array: null, wrapper: null };
+}
+
+// Find a field value using mapping - returns first match
+function findMappedField(obj, targetField) {
+  const candidates = FIELD_MAPPINGS[targetField] || [targetField];
+
+  for (const candidate of candidates) {
+    // Direct match
+    if (obj[candidate] !== undefined) {
+      return obj[candidate];
+    }
+
+    // Case-insensitive match
+    const lowerCandidate = candidate.toLowerCase();
+    for (const key of Object.keys(obj)) {
+      if (key.toLowerCase() === lowerCandidate) {
+        return obj[key];
+      }
+    }
+
+    // Partial match (e.g., 'user_name' matches 'username')
+    const normalized = candidate.replace(/[_-]/g, '');
+    for (const key of Object.keys(obj)) {
+      if (key.replace(/[_-]/g, '').toLowerCase() === normalized.toLowerCase()) {
+        return obj[key];
+      }
+    }
+  }
+
+  return undefined;
+}
+
+// Normalize a single post object to our expected format
+function normalizePost(obj) {
+  return {
+    url: findMappedField(obj, 'url'),
+    author: findMappedField(obj, 'author'),
+    summary: findMappedField(obj, 'summary'),
+    description: findMappedField(obj, 'description'),
+    likes: findMappedField(obj, 'likes'),
+    retweets: findMappedField(obj, 'retweets'),
+    comments: findMappedField(obj, 'comments'),
+    followers: findMappedField(obj, 'followers'),
+    suggested_comment: findMappedField(obj, 'suggested_comment'),
+    // Preserve any extra fields from original
+    ...obj
+  };
+}
+
+// Parse and load JSON content with flexible intake
 function parseAndLoadJSON(content) {
   try {
     const data = JSON.parse(content);
+    const { array, wrapper } = findPostsArray(data);
 
-    if (!Array.isArray(data)) {
-      showToast('JSON must be an array of posts', 'error');
+    if (!array) {
+      showToast('Could not find posts array in JSON', 'error');
       return;
     }
 
-    if (data.length === 0) {
+    if (array.length === 0) {
       showToast('No posts found in JSON', 'error');
       return;
     }
 
-    // Validate required fields
-    const requiredFields = ['url', 'author'];
-    for (let i = 0; i < data.length; i++) {
-      for (const field of requiredFields) {
-        if (!data[i][field]) {
-          showToast(`Post ${i + 1} missing required field: ${field}`, 'error');
-          return;
-        }
-      }
+    // Normalize all posts
+    const normalized = array.map(normalizePost);
+
+    // Validate that we found required fields
+    const missingUrl = normalized.findIndex(p => !p.url);
+    if (missingUrl !== -1) {
+      showToast(`Post ${missingUrl + 1} missing URL field`, 'error');
+      return;
     }
 
-    posts = data;
+    // Author is nice-to-have, use fallback if missing
+    normalized.forEach((p, i) => {
+      if (!p.author) {
+        p.author = `Post ${i + 1}`;
+      }
+    });
+
+    posts = normalized;
     currentIndex = -1;
     renderCards();
     showMainLayout();
-    showToast(`Loaded ${posts.length} posts`, 'success');
+
+    const wrapperNote = wrapper ? ` (from "${wrapper}")` : '';
+    showToast(`Loaded ${posts.length} posts${wrapperNote}`, 'success');
 
   } catch (e) {
     showToast(`Invalid JSON: ${e.message}`, 'error');
@@ -431,9 +559,70 @@ function setupButtons() {
   reloadBtn.addEventListener('click', reloadIframe);
   doneNextBtn.addEventListener('click', markCurrentDoneAndNext);
   focusBtn.addEventListener('click', focusWebview);
-  loadNewBtn.addEventListener('click', showEmptyState);
+  if (clearQueueBtn) {
+    clearQueueBtn.addEventListener('click', clearQueueAndPaste);
+  }
   resetBtn.addEventListener('click', resetProgress);
   hideDoneCheckbox.addEventListener('change', renderCards);
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', logoutAndRelogin);
+  }
+}
+
+// Clear queue and prompt for new JSON
+async function clearQueueAndPaste() {
+  posts = [];
+  currentIndex = -1;
+  cardList.innerHTML = '';
+  iframeContainer.innerHTML = '<div class="placeholder">Queue cleared - paste new JSON</div>';
+  totalCountEl.textContent = '0';
+  updateDoneCount();
+  showToast('Queue cleared - Cmd+V to paste new JSON', 'success');
+
+  // Try to read clipboard and load immediately
+  try {
+    const text = await navigator.clipboard.readText();
+    if (text && text.trim().startsWith('[')) {
+      parseAndLoadJSON(text);
+    }
+  } catch (e) {
+    // Clipboard access denied, user will paste manually
+  }
+}
+
+// Logout from X.com and show login view
+async function logoutAndRelogin() {
+  showToast('Clearing X.com session...', 'success');
+  const result = await window.electronAPI.clearXSession();
+  if (result.success) {
+    showToast('Session cleared - please login again', 'success');
+    showLoginViewInMain();
+  } else {
+    showToast(`Logout failed: ${result.error}`, 'error');
+  }
+}
+
+// Show login view while keeping main layout (for re-login)
+function showLoginViewInMain() {
+  iframeContainer.innerHTML = `
+    <div class="login-view-inline">
+      <div class="login-header-inline">
+        <h2>Login to X.com</h2>
+      </div>
+      <webview src="https://x.com/login" id="login-webview-inline" allowpopups style="width:100%;height:calc(100% - 80px);"></webview>
+      <div class="login-footer-inline">
+        <button class="primary" id="login-done-inline-btn">Done - I'm logged in</button>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('login-done-inline-btn').addEventListener('click', () => {
+    showToast('Logged in! Reload a post to test.', 'success');
+    iframeContainer.innerHTML = '<div class="placeholder">← Click a card to reload post</div>';
+    if (currentIndex >= 0) {
+      selectCard(currentIndex);
+    }
+  });
 }
 
 // Reload iframe

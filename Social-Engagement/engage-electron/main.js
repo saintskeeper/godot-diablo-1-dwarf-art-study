@@ -1,4 +1,4 @@
-const { app, BrowserWindow, session, ipcMain } = require('electron');
+const { app, BrowserWindow, session, ipcMain, Menu } = require('electron');
 const path = require('path');
 
 let mainWindow;
@@ -35,6 +35,96 @@ function createWindow() {
   if (process.argv.includes('--enable-logging')) {
     mainWindow.webContents.openDevTools();
   }
+
+  // Build menu with custom accelerators to override global shortcuts
+  const template = [
+    {
+      label: 'Engage',
+      submenu: [
+        { role: 'about' },
+        { type: 'separator' },
+        { role: 'hide' },
+        { role: 'hideOthers' },
+        { role: 'unhide' },
+        { type: 'separator' },
+        { role: 'quit' }
+      ]
+    },
+    {
+      label: 'Edit',
+      submenu: [
+        { role: 'undo' },
+        { role: 'redo' },
+        { type: 'separator' },
+        { role: 'cut' },
+        { role: 'copy' },
+        { role: 'paste' },
+        { role: 'selectAll' }
+      ]
+    },
+    {
+      label: 'Navigate',
+      submenu: [
+        {
+          label: 'Previous Card',
+          accelerator: 'CmdOrCtrl+K',
+          click: () => mainWindow.webContents.send('nav-command', 'prev')
+        },
+        {
+          label: 'Next Card',
+          accelerator: 'CmdOrCtrl+J',
+          click: () => mainWindow.webContents.send('nav-command', 'next')
+        },
+        {
+          label: 'Focus Webview',
+          accelerator: 'CmdOrCtrl+F',
+          click: () => mainWindow.webContents.send('nav-command', 'focus')
+        },
+        { type: 'separator' },
+        {
+          label: 'Mark Done & Next',
+          accelerator: 'CmdOrCtrl+D',
+          click: () => mainWindow.webContents.send('nav-command', 'done')
+        },
+        {
+          label: 'Reload Post',
+          accelerator: 'CmdOrCtrl+R',
+          click: () => mainWindow.webContents.send('nav-command', 'reload')
+        },
+        { type: 'separator' },
+        {
+          label: 'Clear Queue & Paste New',
+          accelerator: 'CmdOrCtrl+Shift+N',
+          click: () => mainWindow.webContents.send('nav-command', 'clear-queue')
+        }
+      ]
+    },
+    {
+      label: 'View',
+      submenu: [
+        { role: 'reload', accelerator: 'CmdOrCtrl+Shift+R' },
+        { role: 'toggleDevTools' },
+        { type: 'separator' },
+        { role: 'resetZoom' },
+        { role: 'zoomIn' },
+        { role: 'zoomOut' },
+        { type: 'separator' },
+        { role: 'togglefullscreen' }
+      ]
+    },
+    {
+      label: 'Window',
+      submenu: [
+        { role: 'minimize' },
+        { role: 'zoom' },
+        { type: 'separator' },
+        { role: 'front' }
+      ]
+    }
+  ];
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
 }
 
 app.whenReady().then(() => {
@@ -59,6 +149,21 @@ ipcMain.handle('read-dropped-file', async (event, filePath) => {
   try {
     const content = fs.readFileSync(filePath, 'utf-8');
     return { success: true, content };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+// Clear X.com session cookies for logout
+ipcMain.handle('clear-x-session', async () => {
+  try {
+    // Clear ALL storage data for a fresh start
+    await session.defaultSession.clearStorageData({
+      storages: ['cookies', 'localstorage', 'sessionstorage', 'cachestorage', 'indexdb', 'serviceworkers']
+    });
+    // Also clear cache
+    await session.defaultSession.clearCache();
+    return { success: true };
   } catch (error) {
     return { success: false, error: error.message };
   }
