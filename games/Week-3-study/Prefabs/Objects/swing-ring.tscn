@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://swing_ring_001"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ring"]
+radius = 20.0
+
+[node name="SwingRing" type="StaticBody2D" groups=["swing_ring"]]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ring")
+
+[node name="Visual" type="Polygon2D" parent="."]
+color = Color(0.8, 0.6, 0.2, 1)
+polygon = PackedVector2Array(-20, -5, -15, -15, -5, -20, 5, -20, 15, -15, 20, -5, 20, 5, 15, 15, 5, 20, -5, 20, -15, 15, -20, 5)
+
+[node name="InnerRing" type="Polygon2D" parent="."]
+color = Color(0.1, 0.1, 0.15, 1)
+polygon = PackedVector2Array(-12, -3, -9, -9, -3, -12, 3, -12, 9, -9, 12, -3, 12, 3, 9, 9, 3, 12, -3, 12, -9, 9, -12, 3)

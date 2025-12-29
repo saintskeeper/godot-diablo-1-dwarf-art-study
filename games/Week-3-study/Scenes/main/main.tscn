@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://cj653qge2pjds"]
+
+[ext_resource type="Script" uid="uid://4apvkwdvmv3d" path="res://Scenes/main/main.gd" id="1_main_script"]
+[ext_resource type="PackedScene" uid="uid://c7j2skn0q7uan" path="res://Prefabs/Objects/test-rectangle.tscn" id="1_w1fgp"]
+[ext_resource type="PackedScene" uid="uid://dc7uv5gc880hh" path="res://Prefabs/Player/Player-Character.tscn" id="2_4etoo"]
+[ext_resource type="PackedScene" uid="uid://60fkevdrc72r" path="res://Prefabs/Objects/test-square.tscn" id="3_4etoo"]
+[ext_resource type="PackedScene" uid="uid://cd4xy4hygmrgo" path="res://Prefabs/Objects/infinate-background.tscn" id="5_bg"]
+[ext_resource type="PackedScene" path="res://Prefabs/Objects/swing-ring.tscn" id="6_ring"]
+[ext_resource type="Script" uid="uid://dvfgodu8ifjdp" path="res://Scenes/main/infinite_runner_generator.gd" id="7_generator"]
+[ext_resource type="Script" uid="uid://doq0arvvht1dw" path="res://Scenes/main/hud.gd" id="8_hud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_death"]
+size = Vector2(2000, 100)
+
+[node name="Main2" type="Node2D" unique_id=1107286914]
+script = ExtResource("1_main_script")
+rectangle_prefab = ExtResource("1_w1fgp")
+square_prefab = ExtResource("3_4etoo")
+ring_prefab = ExtResource("6_ring")
+
+[node name="InfinateBackground" parent="." unique_id=904716429 instance=ExtResource("5_bg")]
+
+[node name="InfiniteRunnerGenerator" type="Node" parent="." unique_id=978778651]
+script = ExtResource("7_generator")
+
+[node name="PlayerCharacter4" parent="." unique_id=1172575261 instance=ExtResource("2_4etoo")]
+position = Vector2(200, 500)
+scale = Vector2(0.5, 0.5)
+
+[node name="DeathZone" type="Area2D" parent="." unique_id=732706327]
+position = Vector2(0, 1200)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone" unique_id=57919269]
+shape = SubResource("RectangleShape2D_death")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1604969679]
+script = ExtResource("8_hud")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD" unique_id=2118135959]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/MarginContainer" unique_id=1373421196]
+layout_mode = 2
+
+[node name="DistanceLabel" type="Label" parent="HUD/MarginContainer/VBoxContainer" unique_id=1922168157]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 32
+text = "Distance: 0 m"
+
+[node name="DifficultyLabel" type="Label" parent="HUD/MarginContainer/VBoxContainer" unique_id=565600440]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 24
+text = "Level: 1"

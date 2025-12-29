@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cd4xy4hygmrgo"]
+
+[ext_resource type="Texture2D" path="res://Assets/infinate-runner/inf-mtn-2.png" id="1_bg"]
+[ext_resource type="Script" path="res://Prefabs/Objects/infinate-background.gd" id="2_script"]
+[ext_resource type="Shader" path="res://Prefabs/Objects/background_fog.gdshader" id="3_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fog"]
+shader = ExtResource("3_shader")
+shader_parameter/fog_amount = 0.15
+shader_parameter/fog_color = Color(0.4, 0.3, 0.5, 1)
+shader_parameter/scroll_speed = 0.02
+shader_parameter/noise_scale = 8.0
+
+[node name="InfinateBackground" type="ParallaxBackground"]
+script = ExtResource("2_script")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(1536, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer"]
+material = SubResource("ShaderMaterial_fog")
+texture = ExtResource("1_bg")
+centered = false

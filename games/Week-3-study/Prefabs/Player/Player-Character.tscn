@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://dc7uv5gc880hh"]
+
+[ext_resource type="Script" uid="uid://cu6qtfa2frryx" path="res://Prefabs/Player/player_character.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://b68l4qvqvbt1" path="res://Assets/Blue-Dwarf/IDLE_2/blue-dwarf-withanimations_export_IDLE_2_dir4_001.png" id="2_idle_ref"]
+[ext_resource type="Script" uid="uid://b4kod5cahby8v" path="res://Prefabs/Player/camera_controller.gd" id="3_camera"]
+[ext_resource type="Script" path="res://Prefabs/Player/aim_cursor.gd" id="4_aim"]
+[ext_resource type="Script" path="res://Prefabs/Player/lasso.gd" id="5_lasso"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1"]
+radius = 35.0
+height = 190.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_placeholder"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cursor"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lasso"]
+radius = 15.0
+
+[node name="PlayerCharacter7" type="CharacterBody2D" unique_id=1172575261]
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=28653074]
+position = Vector2(0, -96)
+shape = SubResource("CapsuleShape2D_1")
+
+[node name="IdleReference" type="Sprite2D" parent="." unique_id=2129008360]
+visible = false
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(-2, -110)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_idle_ref")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=451705130]
+position = Vector2(-2, -110)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_placeholder")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=772796482]
+position = Vector2(0, -96)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+script = ExtResource("3_camera")
+
+[node name="AimCursor" type="Node2D" parent="."]
+position = Vector2(150, 0)
+script = ExtResource("4_aim")
+
+[node name="CursorSprite" type="Polygon2D" parent="AimCursor"]
+color = Color(1, 0.8, 0.2, 0.8)
+polygon = PackedVector2Array(-8, 0, 0, -6, 8, 0, 0, 6)
+
+[node name="Lasso" type="Node2D" parent="."]
+script = ExtResource("5_lasso")
+
+[node name="Line2D" type="Line2D" parent="Lasso"]
+width = 3.0
+default_color = Color(0.6, 0.4, 0.2, 1)
+
+[node name="RayCast2D" type="RayCast2D" parent="Lasso"]
+enabled = false
+target_position = Vector2(400, 0)
+collision_mask = 6
