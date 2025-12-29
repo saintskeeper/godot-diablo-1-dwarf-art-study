@@ -4,7 +4,8 @@ let currentIndex = -1;
 let doneSet = new Set();
 const STORAGE_KEY = 'engage-electron-done';
 
-// DOM Elements
+// DOM Elements - Views
+const dashboard = document.getElementById('dashboard');
 const emptyState = document.getElementById('empty-state');
 const mainLayout = document.getElementById('main-layout');
 const dropZone = document.getElementById('drop-zone');
@@ -27,14 +28,16 @@ const loginBtn = document.getElementById('login-btn');
 const logoutBtn = document.getElementById('logout-btn');
 
 // Initialize
-function init() {
-  loadDoneState();
+async function init() {
+  await loadDoneState();
   setupDragDrop();
   setupPaste();
   setupKeyboard();
   setupButtons();
   setupLogin();
   setupMenuCommands();
+  setupDashboard();
+  await loadDashboardData();
 }
 
 // Setup menu command handlers (Cmd+K/J/F/D/R from main process)
@@ -63,21 +66,36 @@ function setupMenuCommands() {
   });
 }
 
-// Load done state from localStorage
-function loadDoneState() {
+// Load done state from SQLite (with localStorage migration)
+async function loadDoneState() {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      doneSet = new Set(JSON.parse(stored));
+    // Check for localStorage migration (one-time)
+    const localStored = localStorage.getItem(STORAGE_KEY);
+    if (localStored) {
+      const localUrls = JSON.parse(localStored);
+      if (localUrls.length > 0) {
+        console.log(`Migrating ${localUrls.length} done URLs from localStorage to SQLite...`);
+        const result = await window.electronAPI.db.migrateLocalStorage(localUrls);
+        console.log(`Migration complete: ${result.migratedCount} URLs migrated`);
+        localStorage.removeItem(STORAGE_KEY);
+      }
     }
+
+    // Load from SQLite
+    const doneUrls = await window.electronAPI.db.getDoneUrls();
+    doneSet = new Set(doneUrls);
   } catch (e) {
     console.error('Failed to load done state:', e);
+    // Fallback to localStorage if SQLite fails
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        doneSet = new Set(JSON.parse(stored));
+      }
+    } catch (fallbackError) {
+      console.error('Fallback to localStorage also failed:', fallbackError);
+    }
   }
-}
-
-// Save done state to localStorage
-function saveDoneState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify([...doneSet]));
 }
 
 // Setup drag and drop
@@ -235,7 +253,7 @@ function normalizePost(obj) {
 }
 
 // Parse and load JSON content with flexible intake
-function parseAndLoadJSON(content) {
+async function parseAndLoadJSON(content) {
   try {
     const data = JSON.parse(content);
     const { array, wrapper } = findPostsArray(data);
@@ -267,29 +285,41 @@ function parseAndLoadJSON(content) {
       }
     });
 
-    posts = normalized;
+    // Save to SQLite (returns posts with UUIDs, handles de-duplication)
+    const result = await window.electronAPI.db.savePosts(normalized);
+
+    if (!result.success) {
+      showToast(`Database error: ${result.error}`, 'error');
+      return;
+    }
+
+    // Use returned posts (now have UUIDs and de-duplicated)
+    posts = result.posts;
     currentIndex = -1;
     renderCards();
     showMainLayout();
 
     const wrapperNote = wrapper ? ` (from "${wrapper}")` : '';
-    showToast(`Loaded ${posts.length} posts${wrapperNote}`, 'success');
+    const dupeNote = result.duplicateCount > 0 ? `, ${result.duplicateCount} duplicates updated` : '';
+    showToast(`Loaded ${result.savedCount} new posts${dupeNote}${wrapperNote}`, 'success');
 
   } catch (e) {
     showToast(`Invalid JSON: ${e.message}`, 'error');
   }
 }
 
-// Show main layout, hide empty state
+// Show main layout, hide empty state and dashboard
 function showMainLayout() {
+  dashboard.classList.add('hidden');
   emptyState.classList.add('hidden');
   mainLayout.classList.remove('hidden');
   totalCountEl.textContent = posts.length;
   updateDoneCount();
 }
 
-// Show empty state, hide main layout
+// Show empty state, hide main layout and dashboard
 function showEmptyState() {
+  dashboard.classList.add('hidden');
   mainLayout.classList.add('hidden');
   emptyState.classList.remove('hidden');
   posts = [];
@@ -452,17 +482,30 @@ function nextCard() {
 }
 
 // Mark a post as done/undone
-function markDone(index, done) {
+async function markDone(index, done) {
   const post = posts[index];
   if (!post) return;
 
+  // Save to SQLite
+  try {
+    const result = await window.electronAPI.db.markDone(post.id, done);
+    if (!result.success) {
+      showToast(`Failed to save: ${result.error}`, 'error');
+      return;
+    }
+  } catch (e) {
+    console.error('Failed to mark done:', e);
+    showToast('Failed to save done state', 'error');
+    return;
+  }
+
+  // Update local state
   if (done) {
     doneSet.add(post.url);
   } else {
     doneSet.delete(post.url);
   }
 
-  saveDoneState();
   updateDoneCount();
   renderCards();
 
@@ -476,9 +519,9 @@ function markDone(index, done) {
 }
 
 // Mark current and go to next
-function markCurrentDoneAndNext() {
+async function markCurrentDoneAndNext() {
   if (currentIndex >= 0) {
-    markDone(currentIndex, true);
+    await markDone(currentIndex, true);
     nextCard();
   }
 }
@@ -489,11 +532,20 @@ function updateDoneCount() {
   doneCountEl.textContent = count;
 }
 
-// Reset progress
-function resetProgress() {
-  if (confirm('Reset all progress? This cannot be undone.')) {
+// Reset progress for current queue
+async function resetProgress() {
+  if (confirm('Reset progress for current queue? This cannot be undone.')) {
+    // Reset each post in the current queue
+    for (const post of posts) {
+      if (doneSet.has(post.url)) {
+        try {
+          await window.electronAPI.db.markDone(post.id, false);
+        } catch (e) {
+          console.error('Failed to reset post:', e);
+        }
+      }
+    }
     doneSet.clear();
-    saveDoneState();
     updateDoneCount();
     renderCards();
     showToast('Progress reset', 'success');
@@ -770,6 +822,295 @@ async function handleFileDrop(e) {
   } else {
     showToast(`Failed to read file: ${result.error}`, 'error');
   }
+}
+
+// ============================================
+// Dashboard Functions
+// ============================================
+
+function setupDashboard() {
+  // Start Engaging button
+  const startEngageBtn = document.getElementById('start-engage-btn');
+  if (startEngageBtn) {
+    startEngageBtn.addEventListener('click', showEmptyStateFromDashboard);
+  }
+
+  // Dashboard login button
+  const dashboardLoginBtn = document.getElementById('dashboard-login-btn');
+  if (dashboardLoginBtn) {
+    dashboardLoginBtn.addEventListener('click', () => {
+      showEmptyStateFromDashboard();
+      setTimeout(showLoginView, 100);
+    });
+  }
+
+  // Back to dashboard buttons
+  const backFromEmpty = document.getElementById('back-to-dashboard-empty');
+  if (backFromEmpty) {
+    backFromEmpty.addEventListener('click', showDashboard);
+  }
+
+  const backFromMain = document.getElementById('back-to-dashboard-main');
+  if (backFromMain) {
+    backFromMain.addEventListener('click', showDashboard);
+  }
+
+  // Set today's date
+  const todayDateEl = document.getElementById('today-date');
+  if (todayDateEl) {
+    todayDateEl.textContent = new Date().toLocaleDateString('en-US', {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric'
+    });
+  }
+}
+
+function showDashboard() {
+  dashboard.classList.remove('hidden');
+  emptyState.classList.add('hidden');
+  mainLayout.classList.add('hidden');
+  loadDashboardData();
+}
+
+function showEmptyStateFromDashboard() {
+  dashboard.classList.add('hidden');
+  emptyState.classList.remove('hidden');
+  mainLayout.classList.add('hidden');
+}
+
+async function loadDashboardData() {
+  try {
+    const analytics = await window.electronAPI.db.getAnalytics({ range: 30 });
+    renderDashboardWidgets(analytics);
+  } catch (e) {
+    console.error('Failed to load dashboard data:', e);
+  }
+}
+
+function renderDashboardWidgets(analytics) {
+  renderTodayWidget(analytics);
+  renderStreakWidget(analytics);
+  renderVolumeWidget(analytics);
+  renderAuthorsWidget(analytics);
+  renderTimesWidget(analytics);
+  renderBatchesWidget();
+  renderFooterStats(analytics);
+}
+
+function renderTodayWidget(analytics) {
+  const today = new Date().toISOString().split('T')[0];
+  const efficiency = analytics.efficiency || {};
+  const dailyStats = efficiency.dailyStats || [];
+
+  const todayData = dailyStats.find(d => d.day === today) || { ingested: 0, completed: 0, completion_rate: 0 };
+
+  document.getElementById('today-completed').textContent = todayData.completed || 0;
+  document.getElementById('today-ingested').textContent = todayData.ingested || 0;
+  document.getElementById('today-rate').textContent = `${todayData.completion_rate || 0}%`;
+}
+
+function renderStreakWidget(analytics) {
+  const efficiency = analytics.efficiency || {};
+  const dailyStats = efficiency.dailyStats || [];
+
+  // Calculate streak (consecutive days with at least 1 completion)
+  let streak = 0;
+  const today = new Date();
+  const sortedDays = dailyStats
+    .filter(d => d.completed > 0)
+    .map(d => d.day)
+    .sort()
+    .reverse();
+
+  for (let i = 0; i < 30; i++) {
+    const checkDate = new Date(today);
+    checkDate.setDate(checkDate.getDate() - i);
+    const dateStr = checkDate.toISOString().split('T')[0];
+
+    if (sortedDays.includes(dateStr)) {
+      streak++;
+    } else if (i > 0) {
+      break;
+    }
+  }
+
+  document.getElementById('streak-days').textContent = streak;
+
+  const streakIcon = document.getElementById('streak-icon');
+  if (streak === 0) {
+    streakIcon.classList.add('inactive');
+  } else {
+    streakIcon.classList.remove('inactive');
+  }
+
+  // Render last 14 days calendar
+  const calendarEl = document.getElementById('streak-calendar');
+  calendarEl.innerHTML = '';
+
+  for (let i = 13; i >= 0; i--) {
+    const checkDate = new Date(today);
+    checkDate.setDate(checkDate.getDate() - i);
+    const dateStr = checkDate.toISOString().split('T')[0];
+
+    const dayEl = document.createElement('div');
+    dayEl.className = 'streak-day';
+    if (sortedDays.includes(dateStr)) {
+      dayEl.classList.add('active');
+    }
+    if (i === 0) {
+      dayEl.classList.add('today');
+    }
+    dayEl.title = checkDate.toLocaleDateString();
+    calendarEl.appendChild(dayEl);
+  }
+}
+
+function renderVolumeWidget(analytics) {
+  const volume = analytics.volume || {};
+  const completions = volume.completionStats || [];
+
+  const chartEl = document.getElementById('volume-chart');
+  chartEl.innerHTML = '';
+
+  // Get last 7 days
+  const today = new Date();
+  const days = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    days.push(d.toISOString().split('T')[0]);
+  }
+
+  const dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+  const values = days.map(day => {
+    const data = completions.find(c => c.period === day);
+    return data ? data.completions : 0;
+  });
+
+  const maxVal = Math.max(...values, 1);
+  let weekTotal = 0;
+
+  days.forEach((day, i) => {
+    const val = values[i];
+    weekTotal += val;
+    const height = Math.max((val / maxVal) * 100, 4);
+    const isToday = i === days.length - 1;
+
+    const bar = document.createElement('div');
+    bar.className = `volume-bar${isToday ? ' today' : ''}`;
+    bar.style.height = `${height}%`;
+    bar.title = `${new Date(day).toLocaleDateString()}: ${val} completions`;
+
+    const label = document.createElement('span');
+    label.className = 'volume-bar-label';
+    label.textContent = dayNames[new Date(day).getDay()];
+    bar.appendChild(label);
+
+    chartEl.appendChild(bar);
+  });
+
+  document.getElementById('week-total').textContent = weekTotal;
+  document.getElementById('week-avg').textContent = Math.round(weekTotal / 7 * 10) / 10;
+}
+
+function renderAuthorsWidget(analytics) {
+  const authors = analytics.authors || [];
+  const listEl = document.getElementById('author-list');
+
+  if (authors.length === 0) {
+    listEl.innerHTML = '<div class="author-empty">No data yet</div>';
+    return;
+  }
+
+  const maxPosts = Math.max(...authors.map(a => a.total_posts));
+
+  listEl.innerHTML = authors.slice(0, 8).map((author, i) => `
+    <div class="author-item">
+      <span class="author-rank">#${i + 1}</span>
+      <div class="author-info">
+        <div class="author-name">${escapeHtml(author.author || author.author_handle || 'Unknown')}</div>
+        <div class="author-stats">${author.completed_posts}/${author.total_posts} completed</div>
+      </div>
+      <div class="author-bar">
+        <div class="author-bar-fill" style="width: ${(author.completed_posts / author.total_posts) * 100}%"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderTimesWidget(analytics) {
+  const patterns = analytics.patterns || {};
+  const hourly = patterns.hourlyPattern || [];
+
+  const chartEl = document.getElementById('time-chart');
+  chartEl.innerHTML = '';
+
+  // Create 24 hour blocks
+  const maxCount = Math.max(...hourly.map(h => h.completions), 1);
+
+  for (let hour = 0; hour < 24; hour++) {
+    const hourStr = hour.toString().padStart(2, '0');
+    const data = hourly.find(h => h.hour_of_day === hourStr);
+    const count = data ? data.completions : 0;
+
+    let level = 0;
+    if (count > 0) {
+      const ratio = count / maxCount;
+      if (ratio > 0.8) level = 5;
+      else if (ratio > 0.6) level = 4;
+      else if (ratio > 0.4) level = 3;
+      else if (ratio > 0.2) level = 2;
+      else level = 1;
+    }
+
+    const block = document.createElement('div');
+    block.className = `time-block${level > 0 ? ` level-${level}` : ''}`;
+    block.textContent = hour;
+    block.title = `${hour}:00 - ${count} completions`;
+    chartEl.appendChild(block);
+  }
+}
+
+async function renderBatchesWidget() {
+  const listEl = document.getElementById('batch-list');
+
+  try {
+    const analytics = await window.electronAPI.db.getAnalytics({ type: 'volume' });
+    const batches = analytics.volume?.ingestionStats || [];
+
+    if (batches.length === 0) {
+      listEl.innerHTML = '<div class="batch-empty">No sessions yet</div>';
+      return;
+    }
+
+    listEl.innerHTML = batches.slice(0, 5).map(batch => {
+      const date = new Date(batch.period || batch.ingested_at);
+      return `
+        <div class="batch-item">
+          <div class="batch-info">
+            <span class="batch-date">${date.toLocaleDateString()}</span>
+            <span class="batch-source">${batch.batch_count || 1} batch(es)</span>
+          </div>
+          <span class="batch-count">${batch.posts_ingested} posts</span>
+        </div>
+      `;
+    }).join('');
+  } catch (e) {
+    console.error('Failed to load batches:', e);
+    listEl.innerHTML = '<div class="batch-empty">Failed to load</div>';
+  }
+}
+
+function renderFooterStats(analytics) {
+  const efficiency = analytics.efficiency || {};
+  const totals = efficiency.totals || {};
+  const authors = analytics.authors || [];
+
+  document.getElementById('all-time-posts').textContent = totals.total_posts || 0;
+  document.getElementById('all-time-completed').textContent = totals.total_completed || 0;
+  document.getElementById('all-time-rate').textContent = `${totals.completion_rate || 0}%`;
+  document.getElementById('all-time-authors').textContent = authors.length;
 }
 
 // Start the app

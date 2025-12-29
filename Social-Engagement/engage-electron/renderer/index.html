@@ -9,8 +9,136 @@
 </head>
 <body>
   <div id="app">
-    <!-- Empty State -->
-    <div id="empty-state" class="empty-state">
+    <!-- Dashboard Home -->
+    <div id="dashboard" class="dashboard">
+      <div class="dashboard-header">
+        <h1>Engage Dashboard</h1>
+        <div class="dashboard-actions">
+          <button class="btn-primary" id="start-engage-btn">Start Engaging</button>
+          <button class="btn-icon" id="dashboard-login-btn" title="Login to X.com">🔑</button>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- Today's Stats -->
+        <div class="widget widget-today">
+          <div class="widget-header">
+            <h3>Today</h3>
+            <span class="widget-date" id="today-date"></span>
+          </div>
+          <div class="widget-body">
+            <div class="stat-big">
+              <span class="stat-value" id="today-completed">0</span>
+              <span class="stat-label">engagements</span>
+            </div>
+            <div class="stat-row">
+              <div class="stat-item">
+                <span class="stat-num" id="today-ingested">0</span>
+                <span class="stat-desc">posts loaded</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-num" id="today-rate">0%</span>
+                <span class="stat-desc">completion</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Streak Widget -->
+        <div class="widget widget-streak">
+          <div class="widget-header">
+            <h3>Consistency</h3>
+          </div>
+          <div class="widget-body">
+            <div class="streak-display">
+              <span class="streak-fire" id="streak-icon">🔥</span>
+              <span class="streak-count" id="streak-days">0</span>
+              <span class="streak-label">day streak</span>
+            </div>
+            <div class="streak-calendar" id="streak-calendar"></div>
+          </div>
+        </div>
+
+        <!-- Weekly Volume -->
+        <div class="widget widget-volume">
+          <div class="widget-header">
+            <h3>This Week</h3>
+          </div>
+          <div class="widget-body">
+            <div class="volume-chart" id="volume-chart"></div>
+            <div class="stat-row">
+              <div class="stat-item">
+                <span class="stat-num" id="week-total">0</span>
+                <span class="stat-desc">engagements</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-num" id="week-avg">0</span>
+                <span class="stat-desc">avg/day</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Authors -->
+        <div class="widget widget-authors">
+          <div class="widget-header">
+            <h3>Top Connections</h3>
+            <span class="widget-subtitle">Authors you engage with most</span>
+          </div>
+          <div class="widget-body">
+            <div class="author-list" id="author-list">
+              <div class="author-empty">No data yet</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Best Times -->
+        <div class="widget widget-times">
+          <div class="widget-header">
+            <h3>Peak Hours</h3>
+          </div>
+          <div class="widget-body">
+            <div class="time-chart" id="time-chart"></div>
+          </div>
+        </div>
+
+        <!-- Recent Batches -->
+        <div class="widget widget-batches">
+          <div class="widget-header">
+            <h3>Recent Sessions</h3>
+          </div>
+          <div class="widget-body">
+            <div class="batch-list" id="batch-list">
+              <div class="batch-empty">No sessions yet</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- All Time Stats Footer -->
+      <div class="dashboard-footer">
+        <div class="footer-stat">
+          <span class="footer-value" id="all-time-posts">0</span>
+          <span class="footer-label">total posts</span>
+        </div>
+        <div class="footer-stat">
+          <span class="footer-value" id="all-time-completed">0</span>
+          <span class="footer-label">completed</span>
+        </div>
+        <div class="footer-stat">
+          <span class="footer-value" id="all-time-rate">0%</span>
+          <span class="footer-label">all-time rate</span>
+        </div>
+        <div class="footer-stat">
+          <span class="footer-value" id="all-time-authors">0</span>
+          <span class="footer-label">unique authors</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State (Load Queue) -->
+    <div id="empty-state" class="empty-state hidden">
+      <button class="back-to-dashboard" id="back-to-dashboard-empty">← Dashboard</button>
       <div class="drop-zone" id="drop-zone">
         <div class="drop-icon">📋</div>
         <div class="drop-text">Drop JSON file here</div>
@@ -29,7 +157,7 @@
     <div id="main-layout" class="layout hidden">
       <div class="sidebar">
         <div class="sidebar-header">
-          <h1>Engage</h1>
+          <button class="back-btn" id="back-to-dashboard-main" title="Back to Dashboard">← Dashboard</button>
           <div class="header-actions">
             <button class="btn-icon" id="clear-queue-btn" title="Clear queue (Cmd+Shift+V to paste new)">🗑️</button>
             <button class="btn-icon" id="reset-btn" title="Reset progress">🔄</button>

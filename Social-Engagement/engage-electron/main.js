@@ -1,5 +1,8 @@
 const { app, BrowserWindow, session, ipcMain, Menu } = require('electron');
 const path = require('path');
+const { initDatabase, closeDatabase } = require('./db');
+const { savePosts, queryPosts, getPost, markDone, getDoneUrls, migrateFromLocalStorage } = require('./db/posts');
+const { getAnalytics } = require('./db/analytics');
 
 let mainWindow;
 
@@ -128,6 +131,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  initDatabase();
   createWindow();
 
   app.on('activate', () => {
@@ -135,6 +139,10 @@ app.whenReady().then(() => {
       createWindow();
     }
   });
+});
+
+app.on('before-quit', () => {
+  closeDatabase();
 });
 
 app.on('window-all-closed', () => {
@@ -165,6 +173,70 @@ ipcMain.handle('clear-x-session', async () => {
     await session.defaultSession.clearCache();
     return { success: true };
   } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+// Database IPC handlers
+ipcMain.handle('db:save-posts', async (event, posts) => {
+  try {
+    return savePosts(posts);
+  } catch (error) {
+    console.error('db:save-posts error:', error);
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('db:query-posts', async (event, filters) => {
+  try {
+    return queryPosts(filters);
+  } catch (error) {
+    console.error('db:query-posts error:', error);
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('db:get-post', async (event, identifier) => {
+  try {
+    return getPost(identifier);
+  } catch (error) {
+    console.error('db:get-post error:', error);
+    return null;
+  }
+});
+
+ipcMain.handle('db:mark-done', async (event, { postId, done }) => {
+  try {
+    return markDone(postId, done);
+  } catch (error) {
+    console.error('db:mark-done error:', error);
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('db:get-done-urls', async () => {
+  try {
+    return getDoneUrls();
+  } catch (error) {
+    console.error('db:get-done-urls error:', error);
+    return [];
+  }
+});
+
+ipcMain.handle('db:get-analytics', async (event, options) => {
+  try {
+    return getAnalytics(options);
+  } catch (error) {
+    console.error('db:get-analytics error:', error);
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('db:migrate-localstorage', async (event, { doneUrls }) => {
+  try {
+    return migrateFromLocalStorage(doneUrls);
+  } catch (error) {
+    console.error('db:migrate-localstorage error:', error);
     return { success: false, error: error.message };
   }
 });
