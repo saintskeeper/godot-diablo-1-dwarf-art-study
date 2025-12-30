@@ -15,6 +15,7 @@
         <h1>Engage Dashboard</h1>
         <div class="dashboard-actions">
           <button class="btn-primary" id="start-engage-btn">Start Engaging</button>
+          <button class="btn-secondary" id="my-content-btn">My Content</button>
           <button class="btn-icon" id="dashboard-login-btn" title="Login to X.com">🔑</button>
         </div>
       </div>
@@ -187,6 +188,139 @@
         <div class="iframe-container" id="iframe-container">
           <div class="placeholder">← Click a card to load post</div>
         </div>
+      </div>
+    </div>
+
+    <!-- My Content Analytics -->
+    <div id="my-content" class="my-content hidden">
+      <div class="my-content-header">
+        <button class="back-btn" id="back-from-my-content">Dashboard</button>
+        <h1>My Content Analytics</h1>
+        <div class="my-content-actions">
+          <button class="btn-secondary" id="import-feedback-btn">Import Feedback</button>
+        </div>
+      </div>
+
+      <div class="my-content-grid">
+        <!-- Score Overview Widget -->
+        <div class="widget widget-score-overview">
+          <div class="widget-header">
+            <h3>Score Overview</h3>
+            <span class="widget-subtitle" id="score-date-range">Last 30 days</span>
+          </div>
+          <div class="widget-body">
+            <div class="score-big">
+              <span class="score-value" id="avg-overall-score">--</span>
+              <span class="score-label">avg score</span>
+            </div>
+            <div class="score-trend" id="score-trend">
+              <span class="trend-arrow"></span>
+              <span class="trend-value">vs last period</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Score Breakdown Widget -->
+        <div class="widget widget-score-breakdown">
+          <div class="widget-header">
+            <h3>Skill Breakdown</h3>
+          </div>
+          <div class="widget-body">
+            <div class="score-bars" id="score-bars"></div>
+          </div>
+        </div>
+
+        <!-- Score Trend Chart -->
+        <div class="widget widget-score-trend">
+          <div class="widget-header">
+            <h3>Progress Over Time</h3>
+          </div>
+          <div class="widget-body">
+            <div class="trend-chart" id="trend-chart"></div>
+          </div>
+        </div>
+
+        <!-- Top Performers -->
+        <div class="widget widget-top-posts">
+          <div class="widget-header">
+            <h3>Best Performers</h3>
+          </div>
+          <div class="widget-body">
+            <div class="post-list" id="top-posts-list"></div>
+          </div>
+        </div>
+
+        <!-- Action Items -->
+        <div class="widget widget-action-items">
+          <div class="widget-header">
+            <h3>Action Items</h3>
+            <span class="widget-badge" id="action-items-pending">0 pending</span>
+          </div>
+          <div class="widget-body">
+            <div class="action-list" id="action-items-list"></div>
+          </div>
+        </div>
+
+        <!-- Benchmark Inspiration -->
+        <div class="widget widget-benchmarks">
+          <div class="widget-header">
+            <h3>Steal These Ideas</h3>
+          </div>
+          <div class="widget-body">
+            <div class="benchmark-list" id="benchmark-list"></div>
+          </div>
+        </div>
+
+        <!-- Today's Experiment -->
+        <div class="widget widget-experiment">
+          <div class="widget-header">
+            <h3>Experiment</h3>
+          </div>
+          <div class="widget-body">
+            <div class="experiment-card" id="experiment-suggestion"></div>
+          </div>
+        </div>
+
+        <!-- Areas to Improve -->
+        <div class="widget widget-gaps">
+          <div class="widget-header">
+            <h3>Focus Areas</h3>
+          </div>
+          <div class="widget-body">
+            <div class="gaps-content">
+              <div class="gap-item gap-weak">
+                <span class="gap-label">Biggest Gap</span>
+                <span class="gap-value" id="biggest-gap">--</span>
+              </div>
+              <div class="gap-item gap-strong">
+                <span class="gap-label">Doing Well</span>
+                <span class="gap-value" id="doing-well">--</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- All Posts Table -->
+      <div class="my-content-table">
+        <div class="table-header">
+          <h3>All My Posts</h3>
+          <div class="table-filters">
+            <select id="post-sort">
+              <option value="posted_at-DESC">Newest First</option>
+              <option value="overall_score-DESC">Highest Score</option>
+              <option value="overall_score-ASC">Lowest Score</option>
+              <option value="likes-DESC">Most Likes</option>
+            </select>
+            <select id="post-filter-media">
+              <option value="">All Types</option>
+              <option value="image">Image</option>
+              <option value="video">Video</option>
+              <option value="text">Text Only</option>
+            </select>
+          </div>
+        </div>
+        <div class="posts-table" id="my-posts-table"></div>
       </div>
     </div>
   </div>

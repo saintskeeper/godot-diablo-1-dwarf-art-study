@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "X Frame Unblocker",
+  "version": "1.0",
+  "description": "Allows X.com to be embedded in iframes for the engagement dashboard",
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "*://*.x.com/*",
+    "*://*.twitter.com/*"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  }
+}

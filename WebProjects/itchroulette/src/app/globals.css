@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import "tailwindcss";
+@import "pixel-retroui/dist/index.css";
+
+:root {
+  /* WaltMakes Cozy Forge Palette */
+  --parchment: #F5EDE0;
+  --warm-cream: #E8E4DC;
+  --deep-ink: #2A2520;
+  --viking-teal: #3B8D9A;
+  --hearth-orange: #E07040;
+  --fur-brown: #7A5040;
+  --steel-gray: #5A6878;
+  --horn-ivory: #E8DCC8;
+  --forest-green: #4E9960;
+  --ember-red: #C85548;
+  --fog: #A8A498;
+
+  /* RetroUI compatible */
+  --background: var(--parchment);
+  --foreground: var(--deep-ink);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--parchment);
+  color: var(--deep-ink);
+  font-family: "Press Start 2P", "Space Mono", monospace;
+}
+
+/* Custom pixel borders for brand look */
+.pixel-border {
+  box-shadow:
+    4px 0 0 0 var(--deep-ink),
+    -4px 0 0 0 var(--deep-ink),
+    0 4px 0 0 var(--deep-ink),
+    0 -4px 0 0 var(--deep-ink);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--warm-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--viking-teal);
+  border: 2px solid var(--warm-cream);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--hearth-orange);
+}

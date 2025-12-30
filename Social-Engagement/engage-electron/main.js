@@ -1,8 +1,21 @@
-const { app, BrowserWindow, session, ipcMain, Menu } = require('electron');
+const { app, BrowserWindow, session, ipcMain, Menu, Notification } = require('electron');
 const path = require('path');
+const fs = require('fs');
+const os = require('os');
 const { initDatabase, closeDatabase } = require('./db');
 const { savePosts, queryPosts, getPost, markDone, getDoneUrls, migrateFromLocalStorage } = require('./db/posts');
 const { getAnalytics } = require('./db/analytics');
+const {
+  saveFeedbackReport,
+  getMyPosts,
+  getMyPost,
+  getMyContentAnalytics,
+  getScoreTrends,
+  getActionItems,
+  updateActionItemStatus,
+  getBenchmarkPosts,
+  getPatternReport
+} = require('./db/my-content');
 
 let mainWindow;
 
@@ -133,6 +146,7 @@ function createWindow() {
 app.whenReady().then(() => {
   initDatabase();
   createWindow();
+  setupFeedbackWatcher();
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
@@ -142,6 +156,7 @@ app.whenReady().then(() => {
 });
 
 app.on('before-quit', () => {
+  stopFeedbackWatcher();
   closeDatabase();
 });
 
@@ -240,3 +255,152 @@ ipcMain.handle('db:migrate-localstorage', async (event, { doneUrls }) => {
     return { success: false, error: error.message };
   }
 });
+
+// My Content IPC handlers
+ipcMain.handle('db:save-feedback-report', async (event, jsonData) => {
+  try {
+    return saveFeedbackReport(jsonData);
+  } catch (error) {
+    console.error('db:save-feedback-report error:', error);
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('db:get-my-posts', async (event, options) => {
+  try {
+    return getMyPosts(options);
+  } catch (error) {
+    console.error('db:get-my-posts error:', error);
+    return [];
+  }
+});
+
+ipcMain.handle('db:get-my-post', async (event, identifier) => {
+  try {
+    return getMyPost(identifier);
+  } catch (error) {
+    console.error('db:get-my-post error:', error);
+    return null;
+  }
+});
+
+ipcMain.handle('db:get-my-content-analytics', async (event, options) => {
+  try {
+    return getMyContentAnalytics(options);
+  } catch (error) {
+    console.error('db:get-my-content-analytics error:', error);
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('db:get-score-trends', async (event, range) => {
+  try {
+    return getScoreTrends(range);
+  } catch (error) {
+    console.error('db:get-score-trends error:', error);
+    return [];
+  }
+});
+
+ipcMain.handle('db:get-action-items', async (event, options) => {
+  try {
+    return getActionItems(options);
+  } catch (error) {
+    console.error('db:get-action-items error:', error);
+    return [];
+  }
+});
+
+ipcMain.handle('db:update-action-item', async (event, { id, status }) => {
+  try {
+    return updateActionItemStatus(id, status);
+  } catch (error) {
+    console.error('db:update-action-item error:', error);
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('db:get-benchmarks', async (event, options) => {
+  try {
+    return getBenchmarkPosts(options);
+  } catch (error) {
+    console.error('db:get-benchmarks error:', error);
+    return [];
+  }
+});
+
+ipcMain.handle('db:get-patterns', async (event, reportId) => {
+  try {
+    return getPatternReport(reportId);
+  } catch (error) {
+    console.error('db:get-patterns error:', error);
+    return null;
+  }
+});
+
+// Folder watcher for auto-importing feedback JSON
+let feedbackWatcher = null;
+const FEEDBACK_FOLDER = path.join(os.homedir(), 'engage-feedback');
+
+function setupFeedbackWatcher() {
+  // Create folder if it doesn't exist
+  if (!fs.existsSync(FEEDBACK_FOLDER)) {
+    fs.mkdirSync(FEEDBACK_FOLDER, { recursive: true });
+    console.log(`Created feedback folder: ${FEEDBACK_FOLDER}`);
+  }
+
+  // Watch for new files
+  feedbackWatcher = fs.watch(FEEDBACK_FOLDER, (eventType, filename) => {
+    if (eventType === 'rename' && filename && filename.endsWith('.json')) {
+      const filePath = path.join(FEEDBACK_FOLDER, filename);
+
+      // Wait a moment for file to be fully written
+      setTimeout(() => {
+        if (fs.existsSync(filePath)) {
+          try {
+            const content = fs.readFileSync(filePath, 'utf-8');
+            const jsonData = JSON.parse(content);
+
+            // Check if it's a feedback report (has walter_posts_reviewed or walter_summary)
+            if (jsonData.walter_posts_reviewed || jsonData.walter_summary) {
+              const result = saveFeedbackReport(jsonData);
+
+              if (result.success) {
+                // Show notification
+                if (Notification.isSupported()) {
+                  new Notification({
+                    title: 'Feedback Imported',
+                    body: `Imported ${result.postsProcessed} posts from ${filename}`
+                  }).show();
+                }
+
+                // Notify renderer to refresh
+                if (mainWindow && !mainWindow.isDestroyed()) {
+                  mainWindow.webContents.send('feedback-imported', result);
+                }
+
+                // Move file to processed folder
+                const processedFolder = path.join(FEEDBACK_FOLDER, 'processed');
+                if (!fs.existsSync(processedFolder)) {
+                  fs.mkdirSync(processedFolder, { recursive: true });
+                }
+                fs.renameSync(filePath, path.join(processedFolder, filename));
+              }
+            }
+          } catch (error) {
+            console.error('Error processing feedback file:', error);
+          }
+        }
+      }, 500);
+    }
+  });
+
+  console.log(`Watching for feedback files in: ${FEEDBACK_FOLDER}`);
+}
+
+function stopFeedbackWatcher() {
+  if (feedbackWatcher) {
+    feedbackWatcher.close();
+    feedbackWatcher = null;
+  }
+}

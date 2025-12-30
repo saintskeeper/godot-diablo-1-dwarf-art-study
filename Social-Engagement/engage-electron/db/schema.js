@@ -105,8 +105,122 @@ function createTables(db) {
 }
 
 const MIGRATIONS = [
-  // Future migrations go here
-  // { id: 1, name: 'add_some_column', up: (db) => db.exec('ALTER TABLE...') }
+  {
+    id: 1,
+    name: 'add_my_content_tables',
+    up: (db) => db.exec(`
+      -- Daily feedback reports (one per JSON import)
+      CREATE TABLE IF NOT EXISTS feedback_reports (
+        id TEXT PRIMARY KEY,
+        report_date TEXT UNIQUE NOT NULL,
+        posts_analyzed INTEGER,
+        avg_score REAL,
+        best_performing_post_url TEXT,
+        biggest_gap TEXT,
+        doing_well TEXT,
+        experiment_suggestion TEXT,
+        raw_data TEXT,
+        ingested_at TEXT DEFAULT (datetime('now'))
+      );
+
+      -- My own posts with scores
+      CREATE TABLE IF NOT EXISTS my_posts (
+        id TEXT PRIMARY KEY,
+        post_url TEXT UNIQUE NOT NULL,
+        post_text TEXT,
+        media_type TEXT,
+        posted_at TEXT,
+        likes INTEGER DEFAULT 0,
+        retweets INTEGER DEFAULT 0,
+        replies INTEGER DEFAULT 0,
+        score_hook REAL,
+        score_visual_impact REAL,
+        score_structure REAL,
+        score_engagement_hook REAL,
+        score_discoverability REAL,
+        score_storytelling REAL,
+        overall_score REAL,
+        strengths TEXT,
+        weaknesses TEXT,
+        quick_wins TEXT,
+        rewrite_suggestion TEXT,
+        first_seen_at TEXT DEFAULT (datetime('now')),
+        last_updated_at TEXT DEFAULT (datetime('now')),
+        report_id TEXT,
+        FOREIGN KEY (report_id) REFERENCES feedback_reports(id)
+      );
+
+      -- Score history (track changes over time for same post)
+      CREATE TABLE IF NOT EXISTS my_post_score_history (
+        id TEXT PRIMARY KEY,
+        my_post_id TEXT NOT NULL,
+        report_id TEXT NOT NULL,
+        overall_score REAL,
+        score_hook REAL,
+        score_visual_impact REAL,
+        score_structure REAL,
+        score_engagement_hook REAL,
+        score_discoverability REAL,
+        score_storytelling REAL,
+        recorded_at TEXT DEFAULT (datetime('now')),
+        FOREIGN KEY (my_post_id) REFERENCES my_posts(id),
+        FOREIGN KEY (report_id) REFERENCES feedback_reports(id)
+      );
+
+      -- Benchmark posts from others (high performers)
+      CREATE TABLE IF NOT EXISTS benchmark_posts (
+        id TEXT PRIMARY KEY,
+        post_url TEXT NOT NULL,
+        author TEXT,
+        likes INTEGER,
+        why_it_worked TEXT,
+        steal_this TEXT,
+        report_id TEXT NOT NULL,
+        first_seen_at TEXT DEFAULT (datetime('now')),
+        FOREIGN KEY (report_id) REFERENCES feedback_reports(id)
+      );
+
+      -- Pattern reports (daily trends)
+      CREATE TABLE IF NOT EXISTS pattern_reports (
+        id TEXT PRIMARY KEY,
+        report_id TEXT UNIQUE NOT NULL,
+        winning_formats TEXT,
+        trending_topics TEXT,
+        hot_tools_mentioned TEXT,
+        optimal_posting_times TEXT,
+        avg_viral_post_length INTEGER,
+        hashtag_most_effective TEXT,
+        hashtag_overused_avoid TEXT,
+        hashtag_emerging TEXT,
+        FOREIGN KEY (report_id) REFERENCES feedback_reports(id)
+      );
+
+      -- Action items with tracking
+      CREATE TABLE IF NOT EXISTS action_items (
+        id TEXT PRIMARY KEY,
+        report_id TEXT NOT NULL,
+        priority INTEGER,
+        category TEXT,
+        recommendation TEXT,
+        example TEXT,
+        expected_impact TEXT,
+        status TEXT DEFAULT 'pending',
+        completed_at TEXT,
+        FOREIGN KEY (report_id) REFERENCES feedback_reports(id)
+      );
+
+      -- Indexes for common queries
+      CREATE INDEX IF NOT EXISTS idx_my_posts_url ON my_posts(post_url);
+      CREATE INDEX IF NOT EXISTS idx_my_posts_posted_at ON my_posts(posted_at);
+      CREATE INDEX IF NOT EXISTS idx_my_posts_overall_score ON my_posts(overall_score);
+      CREATE INDEX IF NOT EXISTS idx_my_posts_report ON my_posts(report_id);
+      CREATE INDEX IF NOT EXISTS idx_feedback_reports_date ON feedback_reports(report_date);
+      CREATE INDEX IF NOT EXISTS idx_score_history_post ON my_post_score_history(my_post_id);
+      CREATE INDEX IF NOT EXISTS idx_action_items_status ON action_items(status);
+      CREATE INDEX IF NOT EXISTS idx_action_items_report ON action_items(report_id);
+      CREATE INDEX IF NOT EXISTS idx_benchmark_posts_report ON benchmark_posts(report_id);
+    `)
+  }
 ];
 
 function runMigrations(db) {

@@ -8,6 +8,7 @@ const STORAGE_KEY = 'engage-electron-done';
 const dashboard = document.getElementById('dashboard');
 const emptyState = document.getElementById('empty-state');
 const mainLayout = document.getElementById('main-layout');
+const myContentView = document.getElementById('my-content');
 const dropZone = document.getElementById('drop-zone');
 const pasteBtn = document.getElementById('paste-btn');
 const cardList = document.getElementById('card-list');
@@ -37,6 +38,7 @@ async function init() {
   setupLogin();
   setupMenuCommands();
   setupDashboard();
+  setupMyContent();
   await loadDashboardData();
 }
 
@@ -870,6 +872,7 @@ function showDashboard() {
   dashboard.classList.remove('hidden');
   emptyState.classList.add('hidden');
   mainLayout.classList.add('hidden');
+  myContentView.classList.add('hidden');
   loadDashboardData();
 }
 
@@ -877,6 +880,15 @@ function showEmptyStateFromDashboard() {
   dashboard.classList.add('hidden');
   emptyState.classList.remove('hidden');
   mainLayout.classList.add('hidden');
+  myContentView.classList.add('hidden');
+}
+
+function showMyContent() {
+  dashboard.classList.add('hidden');
+  emptyState.classList.add('hidden');
+  mainLayout.classList.add('hidden');
+  myContentView.classList.remove('hidden');
+  loadMyContentData();
 }
 
 async function loadDashboardData() {
@@ -1111,6 +1123,337 @@ function renderFooterStats(analytics) {
   document.getElementById('all-time-completed').textContent = totals.total_completed || 0;
   document.getElementById('all-time-rate').textContent = `${totals.completion_rate || 0}%`;
   document.getElementById('all-time-authors').textContent = authors.length;
+}
+
+// ==================== MY CONTENT ANALYTICS ====================
+
+function setupMyContent() {
+  // My Content button on dashboard
+  const myContentBtn = document.getElementById('my-content-btn');
+  if (myContentBtn) {
+    myContentBtn.addEventListener('click', showMyContent);
+  }
+
+  // Back button
+  const backFromMyContent = document.getElementById('back-from-my-content');
+  if (backFromMyContent) {
+    backFromMyContent.addEventListener('click', showDashboard);
+  }
+
+  // Import feedback button
+  const importFeedbackBtn = document.getElementById('import-feedback-btn');
+  if (importFeedbackBtn) {
+    importFeedbackBtn.addEventListener('click', handleFeedbackImport);
+  }
+
+  // Sort/filter dropdowns
+  const postSort = document.getElementById('post-sort');
+  if (postSort) {
+    postSort.addEventListener('change', () => loadMyPostsTable());
+  }
+
+  const postFilterMedia = document.getElementById('post-filter-media');
+  if (postFilterMedia) {
+    postFilterMedia.addEventListener('change', () => loadMyPostsTable());
+  }
+
+  // Listen for auto-imported feedback
+  window.electronAPI.onFeedbackImported((result) => {
+    if (result.success && !myContentView.classList.contains('hidden')) {
+      loadMyContentData();
+      showToast(`Auto-imported ${result.postsProcessed} posts`);
+    }
+  });
+}
+
+async function handleFeedbackImport() {
+  try {
+    const text = await navigator.clipboard.readText();
+    if (!text) {
+      showToast('Clipboard is empty', 'error');
+      return;
+    }
+
+    const data = JSON.parse(text);
+
+    // Validate expected structure
+    if (!data.walter_posts_reviewed && !data.walter_summary) {
+      showToast('Invalid feedback format', 'error');
+      return;
+    }
+
+    const result = await window.electronAPI.myContent.saveFeedbackReport(data);
+
+    if (result.success) {
+      showToast(`Imported ${result.postsProcessed} posts`);
+      loadMyContentData();
+    } else {
+      showToast(`Import failed: ${result.error}`, 'error');
+    }
+  } catch (e) {
+    showToast(`Invalid JSON: ${e.message}`, 'error');
+  }
+}
+
+async function loadMyContentData() {
+  try {
+    const analytics = await window.electronAPI.myContent.getAnalytics({ range: 30 });
+    const actionItems = await window.electronAPI.myContent.getActionItems({ limit: 10 });
+    const benchmarks = await window.electronAPI.myContent.getBenchmarks({ limit: 5 });
+    const trends = await window.electronAPI.myContent.getScoreTrends(30);
+
+    renderMyContentWidgets({ analytics, actionItems, benchmarks, trends });
+    loadMyPostsTable();
+  } catch (e) {
+    console.error('Failed to load my content data:', e);
+    showToast('Failed to load analytics', 'error');
+  }
+}
+
+function renderMyContentWidgets(data) {
+  renderScoreOverview(data.analytics);
+  renderScoreBreakdown(data.analytics);
+  renderScoreTrendChart(data.trends);
+  renderTopPosts(data.analytics.topPosts);
+  renderActionItems(data.actionItems);
+  renderBenchmarks(data.benchmarks);
+  renderExperiment(data.analytics);
+  renderFocusAreas(data.analytics);
+}
+
+function renderScoreOverview(analytics) {
+  const scoreEl = document.getElementById('avg-overall-score');
+  const trendEl = document.getElementById('score-trend');
+
+  const avgScore = analytics.totals?.avg_overall;
+  scoreEl.textContent = avgScore ? avgScore.toFixed(1) : '--';
+
+  const trend = analytics.trend;
+  if (trend !== null && trend !== undefined) {
+    const isUp = parseFloat(trend) >= 0;
+    trendEl.innerHTML = `
+      <span class="trend-arrow ${isUp ? 'up' : 'down'}">${isUp ? '↑' : '↓'}</span>
+      <span class="trend-value">${Math.abs(trend)}% vs last period</span>
+    `;
+  } else {
+    trendEl.innerHTML = '<span class="trend-value">No comparison data</span>';
+  }
+}
+
+function renderScoreBreakdown(analytics) {
+  const container = document.getElementById('score-bars');
+  const avgScores = analytics.avgScores || {};
+
+  const categories = [
+    { key: 'hook', label: 'Hook', color: '#1d9bf0' },
+    { key: 'visual_impact', label: 'Visual', color: '#00ba7c' },
+    { key: 'structure', label: 'Structure', color: '#ff9500' },
+    { key: 'engagement_hook', label: 'Engagement', color: '#f4212e' },
+    { key: 'discoverability', label: 'Discovery', color: '#7856ff' },
+    { key: 'storytelling', label: 'Story', color: '#f91880' }
+  ];
+
+  container.innerHTML = categories.map(cat => {
+    const score = avgScores[cat.key] || 0;
+    const maxScore = 10;
+    const pct = (score / maxScore) * 100;
+
+    return `
+      <div class="score-bar-row">
+        <span class="score-bar-label">${cat.label}</span>
+        <div class="score-bar-track">
+          <div class="score-bar-fill" style="width: ${pct}%; background: ${cat.color}"></div>
+        </div>
+        <span class="score-bar-value">${score.toFixed(1)}</span>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderScoreTrendChart(trends) {
+  const container = document.getElementById('trend-chart');
+
+  if (!trends || trends.length === 0) {
+    container.innerHTML = '<div class="empty-chart">No trend data yet</div>';
+    return;
+  }
+
+  const maxScore = 10;
+  const height = 100;
+  const width = container.clientWidth || 200;
+  const pointSpacing = width / Math.max(trends.length - 1, 1);
+
+  const points = trends.map((t, i) => {
+    const x = i * pointSpacing;
+    const score = t.avg_score || 0;
+    const y = height - (score / maxScore) * height;
+    return { x, y, score, date: t.report_date };
+  });
+
+  // Build SVG path
+  const pathData = points.map((p, i) =>
+    `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`
+  ).join(' ');
+
+  container.innerHTML = `
+    <svg width="${width}" height="${height}" class="trend-svg">
+      <path d="${pathData}" fill="none" stroke="var(--accent)" stroke-width="2"/>
+      ${points.map(p => `
+        <circle cx="${p.x}" cy="${p.y}" r="4" fill="var(--accent)"
+          class="trend-point" title="${p.date}: ${p.score.toFixed(1)}"/>
+      `).join('')}
+    </svg>
+  `;
+}
+
+function renderTopPosts(topPosts) {
+  const container = document.getElementById('top-posts-list');
+
+  if (!topPosts || topPosts.length === 0) {
+    container.innerHTML = '<div class="empty-list">No posts yet</div>';
+    return;
+  }
+
+  container.innerHTML = topPosts.map(post => {
+    const text = (post.post_text || '').slice(0, 60) + (post.post_text?.length > 60 ? '...' : '');
+    return `
+      <div class="top-post-item">
+        <div class="top-post-text">${escapeHtml(text)}</div>
+        <div class="top-post-meta">
+          <span class="top-post-score">${post.overall_score?.toFixed(1) || '--'}</span>
+          <span class="top-post-likes">${post.likes || 0} likes</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderActionItems(items) {
+  const container = document.getElementById('action-items-list');
+  const badge = document.getElementById('action-items-pending');
+
+  const pending = items.filter(i => i.status === 'pending');
+  badge.textContent = `${pending.length} pending`;
+
+  if (items.length === 0) {
+    container.innerHTML = '<div class="empty-list">No action items</div>';
+    return;
+  }
+
+  container.innerHTML = items.slice(0, 5).map(item => `
+    <div class="action-item ${item.status}">
+      <label class="action-checkbox">
+        <input type="checkbox"
+          ${item.status === 'completed' ? 'checked' : ''}
+          data-action-id="${item.id}">
+      </label>
+      <div class="action-content">
+        <span class="action-text">${escapeHtml(item.recommendation || '')}</span>
+        ${item.example ? `<span class="action-example">${escapeHtml(item.example)}</span>` : ''}
+      </div>
+      <span class="action-priority priority-${item.priority || 99}">P${item.priority || '?'}</span>
+    </div>
+  `).join('');
+
+  // Add event listeners for checkboxes
+  container.querySelectorAll('[data-action-id]').forEach(checkbox => {
+    checkbox.addEventListener('change', async () => {
+      const id = checkbox.dataset.actionId;
+      const status = checkbox.checked ? 'completed' : 'pending';
+      await window.electronAPI.myContent.updateActionItem(id, status);
+      loadMyContentData();
+    });
+  });
+}
+
+function renderBenchmarks(benchmarks) {
+  const container = document.getElementById('benchmark-list');
+
+  if (!benchmarks || benchmarks.length === 0) {
+    container.innerHTML = '<div class="empty-list">No benchmarks yet</div>';
+    return;
+  }
+
+  container.innerHTML = benchmarks.map(b => `
+    <div class="benchmark-item">
+      <div class="benchmark-header">
+        <span class="benchmark-author">${escapeHtml(b.author || 'Unknown')}</span>
+        <span class="benchmark-likes">${b.likes || 0} likes</span>
+      </div>
+      <div class="benchmark-why">${escapeHtml(b.why_it_worked || '')}</div>
+      ${b.steal_this ? `<div class="benchmark-steal">${escapeHtml(b.steal_this)}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderExperiment(analytics) {
+  const container = document.getElementById('experiment-suggestion');
+  const experiment = analytics.latestExperiment;
+
+  if (!experiment) {
+    container.innerHTML = '<div class="empty-experiment">No experiment suggested</div>';
+    return;
+  }
+
+  container.innerHTML = `<div class="experiment-text">${escapeHtml(experiment)}</div>`;
+}
+
+function renderFocusAreas(analytics) {
+  const biggestGapEl = document.getElementById('biggest-gap');
+  const doingWellEl = document.getElementById('doing-well');
+
+  biggestGapEl.textContent = analytics.biggestGap || '--';
+  doingWellEl.textContent = analytics.doingWell || '--';
+}
+
+async function loadMyPostsTable() {
+  const container = document.getElementById('my-posts-table');
+  const sortSelect = document.getElementById('post-sort');
+  const mediaFilter = document.getElementById('post-filter-media');
+
+  const sortValue = sortSelect?.value || 'posted_at-DESC';
+  const [sortBy, sortOrder] = sortValue.split('-');
+  const mediaType = mediaFilter?.value || '';
+
+  try {
+    const posts = await window.electronAPI.myContent.getMyPosts({
+      limit: 50,
+      sortBy,
+      sortOrder,
+      mediaType: mediaType || undefined
+    });
+
+    if (!posts || posts.length === 0) {
+      container.innerHTML = '<div class="empty-table">No posts yet. Import some feedback to get started.</div>';
+      return;
+    }
+
+    container.innerHTML = posts.map(post => {
+      const text = (post.post_text || '').slice(0, 80) + (post.post_text?.length > 80 ? '...' : '');
+      return `
+        <div class="post-row" data-url="${escapeHtml(post.post_url)}">
+          <span class="post-text">${escapeHtml(text)}</span>
+          <span class="post-score">${post.overall_score?.toFixed(1) || '--'}</span>
+          <span class="post-likes">${post.likes || 0}</span>
+          <span class="post-retweets">${post.retweets || 0}</span>
+          <span class="post-type">${post.media_type || 'text'}</span>
+        </div>
+      `;
+    }).join('');
+
+    // Click handler to open post URL
+    container.querySelectorAll('.post-row').forEach(row => {
+      row.addEventListener('click', () => {
+        const url = row.dataset.url;
+        if (url) {
+          window.open(url, '_blank');
+        }
+      });
+    });
+  } catch (e) {
+    console.error('Failed to load posts table:', e);
+    container.innerHTML = '<div class="empty-table">Failed to load posts</div>';
+  }
 }
 
 // Start the app

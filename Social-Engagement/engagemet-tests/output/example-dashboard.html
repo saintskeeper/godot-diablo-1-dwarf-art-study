@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engagement Dashboard</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+        }
+        .header h1 { margin: 0; font-size: 1.5rem; }
+        .stats { color: #666; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .card.done {
+            opacity: 0.5;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .author {
+            font-weight: bold;
+            color: #1da1f2;
+        }
+        .followers {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .card-summary {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        .card-stats {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        .suggested {
+            background: #f0f7ff;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 4px 8px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: white;
+        }
+        .copy-btn:hover { background: #eee; }
+        .embed-container {
+            min-height: 200px;
+            margin-bottom: 10px;
+        }
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .open-btn {
+            padding: 8px 16px;
+            background: #1da1f2;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .open-btn:hover { background: #0c85d0; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Engagement Dashboard</h1>
+        <div class="stats">
+            <span id="done-count">0</span> / 20 done
+        </div>
+    </div>
+    <div class="grid">
+        
+        <div class="card" data-index="0">
+            <div class="card-header">
+                <span class="author">@dotflare3</span>
+                <span class="followers">~50K+</span>
+            </div>
+            <div class="card-summary">Blender lighting comparison (EEVEE Next issues)</div>
+            <div class="card-stats">
+                <span>❤️ 20011</span>
+                <span>🔄 678</span>
+                <span>💬 48</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> EEVEE Next lighting changes are wild! Have you tried tweaking the shadow settings? Inspiring me to experiment more in my small Blender scenes.
+                <button class="copy-btn" onclick="copyText(this, `EEVEE Next lighting changes are wild! Have you tried tweaking the shadow settings? Inspiring me to experiment more in my small Blender scenes.`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/dotflare3/status/2004492181944598929"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(0, this.checked)"> Done</label>
+                <a href="https://x.com/dotflare3/status/2004492181944598929" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="1">
+            <div class="card-header">
+                <span class="author">@satowmrmr0101</span>
+                <span class="followers">~100K+</span>
+            </div>
+            <div class="card-summary">Bubble pixel art animation</div>
+            <div class="card-stats">
+                <span>❤️ 11948</span>
+                <span>🔄 1639</span>
+                <span>💬 13</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> Smooth bubble animation – love the fluidity! What palette/technique did you use for the highlights? Perfect for game juice in my projects.
+                <button class="copy-btn" onclick="copyText(this, `Smooth bubble animation – love the fluidity! What palette/technique did you use for the highlights? Perfect for game juice in my projects.`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/satowmrmr0101/status/2004389854575300978"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(1, this.checked)"> Done</label>
+                <a href="https://x.com/satowmrmr0101/status/2004389854575300978" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="2">
+            <div class="card-header">
+                <span class="author">@OriginTheHero</span>
+                <span class="followers">~20K+</span>
+            </div>
+            <div class="card-summary">Pomni Blender collab animation</div>
+            <div class="card-stats">
+                <span>❤️ 9821</span>
+                <span>🔄 1558</span>
+                <span>💬 20</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> Blender collab looks fun! The timing on the movements is spot-on – any tips for rigging in small animations like this?
+                <button class="copy-btn" onclick="copyText(this, `Blender collab looks fun! The timing on the movements is spot-on – any tips for rigging in small animations like this?`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/OriginTheHero/status/2004353016527573343"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(2, this.checked)"> Done</label>
+                <a href="https://x.com/OriginTheHero/status/2004353016527573343" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="3">
+            <div class="card-header">
+                <span class="author">@AnasAbdin</span>
+                <span class="followers">~50K+</span>
+            </div>
+            <div class="card-summary">Dispersion pixel art GIF</div>
+            <div class="card-stats">
+                <span>❤️ 4769</span>
+                <span>🔄 772</span>
+                <span>💬 5</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> Stunning dispersion effect in pixel art! How many frames for the transition? Inspiring VFX ideas for my indie experiences.
+                <button class="copy-btn" onclick="copyText(this, `Stunning dispersion effect in pixel art! How many frames for the transition? Inspiring VFX ideas for my indie experiences.`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/AnasAbdin/status/2004616050781155699"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(3, this.checked)"> Done</label>
+                <a href="https://x.com/AnasAbdin/status/2004616050781155699" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="4">
+            <div class="card-header">
+                <span class="author">@DM_Arts_</span>
+                <span class="followers">~30K+</span>
+            </div>
+            <div class="card-summary">Vaporwave Blender animation</div>
+            <div class="card-stats">
+                <span>❤️ 4406</span>
+                <span>🔄 434</span>
+                <span>💬 101</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> 12 days on this Blender animation paid off – retro vibe is immaculate! What nodes for the glow effects?
+                <button class="copy-btn" onclick="copyText(this, `12 days on this Blender animation paid off – retro vibe is immaculate! What nodes for the glow effects?`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/DM_Arts_/status/2004499442704200086"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(4, this.checked)"> Done</label>
+                <a href="https://x.com/DM_Arts_/status/2004499442704200086" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="5">
+            <div class="card-header">
+                <span class="author">@PalmTreeRothic</span>
+                <span class="followers">~20K+</span>
+            </div>
+            <div class="card-summary">Anthro body type Blender render</div>
+            <div class="card-stats">
+                <span>❤️ 3754</span>
+                <span>🔄 192</span>
+                <span>💬 15</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> Round renders in Blender are chef's kiss! Loving the volume – geometry nodes or sculpting?
+                <button class="copy-btn" onclick="copyText(this, `Round renders in Blender are chef's kiss! Loving the volume – geometry nodes or sculpting?`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/PalmTreeRothic/status/2004372345847480801"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(5, this.checked)"> Done</label>
+                <a href="https://x.com/PalmTreeRothic/status/2004372345847480801" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="6">
+            <div class="card-header">
+                <span class="author">@eCherryArt</span>
+                <span class="followers">~50K+</span>
+            </div>
+            <div class="card-summary">Keep learning Blender progress</div>
+            <div class="card-stats">
+                <span>❤️ 3207</span>
+                <span>🔄 165</span>
+                <span>💬 18</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> Blender progress is motivating! The shading improvements are huge – what's your go-to addon for quick iterations?
+                <button class="copy-btn" onclick="copyText(this, `Blender progress is motivating! The shading improvements are huge – what's your go-to addon for quick iterations?`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/eCherryArt/status/2004630102966239647"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(6, this.checked)"> Done</label>
+                <a href="https://x.com/eCherryArt/status/2004630102966239647" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="7">
+            <div class="card-header">
+                <span class="author">@ScarletSunArts</span>
+                <span class="followers">~30K+</span>
+            </div>
+            <div class="card-summary">Year favorites pixel art</div>
+            <div class="card-stats">
+                <span>❤️ 3068</span>
+                <span>🔄 435</span>
+                <span>💬 0</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> 2025 pixel favorites are fire! The colors pop so well – any tips for palette selection in game art?
+                <button class="copy-btn" onclick="copyText(this, `2025 pixel favorites are fire! The colors pop so well – any tips for palette selection in game art?`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/ScarletSunArts/status/2004582626431299647"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(7, this.checked)"> Done</label>
+                <a href="https://x.com/ScarletSunArts/status/2004582626431299647" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="8">
+            <div class="card-header">
+                <span class="author">@Magmariin</span>
+                <span class="followers">~40K+</span>
+            </div>
+            <div class="card-summary">Rock tutorial pixel art</div>
+            <div class="card-stats">
+                <span>❤️ 2769</span>
+                <span>🔄 182</span>
+                <span>💬 8</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> Rock tutorial is gold for environment art! Trying this palette in my next pixel scene – thanks for sharing.
+                <button class="copy-btn" onclick="copyText(this, `Rock tutorial is gold for environment art! Trying this palette in my next pixel scene – thanks for sharing.`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/Magmariin/status/2004508135059542044"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(8, this.checked)"> Done</label>
+                <a href="https://x.com/Magmariin/status/2004508135059542044" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="9">
+            <div class="card-header">
+                <span class="author">@cyanpuppets</span>
+                <span class="followers">~10K+</span>
+            </div>
+            <div class="card-summary">Blender AI Motion Plugin demo</div>
+            <div class="card-stats">
+                <span>❤️ 1680</span>
+                <span>🔄 162</span>
+                <span>💬 20</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> Real-time motion capture in Blender is game-changing for small devs! How's performance on lower VRAM?
+                <button class="copy-btn" onclick="copyText(this, `Real-time motion capture in Blender is game-changing for small devs! How's performance on lower VRAM?`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/cyanpuppets/status/2004396965728342516"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(9, this.checked)"> Done</label>
+                <a href="https://x.com/cyanpuppets/status/2004396965728342516" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="10">
+            <div class="card-header">
+                <span class="author">@80Level</span>
+                <span class="followers">200K+</span>
+            </div>
+            <div class="card-summary">Outliner preview Blender add-on</div>
+            <div class="card-stats">
+                <span>❤️ 1366</span>
+                <span>🔄 106</span>
+                <span>💬 8</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> Free Outliner preview add-on looks handy! Testing this for faster asset management in my Blender workflows.
+                <button class="copy-btn" onclick="copyText(this, `Free Outliner preview add-on looks handy! Testing this for faster asset management in my Blender workflows.`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/80Level/status/2004507492957704634"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(10, this.checked)"> Done</label>
+                <a href="https://x.com/80Level/status/2004507492957704634" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="11">
+            <div class="card-header">
+                <span class="author">@AcarcaneCG</span>
+                <span class="followers">~20K+</span>
+            </div>
+            <div class="card-summary">Retro retopo tool tutorial</div>
+            <div class="card-stats">
+                <span>❤️ 1140</span>
+                <span>🔄 122</span>
+                <span>💬 1</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> Procedural retopo for clothes is clutch! Adding this to my Blender toolkit for character work.
+                <button class="copy-btn" onclick="copyText(this, `Procedural retopo for clothes is clutch! Adding this to my Blender toolkit for character work.`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/AcarcaneCG/status/2004471016983310818"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(11, this.checked)"> Done</label>
+                <a href="https://x.com/AcarcaneCG/status/2004471016983310818" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="12">
+            <div class="card-header">
+                <span class="author">@Sakura_Rabbiter</span>
+                <span class="followers">~30K+</span>
+            </div>
+            <div class="card-summary">Sparkling eyes Unity VFX</div>
+            <div class="card-stats">
+                <span>❤️ 960</span>
+                <span>🔄 62</span>
+                <span>💬 2</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> Unity shader for eyes is sparkling magic! Shader graph or custom? Inspiring for expressive characters.
+                <button class="copy-btn" onclick="copyText(this, `Unity shader for eyes is sparkling magic! Shader graph or custom? Inspiring for expressive characters.`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/Sakura_Rabbiter/status/2004545325747646853"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(12, this.checked)"> Done</label>
+                <a href="https://x.com/Sakura_Rabbiter/status/2004545325747646853" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="13">
+            <div class="card-header">
+                <span class="author">@RadicalFishGame</span>
+                <span class="followers">~20K+</span>
+            </div>
+            <div class="card-summary">HTML5 engine pixel art dev</div>
+            <div class="card-stats">
+                <span>❤️ 952</span>
+                <span>🔄 74</span>
+                <span>💬 30</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> HTML5 pixel art action RPG progress is clean! How's performance with all those effects?
+                <button class="copy-btn" onclick="copyText(this, `HTML5 pixel art action RPG progress is clean! How's performance with all those effects?`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/RadicalFishGame/status/2004594086188323274"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(13, this.checked)"> Done</label>
+                <a href="https://x.com/RadicalFishGame/status/2004594086188323274" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="14">
+            <div class="card-header">
+                <span class="author">@SaviorS_OOTB</span>
+                <span class="followers">~10K+</span>
+            </div>
+            <div class="card-summary">Maid animations pixel art</div>
+            <div class="card-stats">
+                <span>❤️ 997</span>
+                <span>🔄 88</span>
+                <span>💬 6</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> Idle/Walk/Dead animations are smooth! UE5 pixel pipeline tips? Great for roguelike vibes.
+                <button class="copy-btn" onclick="copyText(this, `Idle/Walk/Dead animations are smooth! UE5 pixel pipeline tips? Great for roguelike vibes.`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/SaviorS_OOTB/status/2004514793689141636"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(14, this.checked)"> Done</label>
+                <a href="https://x.com/SaviorS_OOTB/status/2004514793689141636" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="15">
+            <div class="card-header">
+                <span class="author">@ko_dll</span>
+                <span class="followers">~30K+</span>
+            </div>
+            <div class="card-summary">2025 pixel art recap</div>
+            <div class="card-stats">
+                <span>❤️ 822</span>
+                <span>🔄 66</span>
+                <span>💬 13</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> Experimenting with styles all year – inspiring! What's next for 2026 in pixel art?
+                <button class="copy-btn" onclick="copyText(this, `Experimenting with styles all year – inspiring! What's next for 2026 in pixel art?`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/ko_dll/status/2004484658629914971"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(15, this.checked)"> Done</label>
+                <a href="https://x.com/ko_dll/status/2004484658629914971" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="16">
+            <div class="card-header">
+                <span class="author">@hainarashi</span>
+                <span class="followers">~20K+</span>
+            </div>
+            <div class="card-summary">Shockwave effect Blender nodes</div>
+            <div class="card-stats">
+                <span>❤️ 721</span>
+                <span>🔄 71</span>
+                <span>💬 1</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> Blender 5.0 coordinate nodes for shockwave VFX – genius! Recreating this for game effects.
+                <button class="copy-btn" onclick="copyText(this, `Blender 5.0 coordinate nodes for shockwave VFX – genius! Recreating this for game effects.`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/hainarashi/status/2004431641687871645"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(16, this.checked)"> Done</label>
+                <a href="https://x.com/hainarashi/status/2004431641687871645" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="17">
+            <div class="card-header">
+                <span class="author">@LesenNow</span>
+                <span class="followers">~10K+</span>
+            </div>
+            <div class="card-summary">Stage gimmick MegaMan fangame</div>
+            <div class="card-stats">
+                <span>❤️ 711</span>
+                <span>🔄 81</span>
+                <span>💬 9</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> Quick-think gimmick is tense! How'd you implement the timing in your fangame engine?
+                <button class="copy-btn" onclick="copyText(this, `Quick-think gimmick is tense! How'd you implement the timing in your fangame engine?`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/LesenNow/status/2004457710679413193"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(17, this.checked)"> Done</label>
+                <a href="https://x.com/LesenNow/status/2004457710679413193" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="18">
+            <div class="card-header">
+                <span class="author">@m3nsha</span>
+                <span class="followers">~20K+</span>
+            </div>
+            <div class="card-summary">Elf Archer pixel art</div>
+            <div class="card-stats">
+                <span>❤️ 735</span>
+                <span>🔄 44</span>
+                <span>💬 2</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> Elf archer details are sharp! Bow string tension reads perfectly – palette secrets?
+                <button class="copy-btn" onclick="copyText(this, `Elf archer details are sharp! Bow string tension reads perfectly – palette secrets?`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/m3nsha/status/2004575429504496123"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(18, this.checked)"> Done</label>
+                <a href="https://x.com/m3nsha/status/2004575429504496123" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+        <div class="card" data-index="19">
+            <div class="card-header">
+                <span class="author">@leef6010</span>
+                <span class="followers">~30K+</span>
+            </div>
+            <div class="card-summary">Paper Lily holiday art</div>
+            <div class="card-stats">
+                <span>❤️ 938</span>
+                <span>🔄 198</span>
+                <span>💬 22</span>
+            </div>
+            <div class="suggested">
+                <strong>Suggested:</strong> Cozy holiday scene vibes! Lighting/shading tips for that warm indie feel?
+                <button class="copy-btn" onclick="copyText(this, `Cozy holiday scene vibes! Lighting/shading tips for that warm indie feel?`)">Copy</button>
+            </div>
+            <div class="embed-container">
+                <blockquote class="twitter-tweet" data-theme="light">
+                    <a href="https://x.com/leef6010/status/2004353706930970958"></a>
+                </blockquote>
+            </div>
+            <div class="card-actions">
+                <label><input type="checkbox" onchange="markDone(19, this.checked)"> Done</label>
+                <a href="https://x.com/leef6010/status/2004353706930970958" target="_blank" class="open-btn">Open in Tab</a>
+            </div>
+        </div>
+        
+    </div>
+
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script>
+        const doneSet = new Set(JSON.parse(localStorage.getItem('engageDone') || '[]'));
+
+        function initDone() {
+            doneSet.forEach(i => {
+                const card = document.querySelector(`[data-index="${i}"]`);
+                if (card) {
+                    card.classList.add('done');
+                    card.querySelector('input[type="checkbox"]').checked = true;
+                }
+            });
+            updateCount();
+        }
+
+        function markDone(index, done) {
+            const card = document.querySelector(`[data-index="${index}"]`);
+            if (done) {
+                doneSet.add(index);
+                card.classList.add('done');
+            } else {
+                doneSet.delete(index);
+                card.classList.remove('done');
+            }
+            localStorage.setItem('engageDone', JSON.stringify([...doneSet]));
+            updateCount();
+        }
+
+        function updateCount() {
+            document.getElementById('done-count').textContent = doneSet.size;
+        }
+
+        function copyText(btn, text) {
+            navigator.clipboard.writeText(text);
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 1500);
+        }
+
+        initDone();
+    </script>
+</body>
+</html>
