@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3q5enuemhqr8"]
+
+[ext_resource type="ArrayMesh" uid="uid://c8ruec4ikyeka" path="res://Assets/Blender/test-wall.obj" id="1_vkpw0"]
+[ext_resource type="Script" path="res://Prefab/Wall/Wall.gd" id="2_wall"]
+
+[node name="Wall" type="StaticBody3D"]
+script = ExtResource("2_wall")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_vkpw0")

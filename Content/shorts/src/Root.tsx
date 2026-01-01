@@ -12,6 +12,8 @@ import { Music, musicSchema } from "./components/Music";
 import { ZoomableVideo, zoomableVideoSchema } from "./components/ZoomableVideo";
 import { Text3D, text3DSchema, WaltMakesLogo, waltMakesLogoSchema } from "./components/Text3D";
 import { SentenceCaption, sentenceCaptionSchema } from "./components/SentenceCaption";
+import { PixelTextSlide, pixelTextSlideSchema } from "./components/PixelTextSlide";
+import { PixelCaptionPill, PixelCaptionSentence, pixelCaptionSchema } from "./components/PixelCaption";
 import {
   Example1Landscape,
   Example1Square,
@@ -262,6 +264,60 @@ export const RemotionRoot: React.FC = () => {
             ],
             fontSize: 48,
             position: "bottom" as const,
+          }}
+        />
+        <Composition
+          id="PixelTextSlide"
+          component={PixelTextSlide}
+          durationInFrames={getDurationInFrames(3, VIDEO_CONFIG.fps)}
+          fps={VIDEO_CONFIG.fps}
+          width={VIDEO_CONFIG.width}
+          height={VIDEO_CONFIG.height}
+          schema={pixelTextSlideSchema}
+          defaultProps={{
+            text: "Welcome to the pixel zone!",
+            title: "PIXEL TEXT",
+            variant: "default" as const,
+            fontSize: "lg" as const,
+            animate: true,
+          }}
+        />
+        <Composition
+          id="PixelCaptionPill"
+          component={PixelCaptionPill}
+          durationInFrames={getDurationInFrames(10, VIDEO_CONFIG.fps)}
+          fps={VIDEO_CONFIG.fps}
+          width={VIDEO_CONFIG.width}
+          height={VIDEO_CONFIG.height}
+          schema={pixelCaptionSchema}
+          defaultProps={{
+            cues: [
+              { id: 1, startTime: 0, endTime: 4, text: "Welcome to the pixel zone!" },
+              { id: 2, startTime: 4, endTime: 8, text: "This is retro gaming vibes." },
+              { id: 3, startTime: 8, endTime: 10, text: "Let's go!" },
+            ],
+            fontSize: 32,
+            position: "bottom" as const,
+            variant: "default" as const,
+          }}
+        />
+        <Composition
+          id="PixelCaptionSentence"
+          component={PixelCaptionSentence}
+          durationInFrames={getDurationInFrames(10, VIDEO_CONFIG.fps)}
+          fps={VIDEO_CONFIG.fps}
+          width={VIDEO_CONFIG.width}
+          height={VIDEO_CONFIG.height}
+          schema={pixelCaptionSchema}
+          defaultProps={{
+            cues: [
+              { id: 1, startTime: 0, endTime: 4, text: "Welcome to the pixel zone!" },
+              { id: 2, startTime: 4, endTime: 8, text: "Full sentence captions rock." },
+              { id: 3, startTime: 8, endTime: 10, text: "Game on!" },
+            ],
+            fontSize: 28,
+            position: "bottom" as const,
+            variant: "default" as const,
           }}
         />
       </Folder>

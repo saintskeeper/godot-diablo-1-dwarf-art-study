@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Google Fonts - Pixel Art */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 /* Cozy Forge Extended Palette - WaltMakes Brand Colors (32 unique) */
 @theme {
   /* Neutrals (8 shades) */
@@ -70,4 +73,5 @@
   /* Fonts */
   --font-sans: 'Inter', 'IBM Plex Sans', -apple-system, sans-serif;
   --font-mono: 'Space Mono', 'JetBrains Mono', monospace;
+  --font-pixel: 'Press Start 2P', monospace;
 }
