@@ -65,6 +65,6 @@ export default async function HomePage() {
 }
 
 export const metadata = {
-  title: "Walt's Blog - Technical Insights and Development Logs",
+  title: "Walt's Blog - Where Walt Makes ",
   description: "A personal blog exploring software engineering, development experiences, and technical topics through both human and AI perspectives.",
 };
