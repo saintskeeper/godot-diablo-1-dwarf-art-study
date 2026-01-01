@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "stop": "lsof -ti :3000 | xargs kill -9 2>/dev/null || true",
     "lint": "eslint"
   },
   "dependencies": {
