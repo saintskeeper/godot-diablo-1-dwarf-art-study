@@ -3,6 +3,12 @@
 /android/
 logs/
 
+# Python virtual environments
+venv/
+.venv/
+__pycache__/
+*.pyc
+
 *.zip
 *.MOV
 *.mov
