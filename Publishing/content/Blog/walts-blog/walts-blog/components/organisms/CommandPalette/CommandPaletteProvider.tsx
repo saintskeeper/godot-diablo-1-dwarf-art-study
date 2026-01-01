@@ -5,6 +5,7 @@ import { useKeyboardShortcuts } from '@/lib/hooks/useKeyboardShortcuts';
 import { initializeSearchIndex, setCachedPosts } from '@/lib/search/init';
 import { useState, useEffect } from 'react';
 import type { BlogPostMetadata } from '@/lib/blogs/schema';
+import { trackEvent } from '@/lib/analytics/posthog';
 
 interface CommandPaletteProviderProps {
   children: React.ReactNode;
@@ -17,9 +18,16 @@ export function CommandPaletteProvider({
 }: CommandPaletteProviderProps) {
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
 
+  const handleOpenCommandPalette = () => {
+    trackEvent('command_palette_opened', {
+      trigger: 'keyboard_shortcut',
+    });
+    setCommandPaletteOpen(true);
+  };
+
   // Set up keyboard shortcuts
   useKeyboardShortcuts({
-    onCommandPalette: () => setCommandPaletteOpen(true),
+    onCommandPalette: handleOpenCommandPalette,
     enabled: true,
   });
 

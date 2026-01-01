@@ -408,7 +408,38 @@ After launch, track in PostHog:
 | `package.json` | Added `posthog-js@^1.312.0`, `posthog-node@^5.18.1` |
 
 **Next Steps:**
-1. Deploy Listmonk on Railway
-2. Add Listmonk credentials to Vercel env vars
-3. Test `/follow` page locally
-4. Run Phase 5 test checklist
+1. ~~Deploy Listmonk on Railway~~ Done
+2. ~~Add Listmonk credentials to Vercel env vars~~ Done
+3. ~~Test `/follow` page locally~~ Done
+4. Run Phase 5 test checklist (production)
+
+---
+
+### 2026-01-01: Phase 1 Infrastructure + Phase 5 Local Testing Complete
+
+**Listmonk Deployment:**
+- URL: `https://listmonk-production-20f5.up.railway.app`
+- API User: `walt-svc`
+- List: `walt-makes-optin-list` (ID: 3)
+
+**Vercel Environment Variables Set:**
+```
+LISTMONK_URL=https://listmonk-production-20f5.up.railway.app
+LISTMONK_API_USER=walt-svc
+LISTMONK_API_TOKEN=***
+LISTMONK_LIST_ID=3
+NEXT_PUBLIC_POSTHOG_KEY=***
+NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+```
+
+**Local Testing Results:**
+| Test | Result |
+|------|--------|
+| `/follow` page renders | Pass |
+| Subscribe API → Listmonk | Pass |
+| Subscriber appears in list | Pass |
+
+**Next Steps:**
+1. Deploy to Vercel (push or manual trigger)
+2. Test `/follow` in production
+3. Update itch.io and YouTube profile links

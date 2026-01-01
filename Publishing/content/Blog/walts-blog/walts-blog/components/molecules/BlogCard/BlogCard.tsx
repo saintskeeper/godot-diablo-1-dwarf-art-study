@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { BlogCardProps, categoryBadgeMap } from './BlogCard.types';
 import { getCoverImageUrl } from '@/lib/images/cover-image';
+import { trackEvent } from '@/lib/analytics/posthog';
 
 export const BlogCard = ({
   post,
@@ -21,11 +22,23 @@ export const BlogCard = ({
   const isFeaturedVariant = featured || variant === 'featured' || post.featured;
   const coverImageUrl = getCoverImageUrl(post.featuredImage);
 
+  const handleClick = () => {
+    trackEvent('blog_post_clicked', {
+      post_title: post.title,
+      post_slug: post.slug,
+      post_category: post.category,
+      post_author: post.author,
+      is_featured: isFeaturedVariant,
+      has_cover_image: !!coverImageUrl,
+    });
+  };
+
   return (
     <Link
       href={postUrl}
       className="block group"
       aria-label={`Read article: ${post.title}`}
+      onClick={handleClick}
     >
       <article
         className={`

@@ -1,6 +1,8 @@
 'use client';
 
+import { Suspense } from 'react';
 import { CommandPaletteProvider } from '@/components/organisms/CommandPalette/CommandPaletteProvider';
+import { PostHogProvider } from '@/lib/analytics/PostHogProvider';
 import type { BlogPostMetadata } from '@/lib/blogs/schema';
 
 interface ClientLayoutProps {
@@ -10,8 +12,12 @@ interface ClientLayoutProps {
 
 export function ClientLayout({ children, initialPosts }: ClientLayoutProps) {
   return (
-    <CommandPaletteProvider initialPosts={initialPosts}>
-      {children}
-    </CommandPaletteProvider>
+    <Suspense fallback={null}>
+      <PostHogProvider>
+        <CommandPaletteProvider initialPosts={initialPosts}>
+          {children}
+        </CommandPaletteProvider>
+      </PostHogProvider>
+    </Suspense>
   );
 }

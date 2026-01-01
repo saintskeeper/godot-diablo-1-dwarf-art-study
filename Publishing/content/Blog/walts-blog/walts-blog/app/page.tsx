@@ -3,8 +3,7 @@ import { BlogList } from '@/components/organisms/BlogList';
 import { Text } from '@/components/atoms/Text';
 import { getAllBlogPostsMetadata, getFeaturedBlogPosts } from '@/lib/blogs/utils';
 import { BlogCard } from '@/components/molecules/BlogCard';
-import { Rss } from 'lucide-react';
-import Link from 'next/link';
+import { FeedLinks } from '@/components/molecules/FeedLinks';
 
 export default async function HomePage() {
   const allPosts = await getAllBlogPostsMetadata();
@@ -25,36 +24,7 @@ export default async function HomePage() {
             human and AI perspectives. Use <kbd className="glass px-2 py-1 rounded font-mono text-sm">CMD+K</kbd> to
             search and navigate.
           </Text>
-          <div className="flex items-center justify-center gap-4 text-sm">
-            <Link
-              href="/feed.xml"
-              className="group flex items-center gap-2 glass px-4 py-2 rounded-full hover:bg-text-muted/10 transition-all duration-200"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Rss className="w-4 h-4 text-[var(--wm-hearth-orange)] group-hover:text-[var(--wm-viking-teal)] transition-colors" />
-              <span className="text-text-secondary group-hover:text-text-primary transition-colors">Subscribe via RSS</span>
-            </Link>
-            <details className="relative group">
-              <summary className="cursor-pointer text-text-muted hover:text-text-secondary transition-colors list-none flex items-center gap-1">
-                <span>More feeds</span>
-                <span className="text-xs">▼</span>
-              </summary>
-              <div className="absolute top-full mt-2 right-0 glass rounded-lg shadow-lg p-3 min-w-[200px] z-10">
-                <div className="flex flex-col gap-2 text-left text-sm">
-                  <Link href="/atom.xml" className="text-text-secondary hover:text-text-primary transition-colors px-2 py-1 rounded hover:bg-text-muted/10">Atom Feed</Link>
-                  <Link href="/feed.json" className="text-text-secondary hover:text-text-primary transition-colors px-2 py-1 rounded hover:bg-text-muted/10">JSON Feed</Link>
-                  <hr className="border-text-muted/20 my-1" />
-                  <Link href="/feed/articles.xml" className="text-text-secondary hover:text-text-primary transition-colors px-2 py-1 rounded hover:bg-text-muted/10">Articles Only</Link>
-                  <Link href="/feed/highlights.xml" className="text-text-secondary hover:text-text-primary transition-colors px-2 py-1 rounded hover:bg-text-muted/10">Highlights Only</Link>
-                  <Link href="/feed/logs.xml" className="text-text-secondary hover:text-text-primary transition-colors px-2 py-1 rounded hover:bg-text-muted/10">Logs Only</Link>
-                  <hr className="border-text-muted/20 my-1" />
-                  <Link href="/feed/walter.xml" className="text-text-secondary hover:text-text-primary transition-colors px-2 py-1 rounded hover:bg-text-muted/10">Walter&apos;s Posts</Link>
-                  <Link href="/feed/walternate.xml" className="text-text-secondary hover:text-text-primary transition-colors px-2 py-1 rounded hover:bg-text-muted/10">Walternate&apos;s Posts</Link>
-                </div>
-              </div>
-            </details>
-          </div>
+          <FeedLinks />
         </section>
 
         {/* Featured Posts (if any) */}

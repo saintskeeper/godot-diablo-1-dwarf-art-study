@@ -7,7 +7,7 @@ import { Badge } from '@/components/atoms/Badge';
 import { Text } from '@/components/atoms/Text';
 import { GlossyFilters } from '@/components/atoms/GlossyFilters';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import {
   Home,
   Sparkles,
@@ -17,6 +17,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import type { BlogPostMetadata } from '@/lib/blogs/schema';
+import { trackEvent } from '@/lib/analytics/posthog';
 
 export interface CommandPaletteProps {
   isOpen: boolean;
@@ -40,11 +41,38 @@ const categoryConfig = {
 export const CommandPalette = ({ isOpen, onClose, posts }: CommandPaletteProps) => {
   const router = useRouter();
   const [search, setSearch] = useState('');
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Track search with debounce to avoid tracking every keystroke
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+
+    // Clear previous timeout
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    // Debounce search tracking (500ms)
+    if (value.trim()) {
+      searchTimeoutRef.current = setTimeout(() => {
+        trackEvent('command_palette_search', {
+          search_query: value,
+          query_length: value.length,
+        });
+      }, 500);
+    }
+  };
 
   useEffect(() => {
     if (isOpen) {
       setSearch('');
     }
+    // Cleanup timeout on unmount or close
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
   }, [isOpen]);
 
   useEffect(() => {
@@ -65,7 +93,16 @@ export const CommandPalette = ({ isOpen, onClose, posts }: CommandPaletteProps) 
     };
   }, [isOpen, onClose]);
 
-  const handleSelect = (callback: () => void) => {
+  const handleSelect = (callback: () => void, trackingData?: { type: string; destination: string; label?: string }) => {
+    if (trackingData) {
+      trackEvent('command_palette_navigation', {
+        navigation_type: trackingData.type,
+        destination: trackingData.destination,
+        destination_label: trackingData.label,
+        had_search_query: !!search.trim(),
+        search_query: search.trim() || undefined,
+      });
+    }
     callback();
     onClose();
   };
@@ -89,7 +126,7 @@ export const CommandPalette = ({ isOpen, onClose, posts }: CommandPaletteProps) 
             <Icon icon={Search} size="md" color="muted" />
             <Command.Input
               value={search}
-              onValueChange={setSearch}
+              onValueChange={handleSearchChange}
               placeholder="Search articles, logs, highlights..."
               className="flex-1 bg-transparent border-none outline-none text-base text-text-primary placeholder:text-text-muted"
               autoFocus
@@ -114,7 +151,10 @@ export const CommandPalette = ({ isOpen, onClose, posts }: CommandPaletteProps) 
                   <Command.Item
                     key={item.id}
                     value={item.label}
-                    onSelect={() => handleSelect(() => router.push(item.href))}
+                    onSelect={() => handleSelect(
+                      () => router.push(item.href),
+                      { type: 'navigation', destination: item.href, label: item.label }
+                    )}
                     className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl cursor-pointer data-[selected=true]:glass transition-colors"
                   >
                     <div className="flex items-center gap-3">
@@ -140,7 +180,10 @@ export const CommandPalette = ({ isOpen, onClose, posts }: CommandPaletteProps) 
                   value={`${post.title} ${post.excerpt} ${post.tags.join(' ')}`}
                   keywords={[post.category, post.author, ...post.tags]}
                   onSelect={() =>
-                    handleSelect(() => router.push(`/${post.category}/${post.slug}`))
+                    handleSelect(
+                      () => router.push(`/${post.category}/${post.slug}`),
+                      { type: 'blog_post', destination: `/${post.category}/${post.slug}`, label: post.title }
+                    )
                   }
                   className="flex items-start justify-between gap-3 px-4 py-3 rounded-xl cursor-pointer data-[selected=true]:glass transition-colors"
                 >

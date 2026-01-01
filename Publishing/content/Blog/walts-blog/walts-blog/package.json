@@ -23,6 +23,8 @@
     "next": "^16.0.10",
     "next-mdx-remote": "^5.0.0",
     "phosphor-react": "^1.4.1",
+    "posthog-js": "^1.312.0",
+    "posthog-node": "^5.18.1",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "rehype-autolink-headings": "^7.1.0",

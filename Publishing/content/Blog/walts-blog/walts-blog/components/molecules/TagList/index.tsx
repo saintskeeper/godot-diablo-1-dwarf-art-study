@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { trackEvent } from '@/lib/analytics/posthog';
 
 export interface TagListProps {
   tags: string[];
@@ -30,10 +31,22 @@ export const TagList = ({
       {displayTags.map((tag) => (
         <span
           key={tag}
-          onClick={() => onTagClick?.(tag)}
+          onClick={() => {
+            trackEvent('tag_clicked', {
+              tag_name: tag,
+              total_tags: tags.length,
+              is_clickable: !!onTagClick,
+            });
+            onTagClick?.(tag);
+          }}
           onKeyDown={(e) => {
             if ((e.key === 'Enter' || e.key === ' ') && onTagClick) {
               e.preventDefault();
+              trackEvent('tag_clicked', {
+                tag_name: tag,
+                total_tags: tags.length,
+                is_clickable: true,
+              });
               onTagClick(tag);
             }
           }}

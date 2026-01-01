@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 import { Home, Sparkles, FileText, Code2 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { trackEvent } from '@/lib/analytics/posthog';
 
 interface NavItem {
   name: string;
@@ -74,6 +75,14 @@ export const FloatingNav = () => {
     );
   }, [pathname]);
 
+  const handleNavClick = (item: NavItem) => {
+    trackEvent('navigation_item_clicked', {
+      nav_item: item.name,
+      destination: item.href,
+      from_page: pathname,
+    });
+  };
+
   const handleLinkHover = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (!navRef.current || !spotlightRef.current) return;
 
@@ -130,6 +139,7 @@ export const FloatingNav = () => {
                       ${!active && 'hover:bg-text-muted/10 hover:scale-[1.02]'}
                       ${active && 'shadow-lg'}
                     `}
+                    onClick={() => handleNavClick(item)}
                     onMouseEnter={(e) => {
                       setHoveredItem(item.href);
                       if (!active) handleLinkHover(e);

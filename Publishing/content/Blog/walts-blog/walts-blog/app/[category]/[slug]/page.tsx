@@ -1,12 +1,11 @@
 import { FloatingNav } from '@/components/organisms/FloatingNav';
 import { BlogPost } from '@/components/organisms/BlogPost';
-import { BlogCard } from '@/components/molecules/BlogCard';
-import { Text } from '@/components/atoms/Text';
+import { PostNavigation } from '@/components/molecules/PostNavigation';
+import { RelatedPosts } from '@/components/molecules/RelatedPosts';
 import { getBlogPost, getBlogPostsByCategory, getPreviousNextPosts } from '@/lib/blogs/utils';
 import { serialize } from 'next-mdx-remote/serialize';
 import { mdxOptions } from '@/lib/mdx/config';
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
 import { getBlogPostingSchema, getBreadcrumbSchema } from '@/lib/seo/structured-data';
 
 interface BlogPostPageProps {
@@ -74,67 +73,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <BlogPost post={postMetadata} mdxSource={mdxSource} />
 
         {/* Previous/Next Navigation */}
-        <nav className="max-w-4xl mx-auto mt-16 pt-8 border-t border-text-muted/10">
-          <div className="flex justify-between items-center gap-4">
-            {previousPost ? (
-              <Link
-                href={`/${previousPost.category}/${previousPost.slug}`}
-                className="glass hover:glass-heavy rounded-2xl p-6 flex-1 transition-all group"
-              >
-                <Text variant="small" color="muted" className="mb-2">
-                  ← Previous
-                </Text>
-                <Text
-                  variant="body"
-                  color="primary"
-                  className="font-medium group-hover:text-teal-dark transition-colors"
-                >
-                  {previousPost.title}
-                </Text>
-              </Link>
-            ) : (
-              <div className="flex-1" />
-            )}
-
-            {nextPost ? (
-              <Link
-                href={`/${nextPost.category}/${nextPost.slug}`}
-                className="glass hover:glass-heavy rounded-2xl p-6 flex-1 transition-all group text-right"
-              >
-                <Text variant="small" color="muted" className="mb-2">
-                  Next →
-                </Text>
-                <Text
-                  variant="body"
-                  color="primary"
-                  className="font-medium group-hover:text-teal-dark transition-colors"
-                >
-                  {nextPost.title}
-                </Text>
-              </Link>
-            ) : (
-              <div className="flex-1" />
-            )}
-          </div>
-        </nav>
+        <PostNavigation
+          previousPost={previousPost}
+          nextPost={nextPost}
+          currentCategory={category}
+          currentSlug={slug}
+        />
 
         {/* Related Posts */}
-        {relatedPosts.length > 0 && (
-          <section className="max-w-4xl mx-auto mt-16 pt-16 border-t border-text-muted/10">
-            <Text variant="h3" color="primary" className="mb-8">
-              More from {category}
-            </Text>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {relatedPosts.map((relatedPost) => (
-                <BlogCard
-                  key={relatedPost.slug}
-                  post={relatedPost}
-                  showCategory={false}
-                />
-              ))}
-            </div>
-          </section>
-        )}
+        <RelatedPosts
+          posts={relatedPosts}
+          category={category}
+          currentSlug={slug}
+        />
       </main>
     </>
   );

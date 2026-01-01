@@ -1,11 +1,13 @@
 import { FloatingNav } from '@/components/organisms/FloatingNav';
 import { Text } from '@/components/atoms/Text';
 import { Button } from '@/components/atoms/Button';
+import { NotFoundTracker } from '@/components/atoms/NotFoundTracker';
 import Link from 'next/link';
 
 export default function NotFound() {
   return (
     <>
+      <NotFoundTracker />
       <FloatingNav />
       <main className="container mx-auto px-4 pt-24 pb-12">
         <div className="glass rounded-2xl p-12 text-center max-w-2xl mx-auto">
